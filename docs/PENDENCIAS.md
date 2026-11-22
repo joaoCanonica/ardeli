@@ -18,3 +18,6 @@ Fonte: `docs/ARDELI_INVESTIGACAO_CLIENTE.md` e `docs/ARDELI_PACOTE_PROMPTS_CODE.
 | 11 | Domínio definitivo do site | PENDENTE | `site` ausente no `astro.config.mjs`; canonical/sitemap na sessão de SEO |
 | 12 | Autorização de imagem de pessoas (retratos da equipe, atendimento encenado) | PENDENTE | Imagem com pessoa trava a produção sem autorização marcada |
 | 13 | Duração da sessão / necessidade de pedido médico (FAQ) | PENDENTE | Pergunta fica fora da FAQ |
+| 14 | Autorização da pessoa refletida no vídeo-tour (quem filmou; 4 trechos: 1,6–3,2 · 6,1–7,7 · 9,9–11,0 · 41,3–42,75 s) | PENDENTE | Trechos cortados de todos os derivados até autorizar |
+| 15 | Vídeo-tour original sem música (e em resolução maior) | PENDENTE | Tour sempre mudo |
+| 16 | Fotos do espaço em alta (≥ 2400 px), fachada de frente com letreiro inteiro, retratos da equipe | PENDENTE | Imagens largas limitadas a 720 px; ver docs/MIDIA_CATALOGO.md §6 |

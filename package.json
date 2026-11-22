@@ -10,7 +10,9 @@
   },
   "packageManager": "pnpm@10.28.0",
   "scripts": {
+    "predev": "node scripts/prepare-media.mjs",
     "dev": "astro dev",
+    "prebuild": "node scripts/prepare-media.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check && eslint . && prettier --check .",
@@ -23,6 +25,7 @@
     "audit-seo": "node scripts/audit-seo.mjs",
     "audit-contraste": "node scripts/audit-contraste.mjs",
     "media:prepare": "node scripts/prepare-media.mjs",
+    "media:folha": "node scripts/folha-de-contato.mjs",
     "capturar": "node scripts/capturar.mjs"
   },
   "dependencies": {

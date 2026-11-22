@@ -19,12 +19,14 @@ Dados que faltam ficam em [`docs/PENDENCIAS.md`](docs/PENDENCIAS.md); nada é in
 | `pnpm build` / `pnpm preview` | gera e serve o `dist/` |
 | `pnpm check` | `astro check` + ESLint + Prettier |
 | `pnpm test` | Vitest |
+| `pnpm media:prepare` | gera `public/media/` a partir de `media-originais/` e `media.manifest.json` (roda sozinho antes de `dev`/`build`; precisa de ffmpeg) |
+| `pnpm media:folha` | refaz as folhas de contato dos stills em `docs/dados/` |
 | `pnpm capturar` | capturas por rota em 390 e 1440 px (padrão, reduced-motion, zoom 200%) em `docs/capturas/<data>/` |
-| `pnpm validate-config`, `audit-*`, `media:prepare` | ainda não implementados: **falham de propósito** até a sessão que os cria |
+| `pnpm validate-config`, `audit-*` | ainda não implementados: **falham de propósito** até a sessão que os cria |
 
 ## Pastas
 
 - `src/` — `config`, `components`, `layouts`, `pages`, `styles`, `scripts`, `content`, `lib`
 - `scripts/` — automações (Node)
 - `docs/` — contexto, investigação, mapa de mídia, pacote de prompts, pendências, `capturas/`, `dados/`
-- `media-originais/` — mídia original (versionada); derivados vão para `public/media/` (fora do git)
+- `media-originais/` — mídia original (versionada); derivados vão para `public/media/` (fora do git); catálogo em [`docs/MIDIA_CATALOGO.md`](docs/MIDIA_CATALOGO.md)

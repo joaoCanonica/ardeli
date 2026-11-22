@@ -7,3 +7,4 @@ docs/capturas/**/*.png
 !.env.example
 *.log
 .DS_Store
+.cache/
