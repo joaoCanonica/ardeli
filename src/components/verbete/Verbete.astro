@@ -1,0 +1,213 @@
+---
+// Assinatura "Verbete" (CLAUDE.md §6). Inspiração: o quadro "fisioterapia, s.f."
+// do consultório 1. Limpo e contemporâneo: serifa grande, classe em itálico,
+// acepções numeradas com fio Sálvia de 1px. Nada de papel envelhecido.
+//
+// Variantes: capa (grande, sobre foto com véu Marinho 70%) · secao (média) · nota (pequena).
+// Acepções: pela prop `acepcoes` (texto simples) e/ou por <Acepcao n> no slot (com link ou botão).
+import Imagem from '../base/Imagem.astro';
+import Acepcao from './Acepcao.astro';
+
+export type Classe = 's.f.' | 's.m.' | 'v.t.d.' | 'v.i.' | 'adj.';
+
+interface Props {
+  palavra: string;
+  classe: Classe;
+  acepcoes?: readonly string[];
+  variante?: 'capa' | 'secao' | 'nota';
+  /** Nível do título (a palavra é o título da seção). */
+  nivel?: 1 | 2 | 3;
+  id?: string;
+  /** Só na capa: id de imagem do media-index e o texto alternativo. */
+  foto?: { id: string; alt: string };
+  class?: string;
+}
+
+const CLASSES: Record<Classe, string> = {
+  's.f.': 'substantivo feminino',
+  's.m.': 'substantivo masculino',
+  'v.t.d.': 'verbo transitivo direto',
+  'v.i.': 'verbo intransitivo',
+  'adj.': 'adjetivo',
+};
+
+const {
+  palavra,
+  classe,
+  acepcoes = [],
+  variante = 'secao',
+  nivel = 2,
+  id = `verbete-${palavra
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .toLowerCase()}`,
+  foto,
+  class: classeExtra,
+} = Astro.props;
+const Titulo = `h${nivel}` as 'h1' | 'h2' | 'h3';
+const temSlot = Astro.slots.has('default');
+---
+
+<section
+  class:list={[
+    'verbete',
+    `verbete--${variante}`,
+    { 'sobre-escuro': variante === 'capa' },
+    classeExtra,
+  ]}
+  aria-labelledby={id}
+>
+  {variante === 'capa' && foto && (
+    <div class="verbete__fundo" aria-hidden={foto.alt ? undefined : 'true'}>
+      <Imagem id={foto.id} alt={foto.alt} carregar="eager" prioridade sizes="100vw" />
+    </div>
+  )}
+  <div class="verbete__corpo">
+    <header class="verbete__cabeca">
+      <Titulo id={id} class="verbete__palavra">
+        {palavra}
+      </Titulo>
+      <p class="verbete__classe">
+        <abbr title={CLASSES[classe]}>{classe}</abbr>
+      </p>
+    </header>
+    {(acepcoes.length > 0 || temSlot) && (
+      <ol class="verbete__acepcoes" role="list">
+        {acepcoes.map((texto, i) => (
+          <Acepcao n={i + 1}>{texto}</Acepcao>
+        ))}
+        <slot />
+      </ol>
+    )}
+    <slot name="depois" />
+  </div>
+</section>
+
+<style>
+  .verbete {
+    position: relative;
+    container-type: inline-size;
+  }
+  .verbete__corpo {
+    position: relative;
+    max-width: 46rem;
+  }
+
+  .verbete__cabeca {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 0.6em;
+    row-gap: var(--e-1);
+    margin-bottom: var(--e-4);
+  }
+  .verbete__palavra {
+    font-family: var(--fonte-serifa);
+    font-weight: 500;
+    color: var(--texto-forte);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin: 0;
+    /* A palavra encolhe com a tela em vez de quebrar ("cuida/r"). */
+    font-size: min(var(--verbete-secao), 15vw);
+    overflow-wrap: normal;
+    hyphens: none;
+  }
+  .verbete__classe {
+    margin: 0;
+    font-family: var(--fonte-serifa);
+    font-style: italic;
+    font-size: 1.15em;
+    color: var(--texto);
+  }
+  .verbete__classe abbr {
+    text-decoration: none;
+    cursor: help;
+  }
+  /* Fio curto sob a cabeça, como no quadro. */
+  .verbete__cabeca::after {
+    content: '';
+    flex-basis: 100%;
+    height: 0;
+    margin-top: var(--e-3);
+    border-top: var(--fio-fino) solid var(--fio);
+    max-width: 3rem;
+  }
+
+  .verbete__acepcoes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* ---------- capa ---------- */
+  .verbete--capa {
+    display: grid;
+    align-items: end;
+    min-height: min(88svh, 52rem);
+    padding: var(--e-8) var(--margem) var(--e-7);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  @media (max-width: 20rem) {
+    .verbete--capa {
+      padding-inline: var(--e-3);
+    }
+  }
+  .verbete__fundo {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+  }
+  .verbete__fundo :global(picture),
+  .verbete__fundo :global(img) {
+    width: 100%;
+    height: 100%;
+  }
+  .verbete--capa::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--veu);
+  }
+  .verbete--capa .verbete__palavra {
+    font-size: min(var(--verbete-capa), 19vw);
+    font-weight: 400;
+    color: var(--cor-linho);
+  }
+  .verbete--capa .verbete__classe {
+    color: var(--cor-linho);
+  }
+  .verbete--capa .verbete__cabeca::after {
+    border-color: var(--cor-linho);
+    opacity: 0.6;
+  }
+  /* Texto da capa ≥ 24px: "texto grande" (WCAG), com folga sobre o véu. */
+  .verbete--capa :global(.acepcao) {
+    font-size: var(--titulo-3);
+    line-height: 1.4;
+    border-color: rgb(248 246 241 / 0.35);
+  }
+
+  /* ---------- nota ---------- */
+  .verbete--nota .verbete__palavra {
+    font-size: min(var(--verbete-nota), 12vw);
+  }
+  .verbete--nota .verbete__cabeca {
+    margin-bottom: var(--e-2);
+  }
+  .verbete--nota .verbete__cabeca::after {
+    margin-top: var(--e-2);
+  }
+  .verbete--nota :global(.acepcao) {
+    font-size: var(--texto-p);
+    padding-block: var(--e-2);
+  }
+
+  @media (forced-colors: active) {
+    .verbete--capa::before {
+      background: Canvas;
+    }
+  }
+</style>

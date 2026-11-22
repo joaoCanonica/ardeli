@@ -1,0 +1,86 @@
+---
+// Cabeçalho: logo, tamanho do texto, ligar e agendar — telefone e WhatsApp sempre a um toque.
+import { linkWhatsApp, mensagens } from '../../lib/whatsapp.ts';
+import Logo from '../marca/Logo.astro';
+import Botao from './Botao.astro';
+import ControleTamanho from './ControleTamanho.astro';
+import LigarAgora from './LigarAgora.astro';
+---
+
+<header class="cabecalho">
+  <a class="cabecalho__marca" href="/" aria-label="Ardeli Fisioterapia: página inicial">
+    <Logo variante="horizontal" rotulo="" />
+  </a>
+  <ControleTamanho />
+  <div class="cabecalho__acoes">
+    <LigarAgora compacto />
+    <Botao
+      href={linkWhatsApp(mensagens.geral())}
+      icone="whatsapp"
+      dica="abre o WhatsApp"
+      class="cabecalho__agendar"
+    >
+      Agendar avaliação
+    </Botao>
+  </div>
+</header>
+
+<style>
+  .cabecalho {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--e-3) var(--e-5);
+    padding: var(--e-3) var(--margem);
+    background: var(--fundo);
+    border-bottom: var(--fio-fino) solid var(--fio);
+  }
+  .cabecalho__marca {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--alvo-min);
+    width: clamp(9.5rem, 30vw, 12.5rem);
+    border-radius: var(--raio);
+  }
+  .cabecalho__acoes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--e-3) var(--e-5);
+  }
+  @media (min-width: 40.01rem) {
+    .cabecalho__marca {
+      margin-right: auto;
+    }
+  }
+  /* Celular: linha 1 = logo + A−/A+; linha 2 = ligar (ícone, 1 toque) + agendar. */
+  @media (max-width: 40rem) {
+    .cabecalho__acoes {
+      width: 100%;
+      flex-wrap: nowrap;
+      gap: var(--e-3);
+    }
+    .cabecalho__acoes :global(.ligar) {
+      flex: none;
+      justify-content: center;
+      min-width: var(--botao-altura);
+      min-height: var(--botao-altura);
+      margin: 0;
+      border: 2px solid var(--cor-marinho);
+      border-radius: var(--raio-botao);
+    }
+    .cabecalho__acoes :global(.ligar .num) {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+    .cabecalho__acoes :global(.cabecalho__agendar) {
+      flex: 1;
+      padding-inline: var(--e-3);
+    }
+  }
+</style>

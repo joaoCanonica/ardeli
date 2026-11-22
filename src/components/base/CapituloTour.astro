@@ -1,0 +1,85 @@
+---
+// Um capítulo do tour (pôster + número + nome + duração). Link para o ponto
+// do vídeo; o player entra na sessão da página "Conheça a clínica".
+import Icone from './Icone.astro';
+import Imagem from './Imagem.astro';
+
+interface Props {
+  n: number;
+  titulo: string;
+  inicio: number;
+  fim: number;
+  posterId: string;
+  href?: string;
+}
+const { n, titulo, inicio, fim, posterId, href = `#tour-t${Math.floor(inicio)}` } = Astro.props;
+const dur = Math.round(fim - inicio);
+const mmss = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+---
+
+<a class="capitulo" href={href} data-inicio={inicio}>
+  <Imagem id={posterId} alt="" sizes="(min-width: 48rem) 16rem, 45vw" />
+  <span class="capitulo__texto">
+    <span class="capitulo__n num" aria-hidden="true">
+      {n}.
+    </span>
+    <span class="capitulo__titulo">{titulo}</span>
+    <span class="capitulo__tempo">
+      <Icone nome="play" tamanho="1.1rem" />
+      <span class="visualmente-oculto">a partir de</span>
+      <time class="num" datetime={`PT${Math.floor(inicio)}S`}>
+        {mmss(inicio)}
+      </time>
+      <span aria-hidden="true"> · </span>
+      <span class="num">{dur} s</span>
+    </span>
+  </span>
+</a>
+
+<style>
+  .capitulo {
+    display: grid;
+    gap: var(--e-3);
+    color: var(--texto);
+    text-decoration: none;
+    border-radius: var(--raio);
+  }
+  .capitulo :global(picture) {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: var(--raio);
+  }
+  .capitulo :global(img) {
+    transition: filter var(--duracao-media) var(--curva);
+  }
+  .capitulo:hover :global(img) {
+    filter: brightness(1.06);
+  }
+  .capitulo__texto {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: var(--e-2);
+  }
+  .capitulo__n {
+    font-family: var(--fonte-serifa);
+    font-weight: 600;
+    color: var(--link);
+  }
+  .capitulo__titulo {
+    font-weight: 700;
+    color: var(--texto-forte);
+    text-decoration: underline;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+  }
+  .capitulo:hover .capitulo__titulo {
+    text-decoration-thickness: 0.14em;
+  }
+  .capitulo__tempo {
+    grid-column: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--e-1);
+    font-size: var(--texto-p);
+  }
+</style>

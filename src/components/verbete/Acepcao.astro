@@ -1,0 +1,54 @@
+---
+// Uma acepção do verbete. Pode conter texto, link ou botão.
+// O numeral é visual (aria-hidden): o leitor de tela já anuncia a posição na lista.
+// "Versalete": nenhuma das fontes candidatas tem smcp; o numeral é composto em
+// serifa, menor e com espaçamento, na altura das minúsculas.
+interface Props {
+  n: number;
+}
+const { n } = Astro.props;
+---
+
+<li class="acepcao" value={n}>
+  <span class="acepcao__n num" aria-hidden="true">
+    {n}.
+  </span>
+  <div class="acepcao__texto">
+    <slot />
+  </div>
+</li>
+
+<style>
+  .acepcao {
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+    align-items: baseline;
+    gap: var(--e-3);
+    padding-block: var(--e-4);
+    max-width: var(--medida);
+  }
+  .acepcao + .acepcao {
+    border-top: var(--fio-fino) solid var(--fio);
+  }
+  .acepcao__n {
+    font-family: var(--fonte-serifa);
+    font-size: 0.82em;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    color: var(--link);
+  }
+  @media (max-width: 20rem) {
+    .acepcao {
+      grid-template-columns: 1.6rem minmax(0, 1fr);
+      gap: var(--e-2);
+    }
+  }
+  .acepcao__texto > :global(:last-child) {
+    margin-bottom: 0;
+  }
+  @media (prefers-contrast: more) {
+    .acepcao + .acepcao {
+      border-top-width: 2px;
+    }
+  }
+</style>

@@ -16,7 +16,7 @@
     "build": "astro build",
     "postbuild": "node scripts/audit-compliance.mjs",
     "preview": "astro preview",
-    "check": "astro check && eslint . && prettier --check .",
+    "check": "astro check && eslint . && prettier --check . && node scripts/audit-contraste.mjs",
     "format": "prettier --write .",
     "test": "vitest run",
     "validate-config": "node scripts/validate-config.mjs",
@@ -28,7 +28,8 @@
     "media:prepare": "node scripts/prepare-media.mjs",
     "media:folha": "node scripts/folha-de-contato.mjs",
     "capturar": "node scripts/capturar.mjs",
-    "build:producao": "ARDELI_MODO=producao pnpm build"
+    "build:producao": "ARDELI_MODO=producao pnpm build",
+    "marca:otimizar": "node scripts/otimizar-marca.mjs"
   },
   "dependencies": {
     "astro": "7.4.13"
@@ -45,6 +46,7 @@
     "prettier": "3.10.1",
     "prettier-plugin-astro": "1.1.2",
     "sharp": "0.35.5",
+    "svgo": "4.1.0",
     "typescript": "6.0.3",
     "typescript-eslint": "8.73.0",
     "vitest": "5.1.1"

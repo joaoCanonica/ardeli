@@ -21,13 +21,7 @@ export interface Verificacao {
   readonly mensagem: string;
 }
 
-export type Modo = 'producao' | 'preview';
-
-export function modoAtual(env: Record<string, string | undefined> = process.env): Modo {
-  const m = (env.ARDELI_MODO ?? 'preview').toLowerCase();
-  if (m === 'producao' || m === 'produção' || m === 'production') return 'producao';
-  return 'preview';
-}
+export { modoAtual, type Modo } from './modo.ts';
 
 function ehCampo(x: unknown): x is Campo<unknown> {
   return (

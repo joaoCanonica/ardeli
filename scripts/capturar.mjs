@@ -53,7 +53,7 @@ function rotasDoDist(dir = dist) {
   for (const nome of readdirSync(dir)) {
     const caminho = join(dir, nome);
     if (statSync(caminho).isDirectory()) {
-      if (nome.startsWith('_') || nome === 'media') continue;
+      if (nome === '_astro' || nome === 'media') continue;
       rotas.push(...rotasDoDist(caminho));
     } else if (nome === 'index.html') {
       const rel = relative(dist, dir).split(sep).join('/');
@@ -117,6 +117,27 @@ try {
           continue;
         }
         await pagina.evaluate(() => document.fonts.ready);
+        // Carrega as imagens com loading="lazy": rola a página tela a tela e espera decodificar.
+        await pagina.evaluate(async () => {
+          const espera = (ms) => new Promise((ok) => setTimeout(ok, ms));
+          for (let y = 0; y < document.documentElement.scrollHeight; y += window.innerHeight / 2) {
+            window.scrollTo(0, y);
+            await espera(60);
+          }
+          window.scrollTo(0, 0);
+          await Promise.all(
+            [...document.images].map((img) =>
+              img.complete && img.naturalWidth > 0
+                ? img.decode().catch(() => null)
+                : new Promise((ok) => {
+                    img.addEventListener('load', ok, { once: true });
+                    img.addEventListener('error', ok, { once: true });
+                    setTimeout(ok, 5000);
+                  }),
+            ),
+          );
+        });
+        await pagina.waitForLoadState('networkidle');
         const transborda = await pagina.evaluate(
           () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
         );

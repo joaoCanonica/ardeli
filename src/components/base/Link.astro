@@ -1,0 +1,15 @@
+---
+// Link de texto: sempre sublinhado (o sublinhado engrossa no hover).
+// `externo` avisa (só para leitor de tela) que abre outro site ou app; não abre nova aba.
+interface Props {
+  href: string;
+  externo?: boolean;
+  class?: string;
+}
+const { href, externo = false, class: classe } = Astro.props;
+---
+
+<a href={href} class:list={['link', classe]}>
+  <slot />
+  {externo && <span class="visualmente-oculto"> (abre outro site ou aplicativo)</span>}
+</a>

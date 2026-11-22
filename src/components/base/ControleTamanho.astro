@@ -1,0 +1,70 @@
+---
+// Tamanho do texto: 3 níveis (padrão 18px · 20px · 22px), botões A− e A+.
+// Preferência só no aparelho (localStorage, com try/catch). Sem JS, o controle
+// fica escondido e vale o tamanho padrão (e o zoom do navegador continua valendo).
+---
+
+<div class="tamanho" data-controle-tamanho hidden role="group" aria-labelledby="tamanho-rotulo">
+  <span id="tamanho-rotulo" class="tamanho__rotulo">
+    Texto
+  </span>
+  <button type="button" class="tamanho__botao" data-passo="-1" aria-label="Diminuir o texto">
+    A<span aria-hidden="true">−</span>
+  </button>
+  <button
+    type="button"
+    class="tamanho__botao tamanho__botao--mais"
+    data-passo="1"
+    aria-label="Aumentar o texto"
+  >
+    A<span aria-hidden="true">+</span>
+  </button>
+  <span class="visualmente-oculto" aria-live="polite" data-tamanho-anuncio></span>
+</div>
+
+<script>
+  import { iniciarControleTamanho } from '../../scripts/tamanho.ts';
+  iniciarControleTamanho();
+</script>
+
+<style>
+  .tamanho {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--e-1);
+  }
+  .tamanho[hidden] {
+    display: none;
+  }
+  .tamanho__rotulo {
+    font-size: var(--texto-p);
+    margin-right: var(--e-1);
+  }
+  .tamanho__botao {
+    min-width: var(--alvo-min);
+    min-height: var(--alvo-min);
+    padding: 0 var(--e-2);
+    border: 2px solid var(--cor-marinho);
+    border-radius: var(--raio);
+    background: transparent;
+    color: var(--cor-marinho);
+    font-family: var(--fonte-serifa);
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color var(--duracao-curta) var(--curva);
+  }
+  .tamanho__botao--mais {
+    font-size: 1.35rem;
+  }
+  .tamanho__botao:hover {
+    background: var(--cor-papel);
+  }
+  .tamanho__botao[aria-disabled='true'] {
+    border-style: dashed;
+    cursor: not-allowed;
+    color: var(--cor-ardosia);
+    border-color: var(--cor-ardosia);
+  }
+</style>

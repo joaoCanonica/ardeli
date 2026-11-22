@@ -1,0 +1,11 @@
+---
+// Rotas internas que começam com "_" (o Astro ignora arquivos com "_" em src/pages).
+// Sempre noindex.
+import Estilo from './_estilo.astro';
+
+export function getStaticPaths() {
+  return [{ params: { interna: '_estilo' } }];
+}
+---
+
+<Estilo />

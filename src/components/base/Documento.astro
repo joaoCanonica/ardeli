@@ -1,0 +1,72 @@
+---
+// Casca HTML de toda página: idioma, head, fontes, favicon, noindex no preview
+// e a faixa "em revisão". O script inline só aplica o tamanho de texto salvo
+// (antes da pintura, para não piscar); sem JS, fica o tamanho padrão.
+import { Font } from 'astro:assets';
+import { modoAtual } from '../../config/modo.ts';
+import '../../styles/tokens.css';
+import '../../styles/base.css';
+
+interface Props {
+  titulo: string;
+  descricao?: string;
+  /** Força noindex (ex.: /_estilo). No preview, toda página é noindex. */
+  noindex?: boolean;
+  /** Variáveis de fonte a carregar. Padrão: as duas do site. */
+  fontes?: readonly ('--fonte-crimson' | '--fonte-atkinson')[];
+}
+
+const {
+  titulo,
+  descricao = 'Ardeli Fisioterapia: fisioterapia em Lages/SC, no bairro Brusque.',
+  noindex = false,
+  fontes = ['--fonte-crimson', '--fonte-atkinson'],
+} = Astro.props;
+const preview = modoAtual() === 'preview';
+const foraDoIndice = noindex || preview;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo}</title>
+    <meta name="description" content={descricao} />
+    {foraDoIndice && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="theme-color" content="#f8f6f1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    {fontes.map((f, i) => (
+      <Font cssVariable={f} preload={i < 2 ? [{ style: 'normal' }] : false} />
+    ))}
+    <script is:inline>
+      try {
+        const t = localStorage.getItem('ardeli:tamanho');
+        if (t === '1' || t === '2') document.documentElement.dataset.tamanho = t;
+      } catch {
+        /* sem armazenamento: tamanho padrão */
+      }
+    </script>
+    <slot name="head" />
+  </head>
+  <body>
+    {preview && (
+      <div class="faixa-revisao" role="note">
+        Versão em revisão: alguns dados ainda estão sendo confirmados com a clínica.
+      </div>
+    )}
+    <slot />
+  </body>
+</html>
+
+<style>
+  .faixa-revisao {
+    background: var(--cor-marinho);
+    color: var(--cor-linho);
+    font-size: var(--texto-p);
+    text-align: center;
+    padding: var(--e-2) var(--margem);
+  }
+</style>

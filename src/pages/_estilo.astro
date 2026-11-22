@@ -1,0 +1,510 @@
+---
+// /_estilo — design system da Ardeli (noindex). Servida por src/pages/[...interna].astro.
+import Aviso from '../components/base/Aviso.astro';
+import Botao from '../components/base/Botao.astro';
+import Cabecalho from '../components/base/Cabecalho.astro';
+import CapituloTour from '../components/base/CapituloTour.astro';
+import CartaoProfissional from '../components/base/CartaoProfissional.astro';
+import Detalhes from '../components/base/Detalhes.astro';
+import Documento from '../components/base/Documento.astro';
+import FotoAmbiente from '../components/base/FotoAmbiente.astro';
+import Icone, { type NomeIcone } from '../components/base/Icone.astro';
+import LigarAgora from '../components/base/LigarAgora.astro';
+import Link from '../components/base/Link.astro';
+import { capitulosComPoster } from '../components/base/midia.ts';
+import StatusHorario from '../components/base/StatusHorario.astro';
+import TabelaHorario from '../components/base/TabelaHorario.astro';
+import Logo from '../components/marca/Logo.astro';
+import Acepcao from '../components/verbete/Acepcao.astro';
+import Verbete from '../components/verbete/Verbete.astro';
+import { profissionais } from '../content/dados/profissionais.ts';
+import { convenios } from '../content/dados/convenios.ts';
+import { linkWhatsApp, mensagens } from '../lib/whatsapp.ts';
+import {
+  avaliar,
+  avaliarVeu,
+  MINIMO,
+  paresObrigatorios,
+  paresProibidos,
+  tokens,
+} from '../styles/contraste.ts';
+
+const t = tokens();
+const cores = [
+  { nome: 'Linho', token: 'linho', uso: 'fundo' },
+  { nome: 'Papel', token: 'papel', uso: 'cartões' },
+  { nome: 'Marinho', token: 'marinho', uso: 'títulos, texto forte, botão primário, fundo escuro' },
+  { nome: 'Ardósia', token: 'ardosia', uso: 'texto' },
+  {
+    nome: 'Sálvia',
+    token: 'salvia',
+    uso: 'marca, fios, ícones, áreas grandes — nunca texto pequeno',
+  },
+  { nome: 'Sálvia escura', token: 'salvia-escura', uso: 'links (derivada da Sálvia)' },
+  { nome: 'Tijolo', token: 'tijolo', uso: 'só ambiente (fio de legenda)' },
+  { nome: 'Madeira', token: 'madeira', uso: 'só ambiente (fio de legenda)' },
+];
+const pares = [...paresObrigatorios.map((p) => avaliar(p, t)), avaliarVeu(0.7, t)];
+const proibidos = paresProibidos.map((p) => ({ ...avaliar(p, t), motivo: p.motivo }));
+const capitulos = capitulosComPoster().slice(0, 4);
+const sus = convenios.find((c) => c.id === 'sus');
+const icones: NomeIcone[] = [
+  'whatsapp',
+  'telefone',
+  'mapa',
+  'relogio',
+  'info',
+  'atencao',
+  'seta',
+  'play',
+];
+const wa = linkWhatsApp(mensagens.geral());
+---
+
+<Documento
+  titulo="Estilo · Ardeli Fisioterapia"
+  noindex
+  descricao="Design system da Ardeli (uso interno)."
+>
+  <Cabecalho />
+  <main id="conteudo">
+    <Verbete
+      palavra="cuidar"
+      classe="v.t.d."
+      variante="capa"
+      nivel={1}
+      foto={{ id: 'still-ginasio-amplo-9x16', alt: '' }}
+    >
+      <Acepcao n={1}>Dar atenção, com tempo e técnica, ao movimento de alguém.</Acepcao>
+      <Acepcao n={2}>
+        <p>O que a Ardeli faz em todas as fases da vida: avaliar, explicar e acompanhar.</p>
+        <Botao href={wa} icone="whatsapp" dica="abre o WhatsApp">
+          Agendar avaliação
+        </Botao>
+      </Acepcao>
+    </Verbete>
+
+    <div class="estilo">
+      <p class="nota-interna">
+        Página interna do design system (fora do índice). Decisões em{' '}
+        <code>docs/TIPOGRAFIA.md</code>; contraste verificado por <code>pnpm audit-contraste</code>.
+      </p>
+
+      <section aria-labelledby="s-cor">
+        <h2 id="s-cor">Cor</h2>
+        <ul class="amostras" role="list">
+          {cores.map((c) => (
+            <li class="amostra">
+              <span class="amostra__cor" style={`background: var(--cor-${c.token})`} />
+              <strong>{c.nome}</strong>
+              <code>{t[c.token]}</code>
+              <span class="amostra__uso">{c.uso}</span>
+            </li>
+          ))}
+        </ul>
+        <h3>Pares em uso</h3>
+        <div
+          class="rolagem"
+          tabindex="0"
+          role="region"
+          aria-label="Tabela de contraste dos pares em uso"
+        >
+          <table class="tabela">
+            <thead>
+              <tr>
+                <th scope="col">Uso</th>
+                <th scope="col">Exemplo</th>
+                <th scope="col">Razão</th>
+                <th scope="col">Mínimo</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pares.map((p) => (
+                <tr>
+                  <th scope="row">{p.uso}</th>
+                  <td>
+                    <span class="par" style={`color:${p.hexTexto};background:${p.hexFundo}`}>
+                      Aa 123
+                    </span>
+                  </td>
+                  <td class="num">
+                    {p.razao.toFixed(2)}:1 {p.passa ? '✓' : '✖'}
+                  </td>
+                  <td class="num">
+                    {MINIMO[p.nivel]}:1 ({p.nivel})
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <h3>Pares proibidos</h3>
+        <div class="rolagem" tabindex="0" role="region" aria-label="Tabela de pares proibidos">
+          <table class="tabela">
+            <thead>
+              <tr>
+                <th scope="col">Par</th>
+                <th scope="col">Exemplo</th>
+                <th scope="col">Razão</th>
+                <th scope="col">Por quê</th>
+              </tr>
+            </thead>
+            <tbody>
+              {proibidos.map((p) => (
+                <tr>
+                  <th scope="row">{p.uso}</th>
+                  <td>
+                    <span
+                      class="par"
+                      style={`color:${p.hexTexto};background:${p.hexFundo}`}
+                      aria-hidden="true"
+                    >
+                      Aa 123
+                    </span>
+                  </td>
+                  <td class="num">{p.razao.toFixed(2)}:1</td>
+                  <td>{p.motivo}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section aria-labelledby="s-tipo">
+        <h2 id="s-tipo">Tipografia</h2>
+        <p>
+          <strong>Crimson Pro</strong> nos verbetes e títulos;{' '}
+          <strong>Atkinson Hyperlegible Next</strong> na leitura. Base de 18&nbsp;px, entrelinha
+          1,6. O controle <em>A− / A+</em> no cabeçalho leva a 20 e 22&nbsp;px.
+        </p>
+        <div class="escala">
+          <p class="escala__verbete">movimento</p>
+          <p class="escala__h2">Título de seção</p>
+          <p class="escala__h3">Título de bloco</p>
+          <p class="escala__g">Chamada em 21 px para frases curtas e importantes.</p>
+          <p>
+            Texto de leitura em 18 px. Frases curtas, sem jargão. Quando um termo técnico for
+            necessário, ele vem explicado logo depois. Números:{' '}
+            <span class="num">(49) 99928-1721 · 08:00–20:00 · 2700</span>.
+          </p>
+          <p class="escala__p">Nota e legenda em 16 px.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="s-logo">
+        <h2 id="s-logo">Logo</h2>
+        <div class="logos">
+          <div class="logos__claro">
+            <Logo variante="vertical" class="logo-v" />
+            <Logo variante="horizontal" class="logo-h" />
+            <Logo variante="simbolo" class="logo-s" />
+            <Logo variante="horizontal" tom="mono" class="logo-h" />
+          </div>
+          <div class="logos__escuro sobre-escuro">
+            <Logo variante="vertical" tom="negativo" class="logo-v" />
+            <Logo variante="horizontal" tom="negativo" class="logo-h" />
+            <Logo variante="simbolo" tom="negativo" class="logo-s" />
+          </div>
+        </div>
+        <p class="nota-interna">
+          SVG inline otimizado do original (472 → 140 KB no total; diferença média de pixel ≤
+          0,007/255). O arco do símbolo é só gesto do logo, nunca enfeite de fundo.
+        </p>
+      </section>
+
+      <section aria-labelledby="s-verbete" class="pilha">
+        <h2 id="s-verbete">Verbete</h2>
+        <Verbete palavra="movimento" classe="s.m.">
+          <Acepcao n={1}>
+            Tudo o que o corpo faz para levar você aonde quer ir: levantar, caminhar, alcançar,
+            abraçar.
+          </Acepcao>
+          <Acepcao n={2}>
+            <p>Na fisioterapia, é o que a gente observa, treina e acompanha a cada sessão.</p>
+            <p>
+              <Link href="#s-componentes">Veja como funciona a primeira avaliação</Link>
+            </p>
+          </Acepcao>
+        </Verbete>
+        <Verbete palavra="endereço" classe="s.m." variante="nota" nivel={3}>
+          <Acepcao n={1}>Av. Dom Pedro II, 2700 – Brusque, Lages – SC, 88503-062.</Acepcao>
+        </Verbete>
+      </section>
+
+      <section aria-labelledby="s-componentes" class="pilha">
+        <h2 id="s-componentes">Componentes</h2>
+
+        <h3>Botões, link e ligar</h3>
+        <div class="linha">
+          <Botao href={wa} icone="whatsapp" dica="abre o WhatsApp">
+            Agendar avaliação
+          </Botao>
+          <Botao variante="secundario" href="#s-componentes" icone="mapa">
+            Como chegar
+          </Botao>
+          <LigarAgora />
+        </div>
+        <div class="linha sobre-escuro caixa-escura">
+          <Botao href={wa} icone="whatsapp" dica="abre o WhatsApp">
+            Agendar avaliação
+          </Botao>
+          <Botao variante="secundario" href="#s-componentes">
+            Conheça a clínica
+          </Botao>
+        </div>
+        <p>
+          Um <Link href="#s-cor">link no meio do texto</Link> é sempre sublinhado.
+        </p>
+
+        <h3>Horário</h3>
+        <StatusHorario />
+        <TabelaHorario />
+
+        <h3>Quem cuida</h3>
+        <div class="grade-2">
+          {profissionais.map((p) => (
+            <CartaoProfissional profissional={p} />
+          ))}
+        </div>
+
+        <h3>Fotos do espaço</h3>
+        <div class="grade-3">
+          <FotoAmbiente
+            id="still-espaldar-4x5"
+            alt="Espaldar de madeira na parede vermelha do ginásio, com faixas elásticas penduradas."
+            legenda="Ginásio de reabilitação"
+            tom="tijolo"
+          />
+          <FotoAmbiente
+            id="still-jardim-vertical-4x5"
+            alt="Corredor com piso de taco e jardim vertical ao fundo."
+            legenda="Corredor e jardim vertical"
+            tom="madeira"
+          />
+          <FotoAmbiente
+            id="still-consultorio-1-4x5"
+            alt="Consultório com maca, escadinha e aparelho de eletroterapia."
+            legenda="Consultório 1"
+            tom="salvia"
+          />
+        </div>
+
+        <h3>Capítulos do tour</h3>
+        <div class="grade-4">
+          {capitulos.map((c, i) => (
+            <CapituloTour
+              n={i + 1}
+              titulo={c.titulo}
+              inicio={c.inicio}
+              fim={c.fim}
+              posterId={c.posterId}
+            />
+          ))}
+        </div>
+
+        <h3>Aviso</h3>
+        <Aviso titulo="SUS">
+          <p>{sus?.textoSePendente}</p>
+        </Aviso>
+        <Aviso tipo="importante" titulo="Unimed">
+          <p>
+            Alguns planos pedem guia ou pedido médico. Confirme pelo WhatsApp: a gente explica
+            rapidinho.
+          </p>
+        </Aviso>
+
+        <h3>Perguntas (FAQ)</h3>
+        <div>
+          <Detalhes pergunta="Como eu agendo a primeira avaliação?" aberto>
+            <p>
+              Pelo WhatsApp. O site monta a mensagem para você: é só escolher o convênio e o período
+              de sua preferência.
+            </p>
+          </Detalhes>
+          <Detalhes pergunta="Onde fica a clínica?">
+            <p>Av. Dom Pedro II, 2700, bairro Brusque, Lages (SC).</p>
+          </Detalhes>
+        </div>
+
+        <h3>Ícones</h3>
+        <ul class="icones" role="list">
+          {icones.map((n) => (
+            <li>
+              <Icone nome={n} tamanho="2rem" />
+              <code>{n}</code>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="s-mov">
+        <h2 id="s-mov">Movimento</h2>
+        <p>
+          Só realce, de 200 a 400&nbsp;ms: cor, sublinhado, sombra do botão e o sinal do FAQ. Nada
+          essencial depende de animação. Com <code>prefers-reduced-motion: reduce</code>, nada se
+          move.
+        </p>
+      </section>
+    </div>
+  </main>
+</Documento>
+
+<style>
+  .estilo {
+    padding: var(--e-7) var(--margem) var(--e-8);
+    max-width: 78rem;
+    margin-inline: auto;
+  }
+  .estilo > section {
+    padding-block: var(--e-7);
+    border-top: var(--fio-fino) solid var(--fio);
+  }
+  .pilha > :global(* + *) {
+    margin-top: var(--e-5);
+  }
+  .nota-interna {
+    font-size: var(--texto-p);
+  }
+  code {
+    font-size: 0.85em;
+    overflow-wrap: anywhere;
+  }
+  .amostras {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+    gap: var(--e-5);
+    list-style: none;
+    padding: 0;
+  }
+  .amostra {
+    display: grid;
+    gap: var(--e-1);
+  }
+  .amostra__cor {
+    height: 4.5rem;
+    border-radius: var(--raio);
+    border: 1px solid var(--cor-ardosia);
+  }
+  .amostra__uso {
+    font-size: var(--texto-p);
+  }
+  .rolagem {
+    overflow-x: auto;
+    margin-block: var(--e-4) var(--e-6);
+  }
+  .tabela {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: var(--texto-p);
+  }
+  .tabela th,
+  .tabela td {
+    text-align: left;
+    padding: var(--e-2) var(--e-3);
+    border-bottom: 1px solid var(--fio);
+    vertical-align: middle;
+  }
+  .tabela thead th {
+    color: var(--texto-forte);
+  }
+  .tabela tbody th {
+    font-weight: 400;
+  }
+  .par {
+    display: inline-block;
+    padding: 0.15em 0.5em;
+    border-radius: var(--raio);
+    font-weight: 700;
+    border: 1px solid var(--cor-ardosia);
+  }
+  .escala > * {
+    margin-bottom: var(--e-4);
+  }
+  .escala__verbete {
+    font-family: var(--fonte-serifa);
+    font-size: var(--verbete-secao);
+    color: var(--texto-forte);
+    line-height: 1;
+  }
+  .escala__h2 {
+    font-family: var(--fonte-serifa);
+    font-size: var(--titulo-2);
+    color: var(--texto-forte);
+    line-height: 1.1;
+  }
+  .escala__h3 {
+    font-family: var(--fonte-serifa);
+    font-size: var(--titulo-3);
+    color: var(--texto-forte);
+  }
+  .escala__g {
+    font-size: var(--texto-g);
+  }
+  .escala__p {
+    font-size: var(--texto-p);
+  }
+  .logos {
+    display: grid;
+    gap: var(--e-5);
+  }
+  .logos__claro,
+  .logos__escuro {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--e-6);
+    padding: clamp(var(--e-3), 4vw, var(--e-6));
+    border-radius: var(--raio);
+  }
+  .logos__claro {
+    background: var(--cor-papel);
+  }
+  .logos :global(.logo-v) {
+    width: min(9rem, 100%);
+  }
+  .logos :global(.logo-h) {
+    width: min(14rem, 100%);
+  }
+  .logos :global(.logo-s) {
+    width: 4.5rem;
+  }
+  .linha {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--e-4);
+  }
+  .caixa-escura {
+    padding: var(--e-5);
+    border-radius: var(--raio);
+  }
+  .grade-2,
+  .grade-3,
+  .grade-4 {
+    display: grid;
+    gap: var(--e-5);
+  }
+  .grade-2 {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+  }
+  .grade-3 {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  }
+  .grade-4 {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+  }
+  .icones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--e-5);
+    list-style: none;
+    padding: 0;
+    color: var(--texto-forte);
+  }
+  .icones li {
+    display: grid;
+    justify-items: center;
+    gap: var(--e-1);
+  }
+</style>

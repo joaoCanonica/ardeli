@@ -1,0 +1,68 @@
+---
+// Logo da Ardeli: SVG inline otimizado a partir de media-originais/marca
+// (scripts/otimizar-marca.mjs; curvas preservadas). Nunca redesenhar.
+// Os grupos da marca (#arco, #figura, #letra-a, #palavra, #descritor) viram
+// data-parte="…" para não repetir id quando há mais de um logo na página;
+// `comIds` devolve os ids (para animar a abertura).
+interface Props {
+  variante?: 'vertical' | 'horizontal' | 'simbolo';
+  tom?: 'cor' | 'mono' | 'negativo';
+  /** Nome acessível. Vazio = decorativo (aria-hidden). */
+  rotulo?: string;
+  comIds?: boolean;
+  class?: string;
+}
+
+const svgs = import.meta.glob<string>('./svg/*.svg', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
+
+const {
+  variante = 'horizontal',
+  tom = 'cor',
+  rotulo = 'Ardeli Fisioterapia',
+  comIds = false,
+  class: classe,
+} = Astro.props;
+
+const base = variante === 'vertical' ? 'logo' : variante;
+// Símbolo não tem arquivo negativo: usa o mono em Linho.
+const sufixo =
+  tom === 'cor' ? '' : variante === 'simbolo' && tom === 'negativo' ? '-mono' : `-${tom}`;
+const arquivo = `./svg/ardeli-${base}${sufixo}.svg`;
+const bruto = svgs[arquivo];
+if (!bruto) throw new Error(`logo inexistente: ${arquivo}`);
+
+const acessivel = rotulo
+  ? `role="img" aria-label="${rotulo.replace(/"/g, '&quot;')}"`
+  : 'aria-hidden="true"';
+let svg = bruto.replace('<svg ', `<svg ${acessivel} focusable="false" `);
+if (!comIds) svg = svg.replace(/\sid="([\w-]+)"/g, ' data-parte="$1"');
+---
+
+<span class:list={['logo', `logo--${variante}`, `logo--${tom}`, classe]} set:html={svg} />
+
+<style>
+  .logo {
+    display: inline-block;
+    line-height: 0;
+  }
+  .logo :global(svg) {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .logo--mono {
+    color: var(--cor-marinho);
+  }
+  .logo--simbolo.logo--negativo {
+    color: var(--cor-linho);
+  }
+  @media (forced-colors: active) {
+    .logo :global(svg) :global([fill]) {
+      fill: CanvasText;
+    }
+  }
+</style>

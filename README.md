@@ -18,14 +18,16 @@ Dados que faltam ficam em [`docs/PENDENCIAS.md`](docs/PENDENCIAS.md); nada é in
 | `pnpm dev` | servidor local |
 | `pnpm build` / `pnpm preview` | gera e serve o `dist/` (preview: noindex; a faixa "em revisão" entra com o layout). Antes: mídia + `validate-config`; depois: `audit-compliance` |
 | `pnpm build:producao` | build com `ARDELI_MODO=producao`: **trava** se houver pendência bloqueante (ex.: CREFITO da Andriele) |
-| `pnpm check` | `astro check` + ESLint + Prettier |
+| `pnpm check` | `astro check` + ESLint + Prettier + `audit-contraste` |
 | `pnpm test` | Vitest |
 | `pnpm media:prepare` | gera `public/media/` a partir de `media-originais/` e `media.manifest.json` (roda sozinho antes de `dev`/`build`; precisa de ffmpeg) |
 | `pnpm media:folha` | refaz as folhas de contato dos stills em `docs/dados/` |
 | `pnpm capturar` | capturas por rota em 390 e 1440 px (padrão, reduced-motion, zoom 200%) em `docs/capturas/<data>/` |
 | `pnpm validate-config` | mostra travas, avisos e pendências da config (`src/config`, `src/content/dados`) |
 | `pnpm audit-compliance` | varre o `dist/`: termos vetados, depoimento, SUS afirmado, CREFITO no rodapé, mídia fora do índice |
-| `pnpm audit-a11y`, `audit-lighthouse`, `audit-seo`, `audit-contraste` | ainda não implementados: **falham de propósito** até a sessão que os cria |
+| `pnpm audit-contraste` | contraste dos tokens por uso (texto AAA, links/botões AA, foco 3:1) e varredura do CSS (Sálvia em texto, Tijolo/Madeira chapados, gradiente) |
+| `pnpm marca:otimizar` | refaz os SVG inline da marca, favicon e apple-touch-icon a partir de `media-originais/marca` |
+| `pnpm audit-a11y`, `audit-lighthouse`, `audit-seo` | ainda não implementados: **falham de propósito** até a sessão que os cria |
 
 ## Pastas
 
@@ -33,3 +35,9 @@ Dados que faltam ficam em [`docs/PENDENCIAS.md`](docs/PENDENCIAS.md); nada é in
 - `scripts/` — automações (Node)
 - `docs/` — contexto, investigação, mapa de mídia, pacote de prompts, pendências, `capturas/`, `dados/`
 - `media-originais/` — mídia original (versionada); derivados vão para `public/media/` (fora do git); catálogo em [`docs/MIDIA_CATALOGO.md`](docs/MIDIA_CATALOGO.md)
+
+## Design system
+
+- Página interna: **`/_estilo`** (noindex): cores e contraste, tipografia, logo, verbete, componentes.
+- Tokens em `src/styles/tokens.css`; base em `src/styles/base.css`; componentes em `src/components/{base,marca,verbete}`.
+- Tipografia escolhida e por quê: [`docs/TIPOGRAFIA.md`](docs/TIPOGRAFIA.md).
