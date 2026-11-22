@@ -12,8 +12,9 @@
   "scripts": {
     "predev": "node scripts/prepare-media.mjs",
     "dev": "astro dev",
-    "prebuild": "node scripts/prepare-media.mjs",
+    "prebuild": "node scripts/prepare-media.mjs && node scripts/validate-config.mjs",
     "build": "astro build",
+    "postbuild": "node scripts/audit-compliance.mjs",
     "preview": "astro preview",
     "check": "astro check && eslint . && prettier --check .",
     "format": "prettier --write .",
@@ -26,7 +27,8 @@
     "audit-contraste": "node scripts/audit-contraste.mjs",
     "media:prepare": "node scripts/prepare-media.mjs",
     "media:folha": "node scripts/folha-de-contato.mjs",
-    "capturar": "node scripts/capturar.mjs"
+    "capturar": "node scripts/capturar.mjs",
+    "build:producao": "ARDELI_MODO=producao pnpm build"
   },
   "dependencies": {
     "astro": "7.4.13"

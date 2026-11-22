@@ -16,13 +16,16 @@ Dados que faltam ficam em [`docs/PENDENCIAS.md`](docs/PENDENCIAS.md); nada é in
 |---|---|
 | `pnpm install` | instala as dependências |
 | `pnpm dev` | servidor local |
-| `pnpm build` / `pnpm preview` | gera e serve o `dist/` |
+| `pnpm build` / `pnpm preview` | gera e serve o `dist/` (preview: noindex; a faixa "em revisão" entra com o layout). Antes: mídia + `validate-config`; depois: `audit-compliance` |
+| `pnpm build:producao` | build com `ARDELI_MODO=producao`: **trava** se houver pendência bloqueante (ex.: CREFITO da Andriele) |
 | `pnpm check` | `astro check` + ESLint + Prettier |
 | `pnpm test` | Vitest |
 | `pnpm media:prepare` | gera `public/media/` a partir de `media-originais/` e `media.manifest.json` (roda sozinho antes de `dev`/`build`; precisa de ffmpeg) |
 | `pnpm media:folha` | refaz as folhas de contato dos stills em `docs/dados/` |
 | `pnpm capturar` | capturas por rota em 390 e 1440 px (padrão, reduced-motion, zoom 200%) em `docs/capturas/<data>/` |
-| `pnpm validate-config`, `audit-*` | ainda não implementados: **falham de propósito** até a sessão que os cria |
+| `pnpm validate-config` | mostra travas, avisos e pendências da config (`src/config`, `src/content/dados`) |
+| `pnpm audit-compliance` | varre o `dist/`: termos vetados, depoimento, SUS afirmado, CREFITO no rodapé, mídia fora do índice |
+| `pnpm audit-a11y`, `audit-lighthouse`, `audit-seo`, `audit-contraste` | ainda não implementados: **falham de propósito** até a sessão que os cria |
 
 ## Pastas
 
