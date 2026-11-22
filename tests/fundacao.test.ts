@@ -17,9 +17,9 @@ describe('fundação', () => {
     expect(ler('CLAUDE.md')).toBe(bloco);
   });
 
-  it('a "/" temporária está fora do índice', () => {
-    expect(ler('src/pages/index.astro')).toContain(
-      '<meta name="robots" content="noindex, nofollow" />',
-    );
+  it('no preview, toda página fica fora do índice (Documento)', () => {
+    const doc = ler('src/components/base/Documento.astro');
+    expect(doc).toContain('const foraDoIndice = noindex || preview;');
+    expect(doc).toContain('<meta name="robots" content="noindex, nofollow" />');
   });
 });

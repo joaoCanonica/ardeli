@@ -22,7 +22,7 @@ const linha = (r) =>
 
 let falhas = 0;
 console.log('audit-contraste\n\nPARES EM USO');
-for (const p of [...paresObrigatorios.map((p) => avaliar(p, t)), avaliarVeu(0.7, t)]) {
+for (const p of [...paresObrigatorios.map((p) => avaliar(p, t)), avaliarVeu(undefined, t)]) {
   console.log(linha(p));
   if (!p.passa) falhas++;
 }

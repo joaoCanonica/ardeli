@@ -6,13 +6,17 @@ import Icone from './Icone.astro';
 
 interface Props {
   class?: string;
+  /** Texto fixo (padrão: "Segunda a sexta, das 8h às 20h"). */
+  textoFixo?: string;
+  semIcone?: boolean;
 }
+const { textoFixo = horarioPorExtenso(), semIcone = false } = Astro.props;
 const ano = new Date().getFullYear();
 const config = JSON.stringify(configHorario([ano, ano + 1]));
 ---
 
 <p class:list={['status', Astro.props.class]} data-config-horario={config}>
-  <Icone nome="relogio" tamanho="1.3rem" />
+  {!semIcone && <Icone nome="relogio" tamanho="1.3rem" />}
   <span>
     <span class="status__vivo" data-status-horario hidden>
       <span class="status__ponto" aria-hidden="true"></span>
@@ -22,7 +26,7 @@ const config = JSON.stringify(configHorario([ano, ano + 1]));
         ·{' '}
       </span>
     </span>
-    <span class="status__fixo num">{horarioPorExtenso()}</span>
+    <span class="status__fixo num">{textoFixo}</span>
   </span>
 </p>
 

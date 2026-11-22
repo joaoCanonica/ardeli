@@ -3,7 +3,8 @@
 // do consultório 1. Limpo e contemporâneo: serifa grande, classe em itálico,
 // acepções numeradas com fio Sálvia de 1px. Nada de papel envelhecido.
 //
-// Variantes: capa (grande, sobre foto com véu Marinho 70%) · secao (média) · nota (pequena).
+// Variantes: capa (grande, sobre foto com véu Marinho 82%: AAA) · secao (média) · nota (pequena).
+// Capa: foto pela prop `foto` ou pelo slot "fundo" (ex.: imagem diferente por tela, vídeo).
 // Acepções: pela prop `acepcoes` (texto simples) e/ou por <Acepcao n> no slot (com link ou botão).
 import Imagem from '../base/Imagem.astro';
 import Acepcao from './Acepcao.astro';
@@ -16,7 +17,8 @@ interface Props {
   acepcoes?: readonly string[];
   variante?: 'capa' | 'secao' | 'nota';
   /** Nível do título (a palavra é o título da seção). */
-  nivel?: 1 | 2 | 3;
+  /** Nível do título; 'p' quando o H1 da página é outro (a palavra vira destaque visual). */
+  nivel?: 1 | 2 | 3 | 'p';
   id?: string;
   /** Só na capa: id de imagem do media-index e o texto alternativo. */
   foto?: { id: string; alt: string };
@@ -44,7 +46,8 @@ const {
   foto,
   class: classeExtra,
 } = Astro.props;
-const Titulo = `h${nivel}` as 'h1' | 'h2' | 'h3';
+const Titulo = (nivel === 'p' ? 'p' : `h${nivel}`) as 'h1' | 'h2' | 'h3' | 'p';
+const temFundo = Astro.slots.has('fundo');
 const temSlot = Astro.slots.has('default');
 ---
 
@@ -62,7 +65,13 @@ const temSlot = Astro.slots.has('default');
       <Imagem id={foto.id} alt={foto.alt} carregar="eager" prioridade sizes="100vw" />
     </div>
   )}
+  {variante === 'capa' && temFundo && (
+    <div class="verbete__fundo" aria-hidden="true">
+      <slot name="fundo" />
+    </div>
+  )}
   <div class="verbete__corpo">
+    <slot name="antes" />
     <header class="verbete__cabeca">
       <Titulo id={id} class="verbete__palavra">
         {palavra}

@@ -1,11 +1,23 @@
 ---
+interface Props {
+  /** Prefixo de id (há um controle na barra e outro no menu). */
+  id?: string;
+  class?: string;
+}
+const { id = 'tamanho', class: classe } = Astro.props;
 // Tamanho do texto: 3 níveis (padrão 18px · 20px · 22px), botões A− e A+.
 // Preferência só no aparelho (localStorage, com try/catch). Sem JS, o controle
 // fica escondido e vale o tamanho padrão (e o zoom do navegador continua valendo).
 ---
 
-<div class="tamanho" data-controle-tamanho hidden role="group" aria-labelledby="tamanho-rotulo">
-  <span id="tamanho-rotulo" class="tamanho__rotulo">
+<div
+  class:list={['tamanho', classe]}
+  data-controle-tamanho
+  hidden
+  role="group"
+  aria-labelledby={`${id}-rotulo`}
+>
+  <span id={`${id}-rotulo`} class="tamanho__rotulo">
     Texto
   </span>
   <button type="button" class="tamanho__botao" data-passo="-1" aria-label="Diminuir o texto">

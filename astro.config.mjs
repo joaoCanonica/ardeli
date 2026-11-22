@@ -8,7 +8,7 @@ import { defineConfig, fontProviders } from 'astro/config';
 export default defineConfig({
   output: 'static',
   trailingSlash: 'ignore',
-  build: { format: 'directory' },
+  build: { format: 'directory', inlineStylesheets: 'always' },
   devToolbar: { enabled: false },
   fonts: [
     {
@@ -19,13 +19,14 @@ export default defineConfig({
       options: {
         variants: [
           {
-            src: ['./src/assets/fontes/crimson-pro-latin-wght-normal.woff2'],
-            weight: '200 900',
+            src: ['./src/assets/fontes/crimson-pro-pt-normal.woff2'],
+            weight: '400 600',
             style: 'normal',
           },
           {
-            src: ['./src/assets/fontes/crimson-pro-latin-wght-italic.woff2'],
-            weight: '200 900',
+            // Itálico só para a classe gramatical (s.f., v.t.d.…): subset de 11,6 KB (docs/TIPOGRAFIA.md).
+            src: ['./src/assets/fontes/crimson-pro-italico-classes.woff2'],
+            weight: '400 600',
             style: 'italic',
           },
         ],
@@ -39,13 +40,13 @@ export default defineConfig({
       options: {
         variants: [
           {
-            src: ['./src/assets/fontes/atkinson-hyperlegible-next-latin-wght-normal.woff2'],
-            weight: '200 800',
+            src: ['./src/assets/fontes/atkinson-hyperlegible-next-pt-normal.woff2'],
+            weight: '400 700',
             style: 'normal',
           },
           {
-            src: ['./src/assets/fontes/atkinson-hyperlegible-next-latin-wght-italic.woff2'],
-            weight: '200 800',
+            src: ['./src/assets/fontes/atkinson-hyperlegible-next-pt-italic.woff2'],
+            weight: '400 700',
             style: 'italic',
           },
         ],

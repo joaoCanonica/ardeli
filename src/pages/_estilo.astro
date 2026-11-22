@@ -2,7 +2,7 @@
 // /_estilo — design system da Ardeli (noindex). Servida por src/pages/[...interna].astro.
 import Aviso from '../components/base/Aviso.astro';
 import Botao from '../components/base/Botao.astro';
-import Cabecalho from '../components/base/Cabecalho.astro';
+import Cabecalho from '../components/cabecalho/Cabecalho.astro';
 import CapituloTour from '../components/base/CapituloTour.astro';
 import CartaoProfissional from '../components/base/CartaoProfissional.astro';
 import Detalhes from '../components/base/Detalhes.astro';
@@ -44,7 +44,7 @@ const cores = [
   { nome: 'Tijolo', token: 'tijolo', uso: 'só ambiente (fio de legenda)' },
   { nome: 'Madeira', token: 'madeira', uso: 'só ambiente (fio de legenda)' },
 ];
-const pares = [...paresObrigatorios.map((p) => avaliar(p, t)), avaliarVeu(0.7, t)];
+const pares = [...paresObrigatorios.map((p) => avaliar(p, t)), avaliarVeu(undefined, t)];
 const proibidos = paresProibidos.map((p) => ({ ...avaliar(p, t), motivo: p.motivo }));
 const capitulos = capitulosComPoster().slice(0, 4);
 const sus = convenios.find((c) => c.id === 'sus');

@@ -57,3 +57,18 @@ Todas têm os acentos e sinais do português (ã õ ç â ê ô à, travessão, 
 - `font-variant-numeric: tabular-nums` em `<time>` e `.num` (horário).
 - Fontes self-hosted pela API de fontes do Astro (provedor local), só no subset latino, com fallback de métricas ajustadas (CLS ≈ 0) e `font-size-adjust: ex-height from-font`. Licenças em `src/assets/fontes/OFL-*.txt`.
 - **Versalete:** nenhuma das 4 tem `smcp`. O numeral das acepções é composto em Crimson Pro, a 0,82 em, peso 600 e espaçamento de 0,06 em, na altura das minúsculas.
+
+## Subset (sessão "capa")
+
+Para o LCP mobile ficar abaixo de 1,8 s, as fontes passaram a ser geradas por `scripts/subset-fontes.sh` a partir dos originais em `media-originais/fontes/` (Fontsource, subset latino):
+
+| Arquivo | Glifos | Eixo de peso | Antes | Depois |
+|---|---|---|---|---|
+| `crimson-pro-pt-normal.woff2` | português (Latin básico, Latin-1, aspas, travessões, reticências, setas, €) | 400–600 | 48 KB | 25 KB |
+| `crimson-pro-italico-classes.woff2` | só minúsculas e pontuação (classe gramatical: s.f., v.t.d.…) | 400–600 | 51 KB | 6,6 KB |
+| `atkinson-hyperlegible-next-pt-normal.woff2` | português | 400–700 | 34 KB | 18,5 KB |
+| `atkinson-hyperlegible-next-pt-italic.woff2` | português | 400–700 | 38 KB | 21 KB |
+
+- O desenho não muda: a renderização comparada com os originais (pesos 400/500/600 e 400/700, texto com acentos, aspas e números) deu **0 subpixels diferentes**.
+- Efeito medido no Lighthouse mobile (capa A): LCP de 2,0 s → **1,5 s**.
+- **Limite:** o itálico da Crimson só tem minúsculas e pontuação. Itálico em serifa fora da classe gramatical cai no fallback (Georgia itálico). Se um dia for preciso, ampliar o subset no script.

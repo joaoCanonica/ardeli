@@ -36,7 +36,7 @@ describe('tokens e contraste', () => {
 
   it('texto principal AAA; links e botões AA; capa com véu ≥ 4,5', () => {
     for (const p of paresObrigatorios) expect(avaliar(p, t).passa, p.uso).toBe(true);
-    expect(avaliarVeu(0.7, t).razao).toBeGreaterThanOrEqual(4.5);
+    expect(avaliarVeu(undefined, t).razao).toBeGreaterThanOrEqual(7);
   });
 
   it('Sálvia sobre Linho em texto pequeno reprova', () => {

@@ -35,7 +35,7 @@
   --fio-forte: var(--cor-ardosia);
   --foco: var(--cor-marinho);
   --foco-sobre-escuro: var(--cor-linho);
-  --veu: rgb(18 48 72 / 0.7); /* Marinho a 70% sobre foto */
+  --veu: rgb(18 48 72 / 0.82); /* Marinho a 82% sobre foto: AAA (7,2:1) mesmo sobre pixel branco */
 
   /* ---------- tipografia ---------- */
   --fonte-serifa: var(--fonte-crimson), Georgia, serif;

@@ -1,0 +1,55 @@
+---
+// Capa A: foto do ginásio com véu Marinho (82%: AAA mesmo no pior pixel) e o verbete "cuidar".
+// O H1 real ("Fisioterapia no Brusque, em Lages") vem antes do verbete; a palavra "cuidar"
+// é destaque visual (<p>), não um segundo título.
+import Verbete from '../verbete/Verbete.astro';
+import BotoesCapa from './BotoesCapa.astro';
+import FundoCapa from './FundoCapa.astro';
+import PausaVideo from './PausaVideo.astro';
+import { ACEPCOES_CAPA, H1_CAPA } from './textos.ts';
+---
+
+<Verbete
+  palavra="cuidar"
+  classe="v.t.d."
+  variante="capa"
+  nivel="p"
+  id="capa-palavra"
+  acepcoes={ACEPCOES_CAPA}
+  class="capa capa--a"
+>
+  <FundoCapa slot="fundo" />
+  <h1 slot="antes" class="capa__h1">
+    {H1_CAPA}
+  </h1>
+  <Fragment slot="depois">
+    <BotoesCapa />
+    <PausaVideo />
+  </Fragment>
+</Verbete>
+
+<style>
+  /* A raiz é do Verbete (outro componente): seletores globais, presos à classe .capa--a. */
+  :global(.capa--a) {
+    min-height: min(86svh, 50rem);
+    padding-top: var(--e-7);
+  }
+  :global(.capa--a .capa__h1) {
+    margin: 0 0 var(--e-4);
+    font-family: var(--fonte-texto);
+    font-size: var(--texto-g);
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--cor-linho);
+    letter-spacing: 0.01em;
+  }
+  :global(.capa--a .verbete__classe) {
+    font-size: 1.4rem;
+  }
+  :global(.capa--a .acepcao) {
+    font-size: clamp(1.1667rem, 1rem + 0.7vw, 1.4444rem);
+  }
+  :global(.capa--a .acepcao__n) {
+    font-size: 0.95em;
+  }
+</style>

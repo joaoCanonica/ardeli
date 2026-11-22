@@ -1,0 +1,93 @@
+---
+// Capa B (para comparar): clara, em Linho. Verbete à esquerda; still da fachada
+// recortado à direita (no celular, embaixo). Sem véu: texto Marinho/Ardósia sobre Linho (AAA).
+import Imagem from '../base/Imagem.astro';
+import Verbete from '../verbete/Verbete.astro';
+import BotoesCapa from './BotoesCapa.astro';
+import { ACEPCOES_CAPA, H1_CAPA } from './textos.ts';
+---
+
+<section class="capa capa--b" aria-labelledby="capa-b-h1">
+  <div class="capa-b__texto">
+    <Verbete
+      palavra="cuidar"
+      classe="v.t.d."
+      nivel="p"
+      id="capa-b-palavra"
+      acepcoes={ACEPCOES_CAPA}
+      class="capa-b__verbete"
+    >
+      <h1 slot="antes" id="capa-b-h1" class="capa__h1">
+        {H1_CAPA}
+      </h1>
+      <BotoesCapa slot="depois" />
+    </Verbete>
+  </div>
+  <figure class="capa-b__foto">
+    <Imagem
+      id="still-fachada-4x5"
+      alt="Fachada da clínica: letreiro Ardeli Fisioterapia sobre a vitrine verde, na Av. Dom Pedro II, 2700."
+      carregar="eager"
+      sizes="(min-width: 60rem) 45vw, 100vw"
+    />
+    <figcaption>Av. Dom Pedro II, 2700 · Brusque</figcaption>
+  </figure>
+</section>
+
+<style>
+  .capa--b {
+    display: grid;
+    gap: var(--e-6);
+    padding: var(--e-7) var(--margem) var(--e-6);
+    background: var(--fundo);
+    max-width: 90rem;
+    margin-inline: auto;
+  }
+  .capa--b :global(.capa__h1) {
+    margin: 0 0 var(--e-4);
+    font-family: var(--fonte-texto);
+    font-size: var(--texto-g);
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--texto-forte);
+  }
+  .capa--b :global(.verbete__palavra) {
+    font-size: min(var(--verbete-capa), 19vw);
+    font-weight: 400;
+  }
+  .capa--b :global(.acepcao) {
+    font-size: clamp(1.1667rem, 1rem + 0.7vw, 1.4444rem);
+    line-height: 1.45;
+  }
+  .capa-b__foto {
+    margin: 0;
+  }
+  .capa-b__foto :global(picture) {
+    aspect-ratio: 4 / 5;
+    max-height: 70svh;
+    overflow: hidden;
+    border-radius: var(--raio);
+  }
+  .capa-b__foto figcaption {
+    display: flex;
+    align-items: center;
+    gap: var(--e-3);
+    margin-top: var(--e-3);
+    font-size: var(--texto-p);
+  }
+  .capa-b__foto figcaption::before {
+    content: '';
+    width: 1.5rem;
+    border-top: 2px solid var(--cor-salvia);
+  }
+  @media (min-width: 60rem) {
+    .capa--b {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      align-items: center;
+      min-height: min(86svh, 50rem);
+    }
+    .capa-b__foto :global(picture) {
+      max-height: 78svh;
+    }
+  }
+</style>

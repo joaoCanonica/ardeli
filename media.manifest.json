@@ -306,6 +306,54 @@
       "naoUsar": false,
       "contemPessoa": false,
       "problemas": []
+    },
+    {
+      "id": "fonte-crimson-pro-normal",
+      "arquivo": "media-originais/fontes/crimson-pro-latin-wght-normal.woff2",
+      "tipo": "fonte",
+      "ambiente": null,
+      "uso": "Crimson Pro (verbetes e títulos): original (Fontsource, subset latino, OFL). O site usa o subset de scripts/subset-fontes.sh",
+      "trechos": [],
+      "resolucaoMax": null,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": []
+    },
+    {
+      "id": "fonte-crimson-pro-italic",
+      "arquivo": "media-originais/fontes/crimson-pro-latin-wght-italic.woff2",
+      "tipo": "fonte",
+      "ambiente": null,
+      "uso": "Crimson Pro itálico (classe gramatical): original (Fontsource, subset latino, OFL). O site usa o subset de scripts/subset-fontes.sh",
+      "trechos": [],
+      "resolucaoMax": null,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": []
+    },
+    {
+      "id": "fonte-atkinson-hyperlegible-next-normal",
+      "arquivo": "media-originais/fontes/atkinson-hyperlegible-next-latin-wght-normal.woff2",
+      "tipo": "fonte",
+      "ambiente": null,
+      "uso": "Atkinson Hyperlegible Next (leitura): original (Fontsource, subset latino, OFL). O site usa o subset de scripts/subset-fontes.sh",
+      "trechos": [],
+      "resolucaoMax": null,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": []
+    },
+    {
+      "id": "fonte-atkinson-hyperlegible-next-italic",
+      "arquivo": "media-originais/fontes/atkinson-hyperlegible-next-latin-wght-italic.woff2",
+      "tipo": "fonte",
+      "ambiente": null,
+      "uso": "Atkinson Hyperlegible Next itálico: original (Fontsource, subset latino, OFL). O site usa o subset de scripts/subset-fontes.sh",
+      "trechos": [],
+      "resolucaoMax": null,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": []
     }
   ],
   "tour": {

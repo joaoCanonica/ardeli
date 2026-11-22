@@ -136,7 +136,15 @@ export function avaliar(par: Par, t = tokens()): Resultado {
 }
 
 /** Capa: texto Linho sobre foto com véu Marinho 70%, no pior caso (pixel branco da foto). */
-export function avaliarVeu(alfa = 0.7, t = tokens()): Resultado {
+/** Opacidade do véu, lida de --veu em tokens.css (rgb(18 48 72 / 0.82)). */
+export function alfaDoVeu(): number {
+  const css = readFileSync(join(process.cwd(), 'src/styles/tokens.css'), 'utf8');
+  const m = css.match(/--veu:\s*rgb\([^/]+\/\s*([\d.]+)\)/);
+  if (!m?.[1]) throw new Error('--veu ausente em tokens.css');
+  return Number(m[1]);
+}
+
+export function avaliarVeu(alfa = alfaDoVeu(), t = tokens()): Resultado {
   const marinho = t.marinho ?? '#123048';
   const pior = sobrepor(marinho, alfa, '#ffffff');
   return avaliar(
@@ -144,7 +152,7 @@ export function avaliarVeu(alfa = 0.7, t = tokens()): Resultado {
       uso: `Capa: Linho sobre véu Marinho ${Math.round(alfa * 100)}% (pior caso: foto branca)`,
       texto: 'linho',
       fundo: pior,
-      nivel: 'AAA-grande',
+      nivel: 'AAA',
     },
     t,
   );

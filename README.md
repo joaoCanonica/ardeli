@@ -26,6 +26,7 @@ Dados que faltam ficam em [`docs/PENDENCIAS.md`](docs/PENDENCIAS.md); nada é in
 | `pnpm validate-config` | mostra travas, avisos e pendências da config (`src/config`, `src/content/dados`) |
 | `pnpm audit-compliance` | varre o `dist/`: termos vetados, depoimento, SUS afirmado, CREFITO no rodapé, mídia fora do índice |
 | `pnpm audit-contraste` | contraste dos tokens por uso (texto AAA, links/botões AA, foco 3:1) e varredura do CSS (Sálvia em texto, Tijolo/Madeira chapados, gradiente) |
+| `bash scripts/subset-fontes.sh` | regera as fontes do site (subset pt-BR) a partir de `media-originais/fontes` (precisa de `fonttools` + `brotli` no Python) |
 | `pnpm marca:otimizar` | refaz os SVG inline da marca, favicon e apple-touch-icon a partir de `media-originais/marca` |
 | `pnpm audit-a11y`, `audit-lighthouse`, `audit-seo` | ainda não implementados: **falham de propósito** até a sessão que os cria |
 
@@ -39,5 +40,6 @@ Dados que faltam ficam em [`docs/PENDENCIAS.md`](docs/PENDENCIAS.md); nada é in
 ## Design system
 
 - Página interna: **`/_estilo`** (noindex): cores e contraste, tipografia, logo, verbete, componentes.
+- Comparação de capas: **`/_capa-a`** (foto com véu) e **`/_capa-b`** (clara, com a fachada), ambas noindex. `/` usa a capa A até a decisão.
 - Tokens em `src/styles/tokens.css`; base em `src/styles/base.css`; componentes em `src/components/{base,marca,verbete}`.
 - Tipografia escolhida e por quê: [`docs/TIPOGRAFIA.md`](docs/TIPOGRAFIA.md).
