@@ -1,0 +1,11 @@
+dist/
+.astro/
+node_modules/
+public/
+media-originais/
+assets/
+docs/
+pnpm-lock.yaml
+CLAUDE.md
+AGENTS.md
+*.md

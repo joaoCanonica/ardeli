@@ -1,0 +1,47 @@
+{
+  "name": "ardeli-site",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Site da Ardeli Fisioterapia (Lages/SC). Astro estático.",
+  "engines": {
+    "node": ">=22.23.4 <23",
+    "pnpm": ">=10.28.0 <11"
+  },
+  "packageManager": "pnpm@10.28.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check && eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "validate-config": "node scripts/validate-config.mjs",
+    "audit-compliance": "node scripts/audit-compliance.mjs",
+    "audit-a11y": "node scripts/audit-a11y.mjs",
+    "audit-lighthouse": "node scripts/audit-lighthouse.mjs",
+    "audit-seo": "node scripts/audit-seo.mjs",
+    "audit-contraste": "node scripts/audit-contraste.mjs",
+    "media:prepare": "node scripts/prepare-media.mjs",
+    "capturar": "node scripts/capturar.mjs"
+  },
+  "dependencies": {
+    "astro": "7.4.13"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@eslint/js": "10.0.1",
+    "@types/node": "^22.20.5",
+    "astro-eslint-parser": "3.2.0",
+    "eslint": "10.15.0",
+    "eslint-plugin-astro": "3.2.1",
+    "globals": "17.14.0",
+    "playwright": "1.63.0",
+    "prettier": "3.10.1",
+    "prettier-plugin-astro": "1.1.2",
+    "sharp": "0.35.5",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.73.0",
+    "vitest": "5.1.1"
+  }
+}
