@@ -175,7 +175,7 @@ export const aClinica = {
       'vitrine',
     ),
     entrada: f(
-      'Na porta de vidro, a frase "Cuidar do seu corpo é investir na sua qualidade de vida". No chão, o tapete com o nome da clínica.',
+      'Na porta de vidro, a frase “Cuidar do seu corpo é investir na sua qualidade de vida”. No chão, o tapete com o nome da clínica.',
       'tour',
       'porta',
     ),
@@ -189,7 +189,7 @@ export const aClinica = {
       'tour',
     ),
     'consultorio-1': f(
-      'O consultório 1, com maca, aparelho de eletroterapia e o quadro "fisioterapia, s.f." na parede.',
+      'O consultório 1, com maca, aparelho de eletroterapia e o quadro “fisioterapia, s.f.” na parede.',
       'tour',
     ),
     portas: f('O corredor dos consultórios, com as portas identificadas.', 'tour'),
@@ -204,10 +204,10 @@ export const aClinica = {
     ),
   } satisfies Record<string, Frase>,
   quadro: {
-    titulo: 'De onde vem o "verbete"',
+    titulo: 'De onde vem o “verbete”',
     texto: [
       f(
-        'Na parede do consultório 1 há um quadro com a palavra "fisioterapia" escrita como num dicionário: a palavra, a classe (s.f., substantivo feminino) e dois significados numerados.',
+        'Na parede do consultório 1 há um quadro com a palavra “fisioterapia” escrita como num dicionário: a palavra, a classe (s.f., substantivo feminino) e dois significados numerados.',
         'tour',
         'quadro',
       ),
@@ -289,7 +289,7 @@ export const privacidade = {
       titulo: 'Dado de saúde é sensível',
       texto: [
         f(
-          'A lei brasileira (LGPD) chama de "dado sensível" tudo o que fala da sua saúde, como uma dor ou uma cirurgia. Ele pede cuidado redobrado.',
+          'A lei brasileira (LGPD) chama de “dado sensível” tudo o que fala da sua saúde, como uma dor ou uma cirurgia. Ele pede cuidado redobrado.',
           'lgpd',
         ),
         f(
@@ -306,7 +306,7 @@ export const privacidade = {
           'site',
         ),
         f(
-          'A mensagem só sai quando você toca em enviar no WhatsApp. Antes disso, nada é enviado. O motivo é opcional e genérico, como "dor" ou "pós-operatório".',
+          'A mensagem só sai quando você toca em enviar no WhatsApp. Antes disso, nada é enviado. O motivo é opcional e genérico, como “dor” ou “pós-operatório”.',
           'site',
         ),
         f(
@@ -337,7 +337,7 @@ export const privacidade = {
       titulo: 'Mapa e vídeo',
       texto: [
         f(
-          'O mapa do Google só carrega se você tocar em "Mostrar o mapa" e aceitar. Antes disso, nada é enviado ao Google.',
+          'O mapa do Google só carrega se você tocar em “Mostrar o mapa” e aceitar. Antes disso, nada é enviado ao Google.',
           'site',
         ),
         f('O vídeo da clínica fica no próprio site, sem som.', 'site', 'tour'),

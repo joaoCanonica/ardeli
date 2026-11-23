@@ -39,7 +39,7 @@ const folhas = [
 >
   <main id="conteudo" class="qr-pagina">
     <div class="controles nao-imprimir">
-      <h1>Cartaz "Avaliar no Google"</h1>
+      <h1>Cartaz “Avaliar no Google”</h1>
       {!dominio && (
         <p class="controles__aviso">
           Domínio ainda não confirmado: o QR aponta direto para a página da clínica no Google.
@@ -48,7 +48,12 @@ const folhas = [
       )}
       <div class="controles__botoes">
         {folhas.map((f) => (
-          <button type="button" class="controles__botao" data-imprimir-folha={f.id} hidden>
+          <button
+            type="button"
+            class="controles__botao"
+            data-imprimir-folha={f.id}
+            data-esperando-js
+          >
             Imprimir {f.nome}
           </button>
         ))}
@@ -80,7 +85,7 @@ const folhas = [
 
 <script>
   for (const b of document.querySelectorAll<HTMLButtonElement>('[data-imprimir-folha]')) {
-    b.hidden = false;
+    b.removeAttribute('data-esperando-js');
     b.addEventListener('click', () => {
       document.documentElement.dataset.imprimir = b.dataset.imprimirFolha;
       window.print();
@@ -128,8 +133,10 @@ const folhas = [
     font-weight: 700;
     cursor: pointer;
   }
-  .controles__botao[hidden] {
-    display: none;
+  /* Sem JS os botões não funcionam: ficam invisíveis, mas o espaço é reservado
+     (mostrar depois da 1ª pintura empurrava o cartaz: CLS 0,089). */
+  .controles__botao[data-esperando-js] {
+    visibility: hidden;
   }
   .controles__dica {
     font-size: var(--texto-p);

@@ -1,0 +1,89 @@
+# QA + deploy estático na Vercel (prebuilt).
+# Por que prebuilt: a mídia derivada (AVIF/WebP, loops, tour mudo) sai do ffmpeg no
+# build (scripts/prepare-media.mjs) e a imagem de build da Vercel não tem ffmpeg.
+# Aqui o build roda no GitHub (com ffmpeg), passa pelas travas e pelos testes, e só
+# o dist/ pronto sobe para a Vercel.
+#
+# Preview: todo push (faixa "em revisão", noindex, X-Robots-Tag nos *.vercel.app).
+# Produção: só no branch main, com ARDELI_MODO=producao e SITE_URL — as travas
+# (CREFITO, CNPJ, domínio…) impedem o deploy enquanto faltar dado. Nunca afrouxar.
+#
+# Segredos do repositório (João): VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID.
+# Variáveis de ambiente na Vercel (Production): ARDELI_MODO=producao, SITE_URL=https://…
+name: qa e deploy
+
+on:
+  push:
+    branches: ['**']
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  qa-e-deploy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: ffmpeg (mídia derivada)
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Chromium do Playwright (testes)
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Ambiente da Vercel
+        if: env.VERCEL_PROJECT_ID != ''
+        run: >
+          pnpm dlx vercel@65.9.0 pull --yes
+          --environment=${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
+          --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Checagens (tipos, lint, formato, contraste) e testes
+        run: pnpm check && pnpm test
+
+      # vercel build roda o "buildCommand" do vercel.json (pnpm build: prepare-media,
+      # validate-config, astro build, audit-compliance, audit-seo) e aplica os cabeçalhos.
+      - name: Build (preview)
+        if: github.ref != 'refs/heads/main'
+        run: |
+          if [ -n "$VERCEL_PROJECT_ID" ]; then pnpm dlx vercel@65.9.0 build --token=${{ secrets.VERCEL_TOKEN }}; else pnpm build; fi
+
+      - name: Build (produção — travas valem)
+        if: github.ref == 'refs/heads/main'
+        env:
+          ARDELI_MODO: producao
+        run: pnpm dlx vercel@65.9.0 build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Acessibilidade, acabamento e e2e (servidor que imita a Vercel)
+        run: |
+          node scripts/servir.mjs --porta 4330 &
+          sleep 2
+          BASE=http://localhost:4330 node scripts/e2e.mjs
+          BASE=http://localhost:4330 node scripts/audit-a11y.mjs
+          BASE=http://localhost:4330 node scripts/audit-acabamento.mjs
+
+      - name: Deploy
+        if: env.VERCEL_PROJECT_ID != ''
+        run: >
+          pnpm dlx vercel@65.9.0 deploy --prebuilt
+          ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
+          --token=${{ secrets.VERCEL_TOKEN }}

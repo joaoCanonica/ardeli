@@ -91,3 +91,15 @@ Frases com fonte "pratica" (rotina comum da fisioterapia) e "orientacao" (explic
 | S4 | Rich Results Test (Google) | Só roda com o site no ar (URL pública). validator.schema.org já passou sem erro (`pnpm validar-schema`) |
 | S5 | Ficha do Google, avaliações, Studio Ar, NAP nos cadastros, teste mensal no Modo IA | Roteiro em `docs/SEO_GEO.md` (fora do site) |
 | S6 | Atributos de acessibilidade e serviços da ficha | Só o que for confirmado (T5 e áreas de atendimento) |
+
+## QA e deploy (sessão 9)
+
+| # | Item | Efeito enquanto falta |
+|---|---|---|
+| Q1 | **`SITE_URL`** nas variáveis de ambiente da Vercel (Production): `https://<domínio>` | Produção travada (substitui o campo "domínio" do `clinica.ts`; o valor nunca é escrito no código) |
+| Q2 | Projeto na Vercel + segredos do GitHub `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID` | O workflow roda QA e build, mas não publica |
+| Q3 | `ARDELI_MODO=producao` nas variáveis de Production da Vercel | (o workflow já define no branch main) |
+| Q4 | Teste com leitor de tela real (NVDA no Windows, VoiceOver no iPhone) | Roteiro em `docs/QA.md` §3; árvore de acessibilidade em `docs/qa/arvore-acessibilidade.md` |
+| Q5 | Teste com uma pessoa de mais de 60 anos | Roteiro e ficha em `docs/QA.md` §4 |
+| Q6 | Safari iOS e Firefox reais | Só Chromium roda neste ambiente; roteiro em `docs/QA.md` §5 |
+| Q7 | LCP da home e de /a-clinica no perfil "4G lento" do Lighthouse (≈ 1,9 s) | Decisão: manter CLS 0 (fontes pré-carregadas) ou trocar por LCP menor com CLS até 0,02 (ver `docs/QA.md` §1) |

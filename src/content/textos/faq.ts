@@ -68,7 +68,7 @@ export const grupos: readonly { titulo: string; perguntas: readonly Pergunta[] }
         resposta: [
           f('Pelo WhatsApp (49) 99928-1721.', 'joao'),
           f(
-            'No site, toque em "Agendar avaliação": escolha o convênio e o período, e a mensagem já vai pronta. É só enviar.',
+            'No site, toque em “Agendar avaliação”: escolha o convênio e o período, e a mensagem já vai pronta. É só enviar.',
             'site',
           ),
         ],

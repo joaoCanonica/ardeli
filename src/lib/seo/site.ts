@@ -27,5 +27,5 @@ export const OG_IMAGEM = {
   caminho: '/og/ardeli-1200x630.jpg',
   largura: 1200,
   altura: 630,
-  alt: 'Fachada da Ardeli Fisioterapia e a frase "Fisioterapia no Brusque, Lages/SC".',
+  alt: 'Fachada da Ardeli Fisioterapia e a frase “Fisioterapia no Brusque, Lages/SC”.',
 } as const;

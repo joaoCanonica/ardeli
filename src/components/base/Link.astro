@@ -5,11 +5,13 @@ interface Props {
   href: string;
   externo?: boolean;
   class?: string;
+  /** Link de ação sozinho na linha: área de toque ≥ 48 px. */
+  sozinho?: boolean;
 }
-const { href, externo = false, class: classe } = Astro.props;
+const { href, externo = false, class: classe, sozinho = false } = Astro.props;
 ---
 
-<a href={href} class:list={['link', classe]}>
+<a href={href} class:list={['link', sozinho && 'alvo', classe]}>
   <slot />
   {externo && <span class="visualmente-oculto"> (abre outro site ou aplicativo)</span>}
 </a>

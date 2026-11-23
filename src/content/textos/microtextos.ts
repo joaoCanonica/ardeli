@@ -70,10 +70,10 @@ export const mensagensWhatsApp = {
 export const alts: Record<string, Frase> = {
   // stills
   fachada: f(
-    'Fachada da clínica: letreiro "Ardeli Fisioterapia" com o símbolo e, abaixo, a vitrine verde.',
+    'Fachada da clínica: letreiro “Ardeli Fisioterapia” com o símbolo e, abaixo, a vitrine verde.',
     'tour',
   ),
-  tapete: f('Entrada: tapete cinza com o nome "Ardeli Fisioterapia" em azul e verde.', 'tour'),
+  tapete: f('Entrada: tapete cinza com o nome “Ardeli Fisioterapia” em azul e verde.', 'tour'),
   cardio: f(
     'Sala de esteira e bikes: esteira e bicicletas ergométricas diante da parede vermelha com relógio.',
     'tour',
@@ -88,12 +88,12 @@ export const alts: Record<string, Frase> = {
   ),
   'jardim-vertical': f('Corredor com piso de taco, bebedouro e jardim vertical ao fundo.', 'tour'),
   'quadro-fisioterapia': f(
-    'Consultório 1: quadro emoldurado com o verbete "fisioterapia, s.f." e duas definições numeradas.',
+    'Consultório 1: quadro emoldurado com o verbete “fisioterapia, s.f.” e duas definições numeradas.',
     'tour',
     'quadro',
   ),
   'quadro-fisioterapia-quadro': f(
-    'Quadro com a palavra "fisioterapia", a classe "s.f." e duas definições numeradas.',
+    'Quadro com a palavra “fisioterapia”, a classe “s.f.” e duas definições numeradas.',
     'tour',
     'quadro',
   ),
@@ -118,14 +118,14 @@ export const alts: Record<string, Frase> = {
     'tour',
   ),
   // pôsteres dos capítulos do tour
-  'poster-fachada': f('Fachada da clínica com o letreiro "Ardeli Fisioterapia".', 'tour'),
+  'poster-fachada': f('Fachada da clínica com o letreiro “Ardeli Fisioterapia”.', 'tour'),
   'poster-vitrine': f(
     'Vitrine com as palavras fisioterapia, recuperação funcional, bem-estar e atendimento acessível.',
     'tour',
     'vitrine',
   ),
   'poster-entrada': f(
-    'Porta de vidro da entrada com a frase "Cuidar do seu corpo é investir na sua qualidade de vida".',
+    'Porta de vidro da entrada com a frase “Cuidar do seu corpo é investir na sua qualidade de vida”.',
     'tour',
     'porta',
   ),
@@ -136,7 +136,7 @@ export const alts: Record<string, Frase> = {
   ),
   'poster-corredor': f('Corredor de taco com jardim vertical ao fundo.', 'tour'),
   'poster-consultorio-1': f('Consultório 1 com maca e aparelho de eletroterapia.', 'tour'),
-  'poster-portas': f('Corredor dos consultórios com placa "Fisioterapia" na porta.', 'tour'),
+  'poster-portas': f('Corredor dos consultórios com placa “Fisioterapia” na porta.', 'tour'),
   'poster-consultorio-2': f('Consultório 2 com maca e janela.', 'tour'),
   'poster-recepcao': f('Recepção com divisória de vidro e vista para a avenida.', 'tour'),
   'poster-ginasio-final': f('Ginásio amplo com janelas para a avenida.', 'tour'),
@@ -153,7 +153,7 @@ export const alts: Record<string, Frase> = {
   'captura-15-06-42': f('Consultório 2: mesa, maca e piso de madeira.', 'tour'),
 };
 
-/** Alt de uma imagem do media-index (ex.: "still-espaldar-4x5" → alts.espaldar). */
+/** Alt de uma imagem do media-index (ex.: “still-espaldar-4x5” → alts.espaldar). */
 export function altDe(idImagem: string): string {
   const semPrefixo = idImagem.replace(/^still-/, '');
   if (alts[semPrefixo]) return alts[semPrefixo].texto;

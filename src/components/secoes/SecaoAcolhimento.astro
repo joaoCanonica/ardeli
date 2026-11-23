@@ -29,7 +29,9 @@ const ordem = [...profissionais].sort((a, b) => a.ordem - b.ordem);
     <span class="fato__texto">{acolhimento.fato.texto}</span>
   </p>
   <p>
-    <Link href="/quem-cuida">{acolhimento.chamada.texto}</Link>
+    <Link href="/quem-cuida" sozinho>
+      {acolhimento.chamada.texto}
+    </Link>
   </p>
 </Secao>
 

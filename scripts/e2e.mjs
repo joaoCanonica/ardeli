@@ -198,9 +198,11 @@ async function enviar(p, raiz, enviada) {
     };
     window.__ardeliEventos = lista;
   });
+  // Refresh de 0 s: a página sai logo; as metas são lidas do HTML da resposta.
+  const html = await (await p.request.get(`${BASE}/avaliar/?o=qr`)).text();
   await p.goto(`${BASE}/avaliar/?o=qr`);
-  const refresh = await p.locator('meta[http-equiv="refresh"]').getAttribute('content');
-  const robots = await p.locator('meta[name="robots"]').getAttribute('content');
+  const refresh = html.match(/http-equiv="refresh" content="([^"]*)"/)?.[1] ?? null;
+  const robots = html.match(/name="robots" content="([^"]*)"/)?.[1] ?? null;
   await p.waitForTimeout(800);
   ok(
     '/avaliar redireciona (meta refresh + JS), noindex, origem "qr" registrada',
@@ -267,6 +269,7 @@ async function enviar(p, raiz, enviada) {
     '/primeira-avaliacao/',
   ];
   const terceiros = [];
+  const cookies = [];
   for (const r of rotas) {
     const c = await b.newContext({ viewport: { width: 390, height: 844 } });
     const p = await c.newPage();
@@ -289,12 +292,18 @@ async function enviar(p, raiz, enviada) {
       await p.locator('[data-mapa-recusar]').click();
       await p.waitForTimeout(500);
     }
+    for (const k of await c.cookies()) cookies.push(`${r} → ${k.name} (${k.domain})`);
     await c.close();
   }
   ok(
     'nenhum request de terceiro antes do clique (nem com "Recusar" no mapa)',
     terceiros.length === 0,
     terceiros.slice(0, 3).join(' | '),
+  );
+  ok(
+    'nenhum cookie gravado (LGPD), com o mapa recusado',
+    cookies.length === 0,
+    cookies.slice(0, 3).join(' | '),
   );
 }
 

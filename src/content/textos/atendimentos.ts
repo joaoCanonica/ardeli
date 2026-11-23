@@ -56,7 +56,7 @@ export const textosAtendimentos: readonly TextoAtendimento[] = [
     },
     oQueE: [
       f(
-        'É o cuidado com os músculos, os ossos e as articulações (as "juntas", como joelho, ombro e quadril).',
+        'É o cuidado com os músculos, os ossos e as articulações (as “juntas”, como joelho, ombro e quadril).',
         'orientacao',
         'cnes',
       ),

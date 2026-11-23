@@ -32,20 +32,25 @@
     "marca:otimizar": "node scripts/otimizar-marca.mjs",
     "e2e": "node scripts/e2e.mjs",
     "og": "node scripts/gerar-og.mjs",
-    "validar-schema": "node scripts/validar-schema.mjs"
+    "validar-schema": "node scripts/validar-schema.mjs",
+    "servir": "node scripts/servir.mjs",
+    "audit-acabamento": "node scripts/audit-acabamento.mjs"
   },
   "dependencies": {
     "astro": "7.4.13"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
+    "@axe-core/playwright": "4.14.0",
     "@eslint/js": "10.0.1",
     "@types/node": "^22.20.5",
     "@types/qrcode": "1.5.6",
     "astro-eslint-parser": "3.2.0",
+    "chrome-launcher": "1.2.3",
     "eslint": "10.15.0",
     "eslint-plugin-astro": "3.2.1",
     "globals": "17.14.0",
+    "lighthouse": "12.8.2",
     "linkedom": "^0.18.15",
     "playwright": "1.63.0",
     "prettier": "3.10.1",

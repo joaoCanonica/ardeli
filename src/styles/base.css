@@ -66,6 +66,21 @@ dd,
 figcaption {
   text-wrap: pretty;
 }
+/* Blocos curtos (2–4 linhas): "balance" evita a última palavra sozinha, que o "pretty"
+   do Chromium não garante. Medido por scripts/audit-acabamento.mjs. */
+.verbete__acepcoes li,
+.interna__resposta,
+.aviso__titulo,
+.fato,
+address,
+.rodape__art48 li,
+summary,
+summary h3,
+.folha__rodape p,
+.folha__instrucao,
+.cartao-prof__registro {
+  text-wrap: balance;
+}
 p {
   margin: 0 0 var(--e-4);
   max-width: var(--medida);
@@ -173,4 +188,12 @@ time,
   .sobre-escuro {
     border: 1px solid CanvasText;
   }
+}
+
+/* Alvo de toque ≥ 48 px (CLAUDE.md §7) para link de ação que fica sozinho na linha.
+   Link dentro de frase continua em linha (exceção da WCAG 2.5.8). */
+.alvo {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--alvo-min);
 }

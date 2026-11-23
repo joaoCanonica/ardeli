@@ -1,15 +1,60 @@
 // @ts-check
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import { defineConfig, fontProviders } from 'astro/config';
+
+// Scripts is:inline (src/scripts/inline/*.js): o Astro não os põe na CSP sozinho;
+// o hash sai do próprio arquivo, então nunca fica desatualizado.
+/**
+ * @param {string} arq
+ * @returns {`sha256-${string}`}
+ */
+const hashInline = (arq) =>
+  `sha256-${createHash('sha256')
+    .update(readFileSync(new URL(`./src/scripts/inline/${arq}`, import.meta.url)))
+    .digest('base64')}`;
 
 // Site estático. O domínio definitivo é pendência (docs/PENDENCIAS.md).
 // Fontes self-hosted (subset latino, OFL; licenças em src/assets/fontes/).
 // Escolha e justificativa: docs/TIPOGRAFIA.md. O Astro gera @font-face,
 // preload e fallback com métricas ajustadas (CLS ≈ 0).
 export default defineConfig({
+  // Domínio por env (SITE_URL); sem ele, o preview usa URLs relativas e a produção trava.
+  ...(process.env.SITE_URL ? { site: process.env.SITE_URL.replace(/\/+$/, '') } : {}),
   output: 'static',
   trailingSlash: 'ignore',
   build: { format: 'directory', inlineStylesheets: 'always' },
   devToolbar: { enabled: false },
+  // CSP por hash (<meta http-equiv>, gerada por página no build): todo <script> e
+  // <style> inline entra por sha256. Atributos style="" (LQIP, proporções) só em
+  // style-src-attr. Cabeçalhos que a <meta> não cobre (frame-ancestors, HSTS…): vercel.json.
+  security: {
+    csp: {
+      algorithm: 'SHA-256',
+      directives: [
+        "default-src 'self'",
+        "img-src 'self' data:",
+        "font-src 'self'",
+        "media-src 'self'",
+        "connect-src 'self'",
+        // Mapa do Google: só depois de "Aceitar" (docs/FUNIL.md §5).
+        'frame-src https://www.google.com',
+        // Agendador sem JS envia o formulário nativo para o WhatsApp.
+        "form-action 'self' https://wa.me",
+        "base-uri 'self'",
+        "object-src 'none'",
+        "manifest-src 'self'",
+        "worker-src 'none'",
+        'upgrade-insecure-requests',
+      ],
+      scriptDirective: {
+        hashes: [hashInline('tamanho.js'), hashInline('abertura.js')],
+      },
+      styleDirective: {
+        resources: [{ resource: "'unsafe-inline'", kind: 'attribute' }],
+      },
+    },
+  },
   fonts: [
     {
       provider: fontProviders.local(),

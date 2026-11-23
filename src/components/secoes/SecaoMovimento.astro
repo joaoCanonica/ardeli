@@ -41,7 +41,9 @@ const publicados = atendimentos.filter((a) => a.publicado).sort((a, b) => a.orde
         ))}
       </ul>
       <p class="movimento__todos">
-        <a href="/atendimentos">{movimento.chamada.texto}</a>
+        <a href="/atendimentos" class="alvo">
+          {movimento.chamada.texto}
+        </a>
       </p>
     </div>
     <FotoAmbiente

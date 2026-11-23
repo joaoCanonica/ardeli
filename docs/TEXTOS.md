@@ -64,7 +64,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 
 - Av. Dom Pedro II, 2700, no bairro Brusque, em Lages (SC). CEP 88503-062. <sub>[google] · `home.endereco.verbete.acepcoes.0`</sub>
 - Segunda a sexta, das 8h às 20h. <sub>[joao, google] · `home.endereco.verbete.acepcoes.1`</sub>
-- O mapa interativo é do Google. Ele só carrega se você tocar em "Mostrar o mapa" e aceitar. <sub>[site] · `home.endereco.mapaConsentimento`</sub>
+- O mapa interativo é do Google. Ele só carrega se você tocar em “Mostrar o mapa” e aceitar. <sub>[site] · `home.endereco.mapaConsentimento`</sub>
 
 ## home › movimento
 
@@ -123,7 +123,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 
 - Voltar a fazer, com segurança, o que a dor ou a lesão tirou do seu dia a dia. <sub>[vitrine, orientacao] · `atendimentos.itens.0.verbete.acepcoes.0`</sub>
 - Na Ardeli: avaliação, plano de exercícios e acompanhamento depois de cirurgia, lesão ou dor na coluna e nas articulações. <sub>[pratica, vitrine] · `atendimentos.itens.0.verbete.acepcoes.1`</sub>
-- É o cuidado com os músculos, os ossos e as articulações (as "juntas", como joelho, ombro e quadril). <sub>[orientacao, cnes] · `atendimentos.itens.0.oQueE.0`</sub>
+- É o cuidado com os músculos, os ossos e as articulações (as “juntas”, como joelho, ombro e quadril). <sub>[orientacao, cnes] · `atendimentos.itens.0.oQueE.0`</sub>
 - Na vitrine da clínica, aparece como recuperação funcional: movimento, independência e qualidade de vida. <sub>[vitrine] · `atendimentos.itens.0.oQueE.1`</sub>
 - Quem sente dor na coluna, no ombro, no joelho ou em outras articulações. <sub>[orientacao] · `atendimentos.itens.0.paraQuem.0`</sub>
 - Quem passou por uma cirurgia e está no pós-operatório, que é o período de recuperação depois da cirurgia. <sub>[orientacao] · `atendimentos.itens.0.paraQuem.1`</sub>
@@ -212,11 +212,11 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 
 - A fachada branca com o letreiro da Ardeli, no número 2700 da Av. Dom Pedro II. <sub>[tour, google] · `aClinica.capitulos.fachada`</sub>
 - Na vitrine, as quatro palavras da clínica: fisioterapia, recuperação funcional, bem-estar e atendimento acessível. <sub>[tour, vitrine] · `aClinica.capitulos.vitrine`</sub>
-- Na porta de vidro, a frase "Cuidar do seu corpo é investir na sua qualidade de vida". No chão, o tapete com o nome da clínica. <sub>[tour, porta] · `aClinica.capitulos.entrada`</sub>
+- Na porta de vidro, a frase “Cuidar do seu corpo é investir na sua qualidade de vida”. No chão, o tapete com o nome da clínica. <sub>[tour, porta] · `aClinica.capitulos.entrada`</sub>
 - A sala de esteira e bikes, com a parede vermelha e o relógio. <sub>[tour] · `aClinica.capitulos.cardio`</sub>
 - O ginásio de reabilitação: teto com treliça de madeira, espaldar, tablado, bolas, faixas elásticas e halteres. <sub>[tour] · `aClinica.capitulos.ginasio`</sub>
 - O corredor de piso de taco, com o bebedouro e o jardim vertical ao fundo. <sub>[tour] · `aClinica.capitulos.corredor`</sub>
-- O consultório 1, com maca, aparelho de eletroterapia e o quadro "fisioterapia, s.f." na parede. <sub>[tour] · `aClinica.capitulos.consultorio-1`</sub>
+- O consultório 1, com maca, aparelho de eletroterapia e o quadro “fisioterapia, s.f.” na parede. <sub>[tour] · `aClinica.capitulos.consultorio-1`</sub>
 - O corredor dos consultórios, com as portas identificadas. <sub>[tour] · `aClinica.capitulos.portas`</sub>
 - O consultório 2, com maca, janela e quadros de anatomia na parede. <sub>[tour] · `aClinica.capitulos.consultorio-2`</sub>
 - A recepção, com a divisória de vidro e a vista para a avenida. <sub>[tour] · `aClinica.capitulos.recepcao`</sub>
@@ -224,7 +224,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 
 ## aClinica › quadro
 
-- Na parede do consultório 1 há um quadro com a palavra "fisioterapia" escrita como num dicionário: a palavra, a classe (s.f., substantivo feminino) e dois significados numerados. <sub>[tour, quadro] · `aClinica.quadro.texto.0`</sub>
+- Na parede do consultório 1 há um quadro com a palavra “fisioterapia” escrita como num dicionário: a palavra, a classe (s.f., substantivo feminino) e dois significados numerados. <sub>[tour, quadro] · `aClinica.quadro.texto.0`</sub>
 - Este site usa o mesmo jeito de escrever. Cada parte abre com uma palavra e o que ela quer dizer aqui. <sub>[prompt] · `aClinica.quadro.texto.1`</sub>
 
 ## faq › verbete
@@ -241,7 +241,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 - **[guardado]** Consulte a disponibilidade pelo WhatsApp. <sub>[joao] · `faq.grupos.0.perguntas.2.resposta.0`</sub>
 - **[guardado]** Confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `faq.grupos.0.perguntas.3.resposta.0`</sub>
 - Pelo WhatsApp (49) 99928-1721. <sub>[joao] · `faq.grupos.1.perguntas.0.resposta.0`</sub>
-- No site, toque em "Agendar avaliação": escolha o convênio e o período, e a mensagem já vai pronta. É só enviar. <sub>[site] · `faq.grupos.1.perguntas.0.resposta.1`</sub>
+- No site, toque em “Agendar avaliação”: escolha o convênio e o período, e a mensagem já vai pronta. É só enviar. <sub>[site] · `faq.grupos.1.perguntas.0.resposta.1`</sub>
 - Documento com foto, a carteirinha do convênio (se for o caso) e, se tiver, o pedido médico, exames recentes e a lista dos remédios que você usa. <sub>[orientacao] · `faq.grupos.1.perguntas.1.resposta.0`</sub>
 - **[guardado]** Confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `faq.grupos.1.perguntas.2.resposta.0`</sub>
 - Segunda a sexta, das 8h às 20h. Sábado e domingo, fechado. <sub>[joao, google] · `faq.grupos.1.perguntas.3.resposta.0`</sub>
@@ -287,16 +287,16 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 
 ## privacidade › secoes
 
-- A lei brasileira (LGPD) chama de "dado sensível" tudo o que fala da sua saúde, como uma dor ou uma cirurgia. Ele pede cuidado redobrado. <sub>[lgpd] · `privacidade.secoes.0.texto.0`</sub>
+- A lei brasileira (LGPD) chama de “dado sensível” tudo o que fala da sua saúde, como uma dor ou uma cirurgia. Ele pede cuidado redobrado. <sub>[lgpd] · `privacidade.secoes.0.texto.0`</sub>
 - Por isso, este site não tem formulário, não pede cadastro e não guarda nada sobre a sua saúde. <sub>[site] · `privacidade.secoes.0.texto.1`</sub>
 - Quando você escolhe o convênio, o motivo e o dia de sua preferência, o site só monta uma mensagem no seu próprio celular. <sub>[site] · `privacidade.secoes.1.texto.0`</sub>
-- A mensagem só sai quando você toca em enviar no WhatsApp. Antes disso, nada é enviado. O motivo é opcional e genérico, como "dor" ou "pós-operatório". <sub>[site] · `privacidade.secoes.1.texto.1`</sub>
+- A mensagem só sai quando você toca em enviar no WhatsApp. Antes disso, nada é enviado. O motivo é opcional e genérico, como “dor” ou “pós-operatório”. <sub>[site] · `privacidade.secoes.1.texto.1`</sub>
 - Depois de enviada, a mensagem chega à clínica pelo WhatsApp, que é um serviço de outra empresa (Meta), com as regras de privacidade dela. <sub>[site] · `privacidade.secoes.1.texto.2`</sub>
 - O tamanho de letra que você escolher (A− / A+) fica guardado só no seu aparelho, para a próxima visita. <sub>[site] · `privacidade.secoes.2.texto.0`</sub>
 - A abertura animada do site aparece uma vez por visita; essa marcação some quando você fecha o navegador. <sub>[site] · `privacidade.secoes.2.texto.1`</sub>
 - O site não usa cookies de propaganda nem rastreamento. <sub>[site] · `privacidade.secoes.2.texto.2`</sub>
 - Para melhorar o site, contamos cliques e opções escolhidas (como o convênio ou o tipo de motivo), sem cookie e sem saber quem escolheu. O que você escreve nunca é contado. <sub>[site] · `privacidade.secoes.2.texto.3`</sub>
-- O mapa do Google só carrega se você tocar em "Mostrar o mapa" e aceitar. Antes disso, nada é enviado ao Google. <sub>[site] · `privacidade.secoes.3.texto.0`</sub>
+- O mapa do Google só carrega se você tocar em “Mostrar o mapa” e aceitar. Antes disso, nada é enviado ao Google. <sub>[site] · `privacidade.secoes.3.texto.0`</sub>
 - O vídeo da clínica fica no próprio site, sem som. <sub>[site, tour] · `privacidade.secoes.3.texto.1`</sub>
 - Você pode pedir para saber, corrigir ou apagar os dados que a clínica tem sobre você, como as mensagens de WhatsApp. <sub>[lgpd] · `privacidade.secoes.4.texto.0`</sub>
 - Para isso, fale com a clínica pelo WhatsApp (49) 99928-1721 ou na recepção. <sub>[joao] · `privacidade.secoes.4.texto.1`</sub>
@@ -309,27 +309,27 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 
 ## microtextos › alts
 
-- Fachada da clínica: letreiro "Ardeli Fisioterapia" com o símbolo e, abaixo, a vitrine verde. <sub>[tour] · `microtextos.alts.fachada`</sub>
-- Entrada: tapete cinza com o nome "Ardeli Fisioterapia" em azul e verde. <sub>[tour] · `microtextos.alts.tapete`</sub>
+- Fachada da clínica: letreiro “Ardeli Fisioterapia” com o símbolo e, abaixo, a vitrine verde. <sub>[tour] · `microtextos.alts.fachada`</sub>
+- Entrada: tapete cinza com o nome “Ardeli Fisioterapia” em azul e verde. <sub>[tour] · `microtextos.alts.tapete`</sub>
 - Sala de esteira e bikes: esteira e bicicletas ergométricas diante da parede vermelha com relógio. <sub>[tour] · `microtextos.alts.cardio`</sub>
 - Ginásio de reabilitação: treliça de madeira no teto, parede vermelha, bolas azuis e tablado. <sub>[tour] · `microtextos.alts.ginasio-trelica`</sub>
 - Ginásio: espaldar de madeira na parede vermelha, com faixas elásticas coloridas penduradas. <sub>[tour] · `microtextos.alts.espaldar`</sub>
 - Corredor com piso de taco, bebedouro e jardim vertical ao fundo. <sub>[tour] · `microtextos.alts.jardim-vertical`</sub>
-- Consultório 1: quadro emoldurado com o verbete "fisioterapia, s.f." e duas definições numeradas. <sub>[tour, quadro] · `microtextos.alts.quadro-fisioterapia`</sub>
-- Quadro com a palavra "fisioterapia", a classe "s.f." e duas definições numeradas. <sub>[tour, quadro] · `microtextos.alts.quadro-fisioterapia-quadro`</sub>
+- Consultório 1: quadro emoldurado com o verbete “fisioterapia, s.f.” e duas definições numeradas. <sub>[tour, quadro] · `microtextos.alts.quadro-fisioterapia`</sub>
+- Quadro com a palavra “fisioterapia”, a classe “s.f.” e duas definições numeradas. <sub>[tour, quadro] · `microtextos.alts.quadro-fisioterapia-quadro`</sub>
 - Consultório 1: maca com escadinha branca, persiana e piso de madeira. <sub>[tour] · `microtextos.alts.consultorio-1`</sub>
 - Consultório 2: maca estofada com base de madeira, janela com grade e piso de taco. <sub>[tour] · `microtextos.alts.consultorio-2`</sub>
 - Consultório 2: quadros com ilustrações de anatomia e flores, sobre um armário claro. <sub>[tour] · `microtextos.alts.quadros-anatomicos`</sub>
 - Recepção vista do corredor: divisória de vidro, bebedouro e a vitrine para a avenida. <sub>[tour] · `microtextos.alts.recepcao`</sub>
 - Ginásio amplo: espaldar, tablado e janelas grandes para a avenida, com cadeiras de espera. <sub>[tour] · `microtextos.alts.ginasio-amplo`</sub>
-- Fachada da clínica com o letreiro "Ardeli Fisioterapia". <sub>[tour] · `microtextos.alts.poster-fachada`</sub>
+- Fachada da clínica com o letreiro “Ardeli Fisioterapia”. <sub>[tour] · `microtextos.alts.poster-fachada`</sub>
 - Vitrine com as palavras fisioterapia, recuperação funcional, bem-estar e atendimento acessível. <sub>[tour, vitrine] · `microtextos.alts.poster-vitrine`</sub>
-- Porta de vidro da entrada com a frase "Cuidar do seu corpo é investir na sua qualidade de vida". <sub>[tour, porta] · `microtextos.alts.poster-entrada`</sub>
+- Porta de vidro da entrada com a frase “Cuidar do seu corpo é investir na sua qualidade de vida”. <sub>[tour, porta] · `microtextos.alts.poster-entrada`</sub>
 - Sala de esteira e bikes com parede vermelha. <sub>[tour] · `microtextos.alts.poster-cardio`</sub>
 - Ginásio de reabilitação com treliça de madeira no teto e bolas azuis. <sub>[tour] · `microtextos.alts.poster-ginasio`</sub>
 - Corredor de taco com jardim vertical ao fundo. <sub>[tour] · `microtextos.alts.poster-corredor`</sub>
 - Consultório 1 com maca e aparelho de eletroterapia. <sub>[tour] · `microtextos.alts.poster-consultorio-1`</sub>
-- Corredor dos consultórios com placa "Fisioterapia" na porta. <sub>[tour] · `microtextos.alts.poster-portas`</sub>
+- Corredor dos consultórios com placa “Fisioterapia” na porta. <sub>[tour] · `microtextos.alts.poster-portas`</sub>
 - Consultório 2 com maca e janela. <sub>[tour] · `microtextos.alts.poster-consultorio-2`</sub>
 - Recepção com divisória de vidro e vista para a avenida. <sub>[tour] · `microtextos.alts.poster-recepcao`</sub>
 - Ginásio amplo com janelas para a avenida. <sub>[tour] · `microtextos.alts.poster-ginasio-final`</sub>

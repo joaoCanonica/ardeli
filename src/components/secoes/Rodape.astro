@@ -24,14 +24,14 @@ const tel = valorDe(clinica.telefone);
         <span data-nap="endereco">{r.endereco}</span>
         <br />
         {tel && (
-          <a href={`tel:${tel.e164}`} class="num" data-nap="telefone">
+          <a href={`tel:${tel.e164}`} class="num alvo" data-nap="telefone">
             {r.telefone}
           </a>
         )}
         <br />
         {r.horario}
         <br />
-        <a href={clinica.links.instagram}>
+        <a href={clinica.links.instagram} class="alvo">
           Instagram {r.instagram}
           <span class="visualmente-oculto"> (abre o Instagram)</span>
         </a>
@@ -53,10 +53,12 @@ const tel = valorDe(clinica.telefone);
     <nav class="rodape__links" aria-label="Rodapé">
       <ul role="list">
         <li>
-          <a href="/privacidade">{r.links.privacidade}</a>
+          <a href="/privacidade" class="alvo">
+            {r.links.privacidade}
+          </a>
         </li>
         <li>
-          <a href="/avaliar?o=site">
+          <a href="/avaliar?o=site" class="alvo">
             {r.links.avaliar}
             <span class="visualmente-oculto"> (abre o Google)</span>
           </a>

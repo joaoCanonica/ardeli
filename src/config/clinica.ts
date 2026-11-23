@@ -7,6 +7,19 @@ const FONTE_JOAO = 'João (WAXLO), investigação 22/11/2026';
 const FONTE_MAPS = 'ficha do Google Maps, vista em 22/11/2026';
 const FONTE_CNES = 'CNES 8422478 / CREFITO-10, dados enviados pelo João';
 
+/**
+ * Domínio por variável de ambiente (SITE_URL, definida pelo João na Vercel).
+ * Sem ela: bloqueante (trava a produção). Nunca inventado no código.
+ */
+function dominioDoAmbiente(): Campo<string> {
+  const bruto = globalThis.process?.env?.['SITE_URL']?.trim();
+  if (!bruto) return bloqueante('domínio definitivo do site (SITE_URL)') as Campo<string>;
+  const limpo = bruto.replace(/\/+$/, '');
+  if (!/^https:\/\/[a-z0-9.-]+\.[a-z]{2,}$/i.test(limpo))
+    throw new Error(`SITE_URL inválida: "${bruto}" (use https://dominio, sem caminho)`);
+  return confirmado(limpo, 'variável de ambiente SITE_URL');
+}
+
 const LAT = -27.8252972;
 const LNG = -50.3256737;
 const CID = '10553999783368888140';
@@ -90,9 +103,7 @@ export const clinica = {
    * Sem ele não há canonical, og:url, og:image absoluta, sitemap nem medição:
    * trava a produção (o preview funciona com URLs relativas).
    */
-  dominio: bloqueante(
-    'domínio definitivo do site (canonical, Open Graph, sitemap)',
-  ) as Campo<string>,
+  dominio: dominioDoAmbiente(),
 
   /** Tour em vídeo: data em que foi publicado no site (VideoObject.uploadDate). */
   tourPublicadoEm: aviso(

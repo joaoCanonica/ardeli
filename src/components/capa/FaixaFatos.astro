@@ -18,7 +18,7 @@ const tel = valorDe(clinica.telefone);
     </li>
     <li class="fatos__item">
       <Icone nome="mapa" tamanho="1.6rem" />
-      <a href={clinica.links.googleMapsRota}>
+      <a href={clinica.links.googleMapsRota} class="alvo">
         {end ? `${end.logradouro}, ${end.numero}` : 'Como chegar'}
         <span class="visualmente-oculto">
           , {end?.bairro}, {end?.cidade} (abre o mapa)
@@ -27,14 +27,14 @@ const tel = valorDe(clinica.telefone);
     </li>
     <li class="fatos__item">
       <Icone nome="convenio" tamanho="1.6rem" />
-      <a href="/convenios">
+      <a href="/convenios" class="alvo">
         Unimed e AAPL<span class="visualmente-oculto"> e particular: ver convênios</span>
       </a>
     </li>
     {tel && (
       <li class="fatos__item">
         <Icone nome="telefone" tamanho="1.6rem" />
-        <a href={`tel:${tel.e164}`} class="num">
+        <a href={`tel:${tel.e164}`} class="num alvo">
           <span class="visualmente-oculto">Ligar: </span>
           {tel.exibicao}
         </a>

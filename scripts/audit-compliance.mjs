@@ -201,6 +201,49 @@ for (const arquivo of paginas) {
       }
     }
   }
+
+  // 7. Preço em valor (Art. 40, I): "R$ 120", "120 reais", "valor da consulta".
+  const preco = t.match(
+    /R\$\s*\d|\b\d+[,.]?\d*\s*reais\b|valor da (consulta|sess[aã]o|avalia[cç][aã]o)/i,
+  );
+  if (preco) falha(rota, `preço no texto (COFFITO Art. 40, I) → "${preco[0]}"`);
+
+  // 8. Marcas de terceiros (Unimed, AAPL, SUS): só o nome em texto, nunca imagem/logo.
+  for (const m of html.matchAll(/<(img|source|image|use)\b[^>]*>/gi)) {
+    if (/unimed|aapl|\bsus\b|logo-?sus/i.test(m[0]))
+      falha(
+        rota,
+        `imagem que parece marca de terceiro (só o nome em texto) → ${m[0].slice(0, 120)}`,
+      );
+  }
+
+  // 9. LGPD: dado de saúde não é coletado. Formulário só GET e só para o destino do
+  //    agendador (WhatsApp) — nunca POST nem para servidor nosso.
+  for (const m of html.matchAll(/<form\b[^>]*>/gi)) {
+    const metodo = (m[0].match(/method="([^"]*)"/i)?.[1] ?? 'get').toLowerCase();
+    const acao = m[0].match(/action="([^"]*)"/i)?.[1] ?? '';
+    if (metodo !== 'get')
+      falha(rota, `formulário com method="${metodo}" (dado de saúde não pode ir a servidor)`);
+    if (!/^https:\/\/wa\.me\//.test(acao))
+      falha(rota, `formulário enviando para "${acao}" (só o WhatsApp é permitido)`);
+  }
+}
+
+// 10. LGPD: nenhum script do site envia dados por fetch/XHR; só o sendBeacon da medição
+//     (lista fechada, sem texto livre) para o próprio domínio.
+const pastaJs = join(dist, '_astro');
+if (existsSync(pastaJs)) {
+  for (const n of readdirSync(pastaJs).filter((x) => x.endsWith('.js'))) {
+    const js = readFileSync(join(pastaJs, n), 'utf8');
+    if (/\bfetch\(|XMLHttpRequest|new WebSocket|document\.cookie\s*=/.test(js))
+      falha(
+        `/_astro/${n}`,
+        'script com fetch/XHR/WebSocket/cookie (dado não pode sair do aparelho)',
+      );
+    const beacons = [...js.matchAll(/sendBeacon\(([^,]+)/g)].length;
+    if (beacons && !/limparProps|ardeli-medicao/.test(js))
+      falha(`/_astro/${n}`, 'sendBeacon fora da medição com lista fechada');
+  }
 }
 
 console.log(

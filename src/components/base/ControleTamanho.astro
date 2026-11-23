@@ -20,16 +20,12 @@ const { id = 'tamanho', class: classe } = Astro.props;
   <span id={`${id}-rotulo`} class="tamanho__rotulo">
     Texto
   </span>
-  <button type="button" class="tamanho__botao" data-passo="-1" aria-label="Diminuir o texto">
-    A<span aria-hidden="true">−</span>
+  <!-- Nome acessível começa pelo texto visível (WCAG 2.5.3): "A− diminuir o texto". -->
+  <button type="button" class="tamanho__botao" data-passo="-1">
+    A−<span class="visualmente-oculto"> diminuir o texto</span>
   </button>
-  <button
-    type="button"
-    class="tamanho__botao tamanho__botao--mais"
-    data-passo="1"
-    aria-label="Aumentar o texto"
-  >
-    A<span aria-hidden="true">+</span>
+  <button type="button" class="tamanho__botao tamanho__botao--mais" data-passo="1">
+    A+<span class="visualmente-oculto"> aumentar o texto</span>
   </button>
   <span class="visualmente-oculto" aria-live="polite" data-tamanho-anuncio></span>
 </div>

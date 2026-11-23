@@ -123,7 +123,7 @@ const publicaveis = (fr: readonly { texto: string; exige?: string }[]) =>
         <p>{fr.texto}</p>
       ))}
       <p>
-        <a href={linkWhatsApp(mensagensWhatsApp.perguntarSus)}>
+        <a href={linkWhatsApp(mensagensWhatsApp.perguntarSus)} class="alvo">
           {textoSus.botao}
           <span class="visualmente-oculto"> ({botoes.abreWhatsApp})</span>
         </a>

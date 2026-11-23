@@ -64,7 +64,7 @@ const embed = geo ? `https://www.google.com/maps?q=${geo.lat},${geo.lng}&z=16&ou
     <Icone nome="mapa" tamanho="1.3rem" />
     {botoes.mostrarMapa}
   </button>
-  <a class="mapa__link" href={clinica.links.googleMaps} data-mapa-link>
+  <a class="mapa__link alvo" href={clinica.links.googleMaps} data-mapa-link>
     Abrir no Google Maps<span class="visualmente-oculto"> ({botoes.abreMapa})</span>
   </a>
 </div>
