@@ -1,6 +1,36 @@
 ---
-// Página inicial: por enquanto só a capa (a home completa chega na sessão 6A).
-import PaginaCapa from '../components/capa/PaginaCapa.astro';
+// Home: capa, faixa de fatos e as seções (ordem do Prompt 6A), rodapé e botão fixo no celular.
+import Abertura from '../components/abertura/Abertura.astro';
+import Documento from '../components/base/Documento.astro';
+import Cabecalho from '../components/cabecalho/Cabecalho.astro';
+import CapaA from '../components/capa/CapaA.astro';
+import FaixaFatos from '../components/capa/FaixaFatos.astro';
+import BotaoFixoAgendar from '../components/secoes/BotaoFixoAgendar.astro';
+import Rodape from '../components/secoes/Rodape.astro';
+import SecaoAcolhimento from '../components/secoes/SecaoAcolhimento.astro';
+import SecaoAvaliacao from '../components/secoes/SecaoAvaliacao.astro';
+import SecaoClinica from '../components/secoes/SecaoClinica.astro';
+import SecaoConvenio from '../components/secoes/SecaoConvenio.astro';
+import SecaoEndereco from '../components/secoes/SecaoEndereco.astro';
+import SecaoMovimento from '../components/secoes/SecaoMovimento.astro';
+import SecaoOpiniao from '../components/secoes/SecaoOpiniao.astro';
+import { metaHome } from '../content/textos/microtextos.ts';
 ---
 
-<PaginaCapa variante="a" />
+<Documento titulo={metaHome.titulo} descricao={metaHome.descricao}>
+  <Abertura />
+  <Cabecalho />
+  <main id="conteudo" tabindex="-1">
+    <CapaA />
+    <FaixaFatos />
+    <SecaoAvaliacao />
+    <SecaoConvenio />
+    <SecaoMovimento />
+    <SecaoClinica />
+    <SecaoAcolhimento />
+    <SecaoOpiniao />
+    <SecaoEndereco />
+  </main>
+  <Rodape />
+  <BotaoFixoAgendar />
+</Documento>

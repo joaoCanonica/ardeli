@@ -1,0 +1,120 @@
+---
+// Mapa: imagem estática (se existir em src/assets/mapa-estatico.*) e, só depois do clique,
+// o mapa interativo do Google (o iframe não carrega nada antes do consentimento).
+// Sem imagem estática ainda (os servidores de mapa estão bloqueados no ambiente de build):
+// mostra um painel com o endereço e o código do Google, sem desenhar mapa inventado.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { clinica } from '../../config/clinica.ts';
+import { valorDe } from '../../config/tipos.ts';
+import { endereco } from '../../content/textos/home.ts';
+import { botoes } from '../../content/textos/microtextos.ts';
+import Icone from '../base/Icone.astro';
+
+const estaticos = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/mapa-estatico.{png,jpg,webp,avif}',
+  { eager: true },
+);
+const estatico = Object.values(estaticos)[0]?.default;
+const geo = valorDe(clinica.geo);
+const plus = valorDe(clinica.plusCode);
+const embed = geo ? `https://www.google.com/maps?q=${geo.lat},${geo.lng}&z=16&output=embed` : '';
+---
+
+<div class="mapa" data-mapa data-embed={embed}>
+  <div class="mapa__quadro" data-mapa-quadro>
+    {estatico ? (
+      <Image
+        src={estatico}
+        alt="Mapa com a localização da Ardeli Fisioterapia na Av. Dom Pedro II, bairro Brusque, Lages."
+        widths={[360, 720]}
+        sizes="(min-width: 64rem) 32rem, 100vw"
+      />
+    ) : (
+      <div class="mapa__vazio">
+        <Icone nome="mapa" tamanho="2.5rem" />
+        <p class="mapa__plus">{plus}</p>
+      </div>
+    )}
+  </div>
+  <p class="mapa__nota" data-mapa-nota hidden>
+    {endereco.mapaConsentimento.texto}
+  </p>
+  <button type="button" class="mapa__mostrar" data-mapa-mostrar hidden>
+    <Icone nome="mapa" tamanho="1.3rem" />
+    {botoes.mostrarMapa}
+  </button>
+  <a class="mapa__link" href={clinica.links.googleMaps} data-mapa-link>
+    Abrir no Google Maps<span class="visualmente-oculto"> ({botoes.abreMapa})</span>
+  </a>
+</div>
+
+<script>
+  import { iniciarMapa } from './mapa.ts';
+  iniciarMapa();
+</script>
+
+<style>
+  .mapa {
+    display: grid;
+    gap: var(--e-3);
+  }
+  .mapa__quadro {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: var(--raio);
+    border: var(--fio-fino) solid var(--fio);
+    background: var(--cor-papel);
+  }
+  .mapa__quadro :global(img),
+  .mapa__quadro :global(iframe) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    object-fit: cover;
+  }
+  .mapa__vazio {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: var(--e-2);
+    height: 100%;
+    color: var(--texto-forte);
+    text-align: center;
+  }
+  .mapa__plus {
+    margin: 0;
+    font-size: var(--texto-p);
+  }
+  .mapa__nota {
+    margin: 0;
+    font-size: var(--texto-p);
+  }
+  .mapa__nota[hidden],
+  .mapa__mostrar[hidden],
+  .mapa__link[hidden] {
+    display: none;
+  }
+  .mapa__mostrar {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--e-2);
+    min-height: var(--alvo-min);
+    padding: var(--e-2) var(--e-4);
+    border: 2px solid var(--cor-marinho);
+    border-radius: var(--raio-botao);
+    background: transparent;
+    color: var(--cor-marinho);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .mapa__mostrar:hover {
+    background: var(--cor-papel);
+  }
+  .mapa__link {
+    justify-self: start;
+  }
+</style>

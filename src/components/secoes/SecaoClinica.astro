@@ -1,0 +1,303 @@
+---
+// A CLÍNICA (Marinho). Gesto: o tour em capítulos, numa linha do tempo vertical
+// (6 ambientes, still + uma frase). O vídeo mudo só carrega se a pessoa abrir
+// "Ver o tour em vídeo" (<details>, funciona sem JS; preload="none").
+// A lista de capítulos com a descrição de cada ambiente é a alternativa em texto do vídeo.
+import { clinica } from '../../content/textos/home.ts';
+import { altDe, botoes } from '../../content/textos/microtextos.ts';
+import { aClinica } from '../../content/textos/paginas.ts';
+import { textos } from '../../content/textos/tipos.ts';
+import Icone from '../base/Icone.astro';
+import Imagem from '../base/Imagem.astro';
+import { capitulosComPoster, imagem, video } from '../base/midia.ts';
+import Verbete from '../verbete/Verbete.astro';
+import Secao from './Secao.astro';
+
+const ambientes = [
+  { titulo: 'Fachada', img: 'poster-fachada', frase: aClinica.capitulos.fachada },
+  { titulo: 'Recepção', img: 'still-recepcao-4x5', frase: aClinica.capitulos.recepcao },
+  { titulo: 'Ginásio', img: 'still-ginasio-amplo-4x5', frase: aClinica.capitulos.ginasio },
+  { titulo: 'Sala de esteira e bikes', img: 'still-cardio-4x5', frase: aClinica.capitulos.cardio },
+  {
+    titulo: 'Consultórios',
+    img: 'still-quadro-fisioterapia-4x5',
+    frase: aClinica.capitulos['consultorio-1'],
+  },
+  {
+    titulo: 'Jardim vertical',
+    img: 'still-jardim-vertical-4x5',
+    frase: aClinica.capitulos.corredor,
+  },
+];
+
+const v720 = video('tour-720p');
+const v540 = video('tour-540p');
+const poster = imagem('poster-fachada').variantes.at(-1)?.webp;
+const caps = capitulosComPoster();
+const mmss = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+const descricoes = aClinica.capitulos as Record<string, { texto: string } | undefined>;
+---
+
+<Secao id="a-clinica" fundo="marinho">
+  <Verbete
+    palavra={clinica.verbete.palavra}
+    classe={clinica.verbete.classe}
+    acepcoes={textos(clinica.verbete.acepcoes)}
+    id="verbete-clinica"
+  />
+  <p class="origem">{clinica.origem.texto}</p>
+
+  <ol class="linha" role="list" aria-label="O espaço, ambiente por ambiente">
+    {ambientes.map((a, i) => (
+      <li class="capitulo">
+        <span class="capitulo__marco num" aria-hidden="true">
+          {String(i + 1).padStart(2, '0')}
+        </span>
+        <div class="capitulo__corpo">
+          <h3 class="capitulo__titulo">{a.titulo}</h3>
+          <p class="capitulo__frase">{a.frase.texto}</p>
+        </div>
+        <Imagem
+          id={a.img}
+          alt={altDe(a.img)}
+          sizes="(min-width: 48rem) 18rem, 70vw"
+          class="capitulo__foto"
+        />
+      </li>
+    ))}
+  </ol>
+
+  <details class="tour" data-tour data-poster={poster}>
+    <summary class="tour__botao">
+      <Icone nome="play" tamanho="1.6rem" />
+      {botoes.verTour}
+    </summary>
+    <div class="tour__conteudo">
+      <p class="tour__aviso">{clinica.aviso.texto}</p>
+      <video
+        class="tour__video"
+        controls
+        muted
+        playsinline
+        preload="none"
+        data-tour-video
+        width="720"
+        height="1280"
+      >
+        <source src={v720.webm} type="video/webm" media="(min-width: 48rem)" />
+        <source src={v720.mp4} type="video/mp4" media="(min-width: 48rem)" />
+        <source src={v540.webm} type="video/webm" />
+        <source src={v540.mp4} type="video/mp4" />
+        <track
+          kind="chapters"
+          src="/media/video/tour-capitulos.vtt"
+          srclang="pt-BR"
+          label="Capítulos"
+          default
+        />
+      </video>
+      <ol
+        class="tour__capitulos"
+        role="list"
+        aria-label="Capítulos do vídeo (o que aparece em cada parte)"
+      >
+        {caps.map((c) => (
+          <li>
+            <button type="button" class="tour__ir" data-ir={c.inicio} hidden>
+              <span class="num">{mmss(c.inicio)}</span> {c.titulo}
+            </button>
+            <span class="tour__ir-texto" data-ir-texto>
+              <span class="num">{mmss(c.inicio)}</span> {c.titulo}
+            </span>
+            {descricoes[c.id] && <span class="tour__descricao">{descricoes[c.id]?.texto}</span>}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </details>
+</Secao>
+
+<script>
+  import { iniciarTour } from './tour.ts';
+  iniciarTour();
+</script>
+
+<style>
+  .origem {
+    margin-top: var(--e-4);
+    font-size: var(--texto-p);
+  }
+  .linha {
+    position: relative;
+    margin: var(--e-7) 0;
+    padding: 0;
+    list-style: none;
+  }
+  /* A linha do tempo: um fio vertical Linho a 40%, contínuo entre os marcos. */
+  .linha::before {
+    content: '';
+    position: absolute;
+    left: 1.5rem;
+    top: 1.5rem;
+    bottom: 1.5rem;
+    border-left: var(--fio-fino) solid rgb(248 246 241 / 0.4);
+  }
+  .capitulo {
+    position: relative;
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    column-gap: var(--e-4);
+    row-gap: var(--e-3);
+    padding-bottom: var(--e-6);
+  }
+  .capitulo:last-child {
+    padding-bottom: 0;
+  }
+  .capitulo__marco {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border: var(--fio-fino) solid var(--cor-linho);
+    border-radius: 50%;
+    background: var(--cor-marinho);
+    font-family: var(--fonte-serifa);
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  .capitulo__titulo {
+    margin: 0.4rem 0 var(--e-2);
+    font-size: var(--titulo-3);
+  }
+  .capitulo__frase {
+    margin: 0;
+  }
+  .capitulo :global(.capitulo__foto) {
+    grid-column: 2;
+    max-width: 15rem;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: var(--raio);
+  }
+  @media (min-width: 48rem) {
+    .linha::before {
+      left: 50%;
+    }
+    .capitulo {
+      grid-template-columns: minmax(0, 1fr) 3rem minmax(0, 1fr);
+      align-items: center;
+    }
+    .capitulo__marco {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .capitulo__corpo {
+      grid-column: 1;
+      grid-row: 1;
+      text-align: right;
+    }
+    .capitulo :global(.capitulo__foto) {
+      grid-column: 3;
+      grid-row: 1;
+      width: 100%;
+    }
+    .capitulo:nth-child(even) .capitulo__corpo {
+      grid-column: 3;
+      text-align: left;
+    }
+    .capitulo:nth-child(even) :global(.capitulo__foto) {
+      grid-column: 1;
+      justify-self: end;
+    }
+  }
+
+  .tour__botao {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--e-3);
+    min-height: var(--botao-altura);
+    padding: var(--e-3) var(--e-5);
+    border: 2px solid var(--cor-linho);
+    border-radius: var(--raio-botao);
+    background: var(--cor-linho);
+    color: var(--cor-marinho);
+    font-size: var(--texto-g);
+    font-weight: 700;
+    list-style: none;
+    cursor: pointer;
+  }
+  .tour__botao::-webkit-details-marker {
+    display: none;
+  }
+  .tour__botao:hover {
+    background: var(--cor-papel);
+  }
+  .tour[open] .tour__botao {
+    background: transparent;
+    color: var(--cor-linho);
+  }
+  .tour__conteudo {
+    display: grid;
+    gap: var(--e-5);
+    margin-top: var(--e-5);
+  }
+  .tour__aviso {
+    margin: 0;
+    font-size: var(--texto-p);
+  }
+  .tour__video {
+    width: auto;
+    max-width: 100%;
+    max-height: 80svh;
+    aspect-ratio: 9 / 16;
+    background: #000;
+    border-radius: var(--raio);
+  }
+  .tour__capitulos {
+    display: grid;
+    gap: var(--e-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .tour__capitulos li {
+    display: grid;
+    gap: var(--e-1);
+    padding-bottom: var(--e-3);
+    border-bottom: var(--fio-fino) solid rgb(248 246 241 / 0.3);
+  }
+  .tour__ir,
+  .tour__ir-texto {
+    justify-self: start;
+    font: inherit;
+    font-weight: 700;
+    color: var(--cor-linho);
+  }
+  .tour__ir {
+    min-height: var(--alvo-min);
+    padding: 0 var(--e-2);
+    margin-left: calc(var(--e-2) * -1);
+    border: 0;
+    border-radius: var(--raio);
+    background: transparent;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+  }
+  .tour__ir[hidden],
+  .tour__ir-texto[hidden] {
+    display: none;
+  }
+  .tour__descricao {
+    font-size: var(--texto-p);
+  }
+  @media (min-width: 64rem) {
+    .tour__conteudo {
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: start;
+    }
+    .tour__aviso {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

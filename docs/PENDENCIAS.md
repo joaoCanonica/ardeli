@@ -62,3 +62,11 @@ O que fica fora do site, ou aparece como "Confirme pelo WhatsApp: a gente explic
 | T11 | Pode linkar o Instagram do Studio Ar? | Fato "atende em Lages desde 2018, no Studio Ar" sem link |
 
 Frases com fonte "pratica" (rotina comum da fisioterapia) e "orientacao" (explicação geral) estão publicadas, mas a Andriele deve validar o passo a passo da primeira avaliação e a lista "o que levar".
+
+## Home (sessão 6A)
+
+| # | Campo | Efeito |
+|---|---|---|
+| H1 | Imagem do **mapa estático** | Os servidores de mapa (OpenStreetMap, Carto) estão bloqueados no ambiente de build. Enquanto não houver `src/assets/mapa-estatico.png` (export do OpenStreetMap com atribuição "© OpenStreetMap", ou liberar o host para gerar), a seção de endereço mostra um painel neutro com o código do Google e o botão "Mostrar o mapa" (mapa interativo só após o clique) |
+| H2 | Link para o Instagram do Studio Ar na seção "acolhimento" (= T11) | Fato "A Andriele atende em Lages desde 2018, no Studio Ar Pilates e Fisioterapia" publicado sem link |
+| H3 | Páginas internas (/convenios, /atendimentos, /quem-cuida, /a-clinica, /como-chegar, /primeira-avaliacao, /privacidade) | Chegam na sessão 6B; até lá, os links da home e do menu levam a páginas que ainda não existem |

@@ -1,0 +1,40 @@
+---
+// Moldura das seções da home: fundo (Linho, Papel ou Marinho), respiro e largura.
+interface Props {
+  id: string;
+  fundo?: 'linho' | 'papel' | 'marinho';
+  class?: string;
+  /** data-* extra (ex.: data-secao-endereco para o botão fixo sumir). */
+  [atributo: `data-${string}`]: string | boolean | undefined;
+}
+const { id, fundo = 'linho', class: classe, ...resto } = Astro.props;
+---
+
+<div
+  id={id}
+  class:list={['secao', `secao--${fundo}`, { 'sobre-escuro': fundo === 'marinho' }, classe]}
+  {...resto}
+>
+  <div class="secao__dentro">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .secao {
+    padding-block: clamp(var(--e-7), 6vw, var(--e-8));
+    scroll-margin-top: 4.5rem;
+  }
+  .secao--linho {
+    background: var(--cor-linho);
+  }
+  .secao--papel {
+    background: var(--cor-papel);
+    border-block: var(--fio-fino) solid var(--fio);
+  }
+  .secao__dentro {
+    max-width: 78rem;
+    margin-inline: auto;
+    padding-inline: var(--margem);
+  }
+</style>

@@ -254,7 +254,7 @@ const ehAtual = (href: string) => atual.replace(/\/$/, '') === href;
     padding: var(--e-2) var(--e-2);
     color: var(--texto-forte);
     font-family: var(--fonte-serifa);
-    font-size: var(--titulo-3);
+    font-size: min(var(--titulo-3), 10vw);
     font-weight: 500;
     text-decoration: none;
     border-radius: var(--raio);
@@ -264,6 +264,10 @@ const ehAtual = (href: string) => atual.replace(/\/$/, '') === href;
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 0.25em;
+  }
+  .cab__lista a span {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
   .cab__lista a :global(.icone) {
     color: var(--cor-salvia-escura);
