@@ -3,12 +3,9 @@
 // citação (COFFITO Art. 10, V). Sem incentivo.
 import { opiniao } from '../../content/textos/home.ts';
 import { textos } from '../../content/textos/tipos.ts';
-import { linkAvaliar } from '../../lib/avaliar.ts';
 import Botao from '../base/Botao.astro';
 import Verbete from '../verbete/Verbete.astro';
 import Secao from './Secao.astro';
-
-const avaliar = linkAvaliar();
 ---
 
 <Secao id="opiniao" fundo="papel">
@@ -21,7 +18,7 @@ const avaliar = linkAvaliar();
     />
     <div class="opiniao__convite">
       <p class="opiniao__pergunta">{opiniao.pergunta.texto}</p>
-      <Botao href={avaliar.url} variante="secundario" dica="abre o Google">
+      <Botao href="/avaliar?o=site" variante="secundario" dica="abre o Google">
         {opiniao.botao}
       </Botao>
       <p class="opiniao__nota">{opiniao.nota.texto}</p>

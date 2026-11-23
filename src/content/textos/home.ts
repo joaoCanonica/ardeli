@@ -182,7 +182,7 @@ export const endereco = {
   copiar: 'Copiar endereço',
   copiado: 'Endereço copiado',
   mapaConsentimento: f(
-    'O mapa interativo é do Google. Ele só carrega se você tocar em "Mostrar o mapa".',
+    'O mapa interativo é do Google. Ele só carrega se você tocar em "Mostrar o mapa" e aceitar.',
     'site',
   ),
   mostrarMapa: 'Mostrar o mapa',

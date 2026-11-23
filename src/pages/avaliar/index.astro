@@ -1,0 +1,85 @@
+---
+// /avaliar: redireciona para o Google (link "Pedir avaliações" ou a ficha). Registra só a
+// origem (?o=qr|site|whatsapp) como evento sem cookie. Meta refresh + link visível; noindex.
+// Sem incentivo e sem exibir avaliações (COFFITO Art. 10, V).
+import Documento from '../../components/base/Documento.astro';
+import Logo from '../../components/marca/Logo.astro';
+import { avaliar as t } from '../../content/textos/paginas.ts';
+import { linkAvaliar } from '../../lib/avaliar.ts';
+import { rodape } from '../../content/textos/microtextos.ts';
+const r = rodape();
+
+const destino = linkAvaliar().url;
+---
+
+<Documento
+  titulo={t.meta.titulo}
+  descricao={t.meta.descricao}
+  noindex
+  fontes={['--fonte-atkinson']}
+>
+  <meta slot="head" http-equiv="refresh" content={`3;url=${destino}`} />
+  <main id="conteudo" class="avaliar" data-avaliar-destino={destino}>
+    <Logo variante="simbolo" rotulo="" class="avaliar__simbolo" />
+    <h1>{t.qr.titulo}</h1>
+    <p>{t.redirecionando.texto}</p>
+    <p>
+      <a href={destino} class="avaliar__link">
+        {t.seNaoAbrir}
+      </a>
+    </p>
+  </main>
+  <footer class="avaliar__rodape">
+    {r.profissionais.map((pr) => (
+      <p>{pr.texto}</p>
+    ))}
+    <p>{r.empresa.texto}</p>
+  </footer>
+</Documento>
+
+<script>
+  import { medir } from '../../lib/medir.ts';
+  const el = document.querySelector<HTMLElement>('[data-avaliar-destino]');
+  const o = new URLSearchParams(location.search).get('o') ?? 'direto';
+  medir('clique_avaliar', { origem: ['qr', 'site', 'whatsapp'].includes(o) ? o : 'direto' });
+  if (el?.dataset.avaliarDestino) {
+    // Pequena folga para o beacon sair antes de trocar de página.
+    setTimeout(() => location.replace(el.dataset.avaliarDestino ?? '/'), 150);
+  }
+</script>
+
+<style>
+  .avaliar {
+    display: grid;
+    justify-items: center;
+    gap: var(--e-3);
+    max-width: 32rem;
+    margin: 0 auto;
+    padding: var(--e-8) var(--margem);
+    text-align: center;
+  }
+  .avaliar :global(.avaliar__simbolo) {
+    width: 4.5rem;
+  }
+  .avaliar h1 {
+    font-family: var(--fonte-texto);
+    font-size: var(--titulo-3);
+    font-weight: 700;
+  }
+  .avaliar__rodape {
+    max-width: 32rem;
+    margin: 0 auto;
+    padding: 0 var(--margem) var(--e-6);
+    font-size: var(--texto-p);
+    text-align: center;
+  }
+  .avaliar__rodape p {
+    margin: 0;
+  }
+  .avaliar__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--alvo-min);
+    font-weight: 700;
+  }
+</style>

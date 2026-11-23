@@ -103,6 +103,9 @@ const publicaveis = (fr: readonly { texto: string; exige?: string }[]) =>
             </div>
           </div>
           <Botao
+            data-agendar
+            data-forma={dados.id}
+            data-origem="convenio"
             href={linkWhatsApp(montarPedido({ forma: dados.id as Forma }))}
             icone="whatsapp"
             dica={botoes.abreWhatsApp}

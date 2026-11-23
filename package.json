@@ -29,7 +29,8 @@
     "media:folha": "node scripts/folha-de-contato.mjs",
     "capturar": "node scripts/capturar.mjs",
     "build:producao": "ARDELI_MODO=producao pnpm build",
-    "marca:otimizar": "node scripts/otimizar-marca.mjs"
+    "marca:otimizar": "node scripts/otimizar-marca.mjs",
+    "e2e": "node scripts/e2e.mjs"
   },
   "dependencies": {
     "astro": "7.4.13"
@@ -38,6 +39,7 @@
     "@astrojs/check": "0.9.12",
     "@eslint/js": "10.0.1",
     "@types/node": "^22.20.5",
+    "@types/qrcode": "1.5.6",
     "astro-eslint-parser": "3.2.0",
     "eslint": "10.15.0",
     "eslint-plugin-astro": "3.2.1",
@@ -45,6 +47,7 @@
     "playwright": "1.63.0",
     "prettier": "3.10.1",
     "prettier-plugin-astro": "1.1.2",
+    "qrcode": "1.5.4",
     "sharp": "0.35.5",
     "svgo": "4.1.0",
     "typescript": "6.0.3",

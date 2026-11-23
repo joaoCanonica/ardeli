@@ -6,7 +6,8 @@ import { clinica } from '../config/clinica.ts';
 import { valorDe } from '../config/tipos.ts';
 import type { Atendimento, Convenio } from '../content/schemas.ts';
 
-export const ORIGEM = 'Vim pelo site da Ardeli';
+export { ORIGEM } from './agenda-nucleo.ts';
+import { ORIGEM } from './agenda-nucleo.ts';
 
 export function numeroWhatsApp(): string {
   const w = valorDe(clinica.whatsapp);

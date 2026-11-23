@@ -70,3 +70,13 @@ Frases com fonte "pratica" (rotina comum da fisioterapia) e "orientacao" (explic
 | H1 | Imagem do **mapa estático** | Os servidores de mapa (OpenStreetMap, Carto) estão bloqueados no ambiente de build. Enquanto não houver `src/assets/mapa-estatico.png` (export do OpenStreetMap com atribuição "© OpenStreetMap", ou liberar o host para gerar), a seção de endereço mostra um painel neutro com o código do Google e o botão "Mostrar o mapa" (mapa interativo só após o clique) |
 | H2 | Link para o Instagram do Studio Ar na seção "acolhimento" (= T11) | Fato "A Andriele atende em Lages desde 2018, no Studio Ar Pilates e Fisioterapia" publicado sem link |
 | H3 | Páginas internas (/convenios, /atendimentos, /quem-cuida, /a-clinica, /como-chegar, /primeira-avaliacao, /privacidade) | Chegam na sessão 6B; até lá, os links da home e do menu levam a páginas que ainda não existem |
+
+## Agendar e avaliar (sessão 7)
+
+| # | Campo | Efeito |
+|---|---|---|
+| F1 | Domínio definitivo (= 18) | Medição desligada; o QR de /avaliar/qr aponta direto para a ficha do Google (sem contar `?o=qr`); a mensagem pós-sessão usa o link "Pedir avaliações" no lugar de `{SITE}/avaliar?o=whatsapp` |
+| F2 | Conta no Plausible + rewrite `/api/event` → `https://plausible.io/api/event` na hospedagem (repassando `X-Forwarded-For` e `User-Agent`) | Sem isso, nenhum evento sai do aparelho (só `window.__ardeliEventos`) |
+| F3 | Link "Pedir avaliações" gerado na ficha do Google | `linkAvaliar()` usa o link da ficha (`?cid=`); a ficha abre, mas não direto na caixa de avaliação |
+| F4 | CREFITO-10 da Andriele (= bloqueante) | A folha do QR diz "número em confirmação": não imprimir para o balcão até chegar |
+| F5 | Quem envia a mensagem pós-sessão e quando (recepção, no mesmo dia) | Roteiro pronto em `docs/FUNIL.md` §2 |

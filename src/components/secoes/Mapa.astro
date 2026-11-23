@@ -40,6 +40,25 @@ const embed = geo ? `https://www.google.com/maps?q=${geo.lat},${geo.lng}&z=16&ou
   <p class="mapa__nota" data-mapa-nota hidden>
     {endereco.mapaConsentimento.texto}
   </p>
+  <div
+    class="mapa__consentimento"
+    data-mapa-consentimento
+    role="group"
+    aria-labelledby="mapa-consentimento-texto"
+    hidden
+  >
+    <p id="mapa-consentimento-texto">
+      O mapa interativo é do Google e pode usar cookies. Carregar agora?
+    </p>
+    <div class="mapa__escolhas">
+      <button type="button" class="mapa__escolha" data-mapa-aceitar>
+        Aceitar e mostrar o mapa
+      </button>
+      <button type="button" class="mapa__escolha" data-mapa-recusar>
+        Recusar
+      </button>
+    </div>
+  </div>
   <button type="button" class="mapa__mostrar" data-mapa-mostrar hidden>
     <Icone nome="mapa" tamanho="1.3rem" />
     {botoes.mostrarMapa}
@@ -116,5 +135,39 @@ const embed = geo ? `https://www.google.com/maps?q=${geo.lat},${geo.lng}&z=16&ou
   }
   .mapa__link {
     justify-self: start;
+  }
+  .mapa__consentimento {
+    padding: var(--e-4);
+    border: 2px solid var(--cor-marinho);
+    border-radius: var(--raio);
+    background: var(--cor-papel);
+  }
+  .mapa__consentimento[hidden] {
+    display: none;
+  }
+  .mapa__consentimento p {
+    margin: 0 0 var(--e-3);
+    color: var(--texto-forte);
+  }
+  /* Aceitar e Recusar com o MESMO peso visual. */
+  .mapa__escolhas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: var(--e-3);
+  }
+  .mapa__escolha {
+    min-height: var(--alvo-min);
+    padding: var(--e-2) var(--e-4);
+    border: 2px solid var(--cor-marinho);
+    border-radius: var(--raio-botao);
+    background: var(--cor-linho);
+    color: var(--cor-marinho);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .mapa__escolha:hover {
+    background: var(--cor-papel);
+    text-decoration: underline;
   }
 </style>

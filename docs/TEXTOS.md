@@ -1,6 +1,6 @@
 # Textos do site — para revisão
 
-Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 200 frases, 185 rótulos.
+Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 206 frases, 201 rótulos.
 
 - **[guardado]** = escrito, mas fora do site até a confirmação (ex.: SUS, duração da sessão) ou numa pergunta não publicada.
 - Fontes entre colchetes; a lista completa está no fim.
@@ -21,6 +21,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 200 fr
 | como-chegar | Como chegar à Ardeli Fisioterapia · Brusque, Lages (50) | Ardeli Fisioterapia: Av. Dom Pedro II, 2700, bairro Brusque, Lages (SC). Segunda a sexta, das 8h às 20h. Rotas pelo Google Maps, Waze e Apple Mapas. (148) |
 | avaliar | Avalie a Ardeli Fisioterapia no Google (38) | Foi atendido na Ardeli Fisioterapia, no Brusque, em Lages? Conte como foi no Google. Sua opinião ajuda outras pessoas a encontrarem cuidado perto de casa. (154) |
 | privacidade | Privacidade · Ardeli Fisioterapia (33) | Como o site da Ardeli Fisioterapia, em Lages, trata seus dados: sem cadastro e sem guardar nada sobre sua saúde. A mensagem sai do seu celular. (143) |
+| agendar | Agendar avaliação de fisioterapia · Ardeli, Lages (49) | Agende sua avaliação de fisioterapia na Ardeli, no Brusque, em Lages: particular, Unimed ou AAPL. Escolha o período e envie pelo WhatsApp. (138) |
 
 ## home › acolhimento
 
@@ -63,7 +64,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 200 fr
 
 - Av. Dom Pedro II, 2700, no bairro Brusque, em Lages (SC). CEP 88503-062. <sub>[google] · `home.endereco.verbete.acepcoes.0`</sub>
 - Segunda a sexta, das 8h às 20h. <sub>[joao, google] · `home.endereco.verbete.acepcoes.1`</sub>
-- O mapa interativo é do Google. Ele só carrega se você tocar em "Mostrar o mapa". <sub>[site] · `home.endereco.mapaConsentimento`</sub>
+- O mapa interativo é do Google. Ele só carrega se você tocar em "Mostrar o mapa" e aceitar. <sub>[site] · `home.endereco.mapaConsentimento`</sub>
 
 ## home › movimento
 
@@ -294,7 +295,8 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 200 fr
 - O tamanho de letra que você escolher (A− / A+) fica guardado só no seu aparelho, para a próxima visita. <sub>[site] · `privacidade.secoes.2.texto.0`</sub>
 - A abertura animada do site aparece uma vez por visita; essa marcação some quando você fecha o navegador. <sub>[site] · `privacidade.secoes.2.texto.1`</sub>
 - O site não usa cookies de propaganda nem rastreamento. <sub>[site] · `privacidade.secoes.2.texto.2`</sub>
-- O mapa do Google só carrega se você tocar em "Mostrar o mapa". Antes disso, nada é enviado ao Google. <sub>[site] · `privacidade.secoes.3.texto.0`</sub>
+- Para melhorar o site, contamos cliques e opções escolhidas (como o convênio ou o tipo de motivo), sem cookie e sem saber quem escolheu. O que você escreve nunca é contado. <sub>[site] · `privacidade.secoes.2.texto.3`</sub>
+- O mapa do Google só carrega se você tocar em "Mostrar o mapa" e aceitar. Antes disso, nada é enviado ao Google. <sub>[site] · `privacidade.secoes.3.texto.0`</sub>
 - O vídeo da clínica fica no próprio site, sem som. <sub>[site, tour] · `privacidade.secoes.3.texto.1`</sub>
 - Você pode pedir para saber, corrigir ou apagar os dados que a clínica tem sobre você, como as mensagens de WhatsApp. <sub>[lgpd] · `privacidade.secoes.4.texto.0`</sub>
 - Para isso, fale com a clínica pelo WhatsApp (49) 99928-1721 ou na recepção. <sub>[joao] · `privacidade.secoes.4.texto.1`</sub>
@@ -344,6 +346,23 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 200 fr
 - Responsável técnica: Andriele da Silva, Fisioterapeuta. <sub>[joao] · `microtextos.rodape.responsavelTecnica`</sub>
 - Registro de empresa no CREFITO-10: RE005047 · CNES 8422478 <sub>[crefito, cnes] · `microtextos.rodape.empresa`</sub>
 - Divulgação conforme o Código de Ética da Fisioterapia (Resolução COFFITO 424/2013). <sub>[coffito] · `microtextos.rodape.nota`</sub>
+
+## agendador › verbete
+
+- Marcar a primeira avaliação com a fisioterapeuta. <sub>[pratica] · `agendador.verbete.acepcoes.0`</sub>
+- Aqui você responde três perguntas e a mensagem para o WhatsApp sai pronta. <sub>[site] · `agendador.verbete.acepcoes.1`</sub>
+
+## agendador › passos
+
+- Não precisa contar detalhes. Escolha só o mais próximo, ou pule. <sub>[site] · `agendador.passos.motivoDica`</sub>
+
+## agendador › aviso
+
+- Não guardamos nada aqui. A mensagem vai do seu celular direto para o WhatsApp da clínica. <sub>[site] · `agendador.aviso`</sub>
+
+## agendador › semJs
+
+- Sem JavaScript, a mensagem vai em formato geral. Você completa os detalhes na conversa. <sub>[site] · `agendador.semJs`</sub>
 
 ## Fontes
 

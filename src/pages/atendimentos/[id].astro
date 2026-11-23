@@ -69,6 +69,8 @@ const perguntas = t.perguntas.filter((p) => p.publicado);
       )}
       <div class="bloco">
         <Botao
+          data-agendar
+          data-origem="atendimento"
           href={linkWhatsApp(mensagens.atendimento(a))}
           icone="whatsapp"
           dica={botoes.abreWhatsApp}

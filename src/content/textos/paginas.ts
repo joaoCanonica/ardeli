@@ -323,13 +323,17 @@ export const privacidade = {
           'site',
         ),
         f('O site não usa cookies de propaganda nem rastreamento.', 'site'),
+        f(
+          'Para melhorar o site, contamos cliques e opções escolhidas (como o convênio ou o tipo de motivo), sem cookie e sem saber quem escolheu. O que você escreve nunca é contado.',
+          'site',
+        ),
       ],
     },
     {
       titulo: 'Mapa e vídeo',
       texto: [
         f(
-          'O mapa do Google só carrega se você tocar em "Mostrar o mapa". Antes disso, nada é enviado ao Google.',
+          'O mapa do Google só carrega se você tocar em "Mostrar o mapa" e aceitar. Antes disso, nada é enviado ao Google.',
           'site',
         ),
         f('O vídeo da clínica fica no próprio site, sem som.', 'site', 'tour'),

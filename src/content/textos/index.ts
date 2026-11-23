@@ -1,4 +1,5 @@
 // Índice dos textos do site + coleta de todas as frases (para testes e audit-compliance).
+import { agendador } from './agendador.ts';
 import { textosAtendimentos, paginaAtendimentos } from './atendimentos.ts';
 import { paginaConvenios, textosConvenios } from './convenios.ts';
 import { faq, grupos } from './faq.ts';
@@ -32,6 +33,7 @@ export const textosDoSite = {
   naoEncontrada,
   microtextos: { botoes, alts, rodape: rodape() },
   metaHome,
+  agendador,
 };
 
 export interface FraseColhida extends Frase {
@@ -91,6 +93,7 @@ export function metas(): Record<string, Meta> {
     avaliar: avaliar.meta,
     privacidade: privacidade.meta,
     '404': naoEncontrada.meta,
+    agendar: agendador.meta,
   };
 }
 

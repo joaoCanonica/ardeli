@@ -5,7 +5,6 @@
 import { clinica } from '../../config/clinica.ts';
 import { valorDe } from '../../config/tipos.ts';
 import { rodape } from '../../content/textos/microtextos.ts';
-import { linkAvaliar } from '../../lib/avaliar.ts';
 import Logo from '../marca/Logo.astro';
 
 const r = rodape();
@@ -57,7 +56,7 @@ const tel = valorDe(clinica.telefone);
           <a href="/privacidade">{r.links.privacidade}</a>
         </li>
         <li>
-          <a href={linkAvaliar().url}>
+          <a href="/avaliar?o=site">
             {r.links.avaliar}
             <span class="visualmente-oculto"> (abre o Google)</span>
           </a>

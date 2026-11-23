@@ -75,6 +75,8 @@ const duracaoConfirmada = pa.duracao.texto.filter((fr) => !fr.exige);
 
   <div class="bloco nao-imprimir">
     <Botao
+      data-agendar
+      data-origem="primeira-avaliacao"
       href={linkWhatsApp(mensagensWhatsApp.agendar)}
       icone="whatsapp"
       dica={botoes.abreWhatsApp}

@@ -1,0 +1,316 @@
+---
+// Agendador: formulário NATIVO em 3 passos (rádios e checkboxes em <fieldset>/<legend>).
+// Com JS: prévia ao vivo e "Enviar pelo WhatsApp" abre o destino da config com a mensagem
+// exata (mesmo núcleo do servidor). Sem JS: o formulário envia para o wa.me com a
+// mensagem geral (campo oculto "text"). Nada é guardado nem enviado a servidor.
+import { agendador as t } from '../../content/textos/agendador.ts';
+import { DIAS, MOTIVOS, PERIODOS, ROTULO_FORMA } from '../../lib/agenda-nucleo.ts';
+import {
+  destinoResolvido,
+  montarPedido,
+  opcoesForma,
+  opcoesMotivo,
+  permitidos,
+} from '../../lib/agenda.ts';
+import Icone from '../base/Icone.astro';
+
+interface Props {
+  /** Prefixo de id (há um na página /agendar e outro na gaveta). */
+  prefixo: string;
+}
+const { prefixo } = Astro.props;
+
+const formas = opcoesForma();
+const motivos = opcoesMotivo();
+const geral = montarPedido({ forma: 'nao-sei' });
+const destino = destinoResolvido();
+const acao =
+  destino.tipo === 'whatsapp'
+    ? `https://wa.me/${destino.numero}`
+    : destino.tipo === 'link-externo'
+      ? destino.url
+      : '';
+const config = JSON.stringify({ permitidos: permitidos(), destino });
+const id = (s: string) => `${prefixo}-${s}`;
+const rotuloMotivo = (m: string) => MOTIVOS.find((x) => x.id === m)?.rotulo ?? m;
+---
+
+<form
+  class="agendador"
+  data-agendador
+  data-config={config}
+  action={acao}
+  method="get"
+  aria-labelledby={id('titulo')}
+>
+  <h2 class="visualmente-oculto" id={id('titulo')}>
+    {t.titulo}
+  </h2>
+  <input type="hidden" name="text" value={geral} data-texto-geral />
+  <noscript>
+    <p class="agendador__semjs">{t.semJs.texto}</p>
+  </noscript>
+
+  <fieldset class="passo" aria-describedby={id('erro-forma')}>
+    <legend class="passo__legenda">
+      <span class="passo__n num" aria-hidden="true">
+        1
+      </span>
+      {t.passos.forma}
+    </legend>
+    <div class="opcoes">
+      {formas.map((f) => (
+        <label class="opcao">
+          <input type="radio" name="forma" value={f.id} required />
+          <span>{ROTULO_FORMA[f.id]}</span>
+        </label>
+      ))}
+    </div>
+    <p class="passo__erro" id={id('erro-forma')} data-erro-forma hidden>
+      {t.escolhaForma}
+    </p>
+  </fieldset>
+
+  <fieldset class="passo">
+    <legend class="passo__legenda">
+      <span class="passo__n num" aria-hidden="true">
+        2
+      </span>
+      {t.passos.motivo} <span class="passo__opcional">({t.passos.motivoOpcional})</span>
+    </legend>
+    <p class="passo__dica">{t.passos.motivoDica.texto}</p>
+    <div class="opcoes">
+      {motivos.map((m) => (
+        <label class="opcao">
+          <input type="radio" name="motivo" value={m.id} />
+          <span>{rotuloMotivo(m.id)}</span>
+        </label>
+      ))}
+      <label class="opcao">
+        <input type="radio" name="motivo" value="" checked />
+        <span>{t.passos.semMotivo}</span>
+      </label>
+    </div>
+  </fieldset>
+
+  <fieldset class="passo">
+    <legend class="passo__legenda">
+      <span class="passo__n num" aria-hidden="true">
+        3
+      </span>
+      {t.passos.quando}
+    </legend>
+    <fieldset class="sub">
+      <legend class="sub__legenda">{t.passos.periodo}</legend>
+      <div class="opcoes">
+        {(Object.keys(PERIODOS) as (keyof typeof PERIODOS)[]).map((p) => (
+          <label class="opcao">
+            <input type="radio" name="periodo" value={p} />
+            <span>{PERIODOS[p].rotulo}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+    <fieldset class="sub">
+      <legend class="sub__legenda">{t.passos.dias}</legend>
+      <div class="opcoes opcoes--dias">
+        {([1, 2, 3, 4, 5] as const).map((d) => (
+          <label class="opcao">
+            <input type="checkbox" name="dia" value={d} />
+            <span>{DIAS[d].charAt(0).toUpperCase() + DIAS[d].slice(1)}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  </fieldset>
+
+  <div class="previa">
+    <p class="previa__titulo" id={id('previa')}>
+      {t.previa}
+    </p>
+    <output class="previa__texto" aria-labelledby={id('previa')} aria-live="off" data-previa>
+      {geral}
+    </output>
+  </div>
+
+  <button type="submit" class="enviar">
+    <Icone nome="whatsapp" tamanho="1.5rem" />
+    {t.enviar}
+    <span class="visualmente-oculto"> (abre o WhatsApp)</span>
+  </button>
+  <p class="aviso-privacidade">{t.aviso.texto}</p>
+</form>
+
+<script>
+  import { iniciarAgendadores } from './agendador.ts';
+  iniciarAgendadores();
+</script>
+
+<style>
+  .agendador {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--e-5);
+  }
+  .agendador__semjs {
+    margin: 0;
+    font-weight: 700;
+    color: var(--texto-forte);
+  }
+  .passo,
+  .sub {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+  .passo + .passo {
+    padding-top: var(--e-5);
+    border-top: var(--fio-fino) solid var(--fio);
+  }
+  .passo__legenda {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0 var(--e-3);
+    padding: 0;
+    margin-bottom: var(--e-3);
+    font-family: var(--fonte-serifa);
+    font-size: var(--titulo-3);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--texto-forte);
+  }
+  .passo__n {
+    display: inline-grid;
+    place-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    background: var(--cor-marinho);
+    color: var(--cor-linho);
+    font-size: 1.1rem;
+    transform: translateY(0.15em);
+  }
+  .passo__opcional {
+    font-family: var(--fonte-texto);
+    font-size: var(--texto-p);
+    font-weight: 400;
+    color: var(--texto);
+  }
+  .passo__dica {
+    margin: 0 0 var(--e-3);
+    font-size: var(--texto-p);
+  }
+  .passo__erro {
+    margin: var(--e-2) 0 0;
+    font-weight: 700;
+    color: var(--texto-forte);
+  }
+  .passo__erro[hidden] {
+    display: none;
+  }
+  .sub + .sub {
+    margin-top: var(--e-4);
+  }
+  .sub__legenda {
+    padding: 0;
+    margin-bottom: var(--e-2);
+    font-weight: 700;
+    color: var(--texto-forte);
+  }
+  .opcoes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 10.5rem), 1fr));
+    gap: var(--e-2);
+  }
+  .opcoes--dias {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 7.5rem), 1fr));
+  }
+  .opcao {
+    display: flex;
+    align-items: center;
+    gap: var(--e-3);
+    min-height: var(--botao-altura);
+    padding: var(--e-2) var(--e-3);
+    border: 2px solid var(--cor-marinho);
+    border-radius: var(--raio-botao);
+    background: var(--cor-papel);
+    color: var(--cor-marinho);
+    font-weight: 700;
+    line-height: 1.25;
+    cursor: pointer;
+    transition: background-color var(--duracao-curta) var(--curva);
+  }
+  .opcao span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .opcao input {
+    flex: none;
+    width: 1.35rem;
+    height: 1.35rem;
+    margin: 0;
+    accent-color: var(--cor-marinho);
+  }
+  .opcao:has(input:checked) {
+    background: var(--cor-marinho);
+    color: var(--cor-linho);
+  }
+  .opcao:has(input:checked) input {
+    accent-color: var(--cor-linho);
+  }
+  .opcao:has(input:focus-visible) {
+    outline: 3px solid var(--foco);
+    outline-offset: 3px;
+  }
+  .opcao input:focus-visible {
+    outline: none;
+  }
+  .previa {
+    padding: var(--e-4);
+    border-radius: var(--raio);
+    background: var(--cor-linho);
+    border-left: 4px solid var(--cor-salvia);
+  }
+  .previa__titulo {
+    margin: 0 0 var(--e-2);
+    font-size: var(--texto-p);
+    font-weight: 700;
+    color: var(--texto-forte);
+  }
+  .previa__texto {
+    display: block;
+    color: var(--texto-forte);
+    overflow-wrap: anywhere;
+  }
+  .enviar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--e-3);
+    min-height: var(--botao-altura);
+    width: 100%;
+    padding: var(--e-3) var(--e-5);
+    border: 2px solid var(--cor-marinho);
+    border-radius: var(--raio-botao);
+    background: var(--cor-marinho);
+    color: var(--cor-linho);
+    font: inherit;
+    font-size: var(--texto-g);
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .enviar:hover {
+    background: var(--cor-marinho-profundo);
+  }
+  .aviso-privacidade {
+    margin: 0;
+    font-size: var(--texto-p);
+  }
+  @media (forced-colors: active) {
+    .opcao:has(input:checked) {
+      border-width: 4px;
+    }
+  }
+</style>

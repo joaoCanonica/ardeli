@@ -37,6 +37,8 @@ import Secao from './Secao.astro';
       </ol>
       <div class="avaliacao__acoes">
         <Botao
+          data-agendar
+          data-origem="avaliacao"
           href={linkWhatsApp(mensagensWhatsApp.agendar)}
           icone="whatsapp"
           dica={botoes.abreWhatsApp}

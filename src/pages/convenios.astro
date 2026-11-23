@@ -84,6 +84,9 @@ const blocos = textosConvenios.map((t) => {
         (b.sePendente ?? []).map((fr) => <p class="convenio__resumo">{fr.texto}</p>)
       )}
       <Botao
+        data-agendar={b.confirmado ? '' : undefined}
+        data-forma={b.confirmado ? b.id : undefined}
+        data-origem="convenios"
         href={b.href}
         icone="whatsapp"
         dica={botoes.abreWhatsApp}

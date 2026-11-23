@@ -1,4 +1,5 @@
 // Seletor de convênio: mostra só o bloco escolhido. Sem JS, todos ficam abertos.
+import { medir } from '../../lib/medir.ts';
 export function iniciarSeletorConvenio(): void {
   for (const raiz of document.querySelectorAll<HTMLElement>('[data-seletor-convenio]')) {
     const opcoes = raiz.querySelector<HTMLFieldSetElement>('[data-seletor-opcoes]');
@@ -16,6 +17,7 @@ export function iniciarSeletorConvenio(): void {
       const alvo = e.target as HTMLInputElement;
       if (alvo.name !== 'forma-atendimento') return;
       for (const p of paineis) p.hidden = p.dataset.painel !== alvo.value;
+      medir('clique_convenio', { convenio: alvo.value });
       if (dica) dica.hidden = true;
       const nome = alvo.closest('label')?.textContent?.trim() ?? alvo.value;
       if (anuncio)

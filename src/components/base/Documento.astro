@@ -4,6 +4,7 @@
 // (antes da pintura, para não piscar); sem JS, fica o tamanho padrão.
 import { Font } from 'astro:assets';
 import { modoAtual } from '../../config/modo.ts';
+import { configMedicao } from '../../config/medicao.ts';
 import '../../styles/tokens.css';
 import '../../styles/base.css';
 
@@ -23,6 +24,7 @@ const {
   fontes = ['--fonte-crimson', '--fonte-atkinson'],
 } = Astro.props;
 const preview = modoAtual() === 'preview';
+const medicao = configMedicao();
 const foraDoIndice = noindex || preview;
 ---
 
@@ -38,6 +40,14 @@ const foraDoIndice = noindex || preview;
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta
+      name="ardeli-medicao"
+      content={JSON.stringify({
+        ativo: medicao.ativo,
+        endpoint: medicao.endpoint,
+        dominio: medicao.dominio,
+      })}
+    />
     {fontes.map((f, i) => (
       <Font cssVariable={f} preload={i < 2 ? [{ style: 'normal' }] : false} />
     ))}
@@ -58,6 +68,10 @@ const foraDoIndice = noindex || preview;
       </div>
     )}
     <slot />
+    <script>
+      import { iniciarMedicaoCliques } from '../../scripts/medicao-cliques.ts';
+      iniciarMedicaoCliques();
+    </script>
   </body>
 </html>
 

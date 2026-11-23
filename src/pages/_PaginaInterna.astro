@@ -1,6 +1,7 @@
 ---
 // Casca das páginas internas (o "_" no nome impede o Astro de criar rota):
 // cabeçalho, H1 real + verbete de abertura, conteúdo, rodapé (Art. 48) e botão fixo.
+import GavetaAgendar from '../components/agendar/GavetaAgendar.astro';
 import Documento from '../components/base/Documento.astro';
 import Cabecalho from '../components/cabecalho/Cabecalho.astro';
 import BotaoFixoAgendar from '../components/secoes/BotaoFixoAgendar.astro';
@@ -17,6 +18,8 @@ interface Props {
   /** Parágrafo logo abaixo do verbete. */
   introducao?: Frase;
   botaoFixo?: boolean;
+  /** Sem a gaveta do agendador (a própria /agendar). */
+  semGaveta?: boolean;
   noindex?: boolean;
 }
 const {
@@ -25,6 +28,7 @@ const {
   verbete,
   introducao,
   botaoFixo = true,
+  semGaveta = false,
   noindex = false,
 } = Astro.props;
 const id = `pagina-${verbete.palavra.normalize('NFD').replace(/\p{Diacritic}/gu, '')}`;
@@ -56,6 +60,7 @@ const id = `pagina-${verbete.palavra.normalize('NFD').replace(/\p{Diacritic}/gu,
   </main>
   <Rodape />
   {botaoFixo && <BotaoFixoAgendar />}
+  {!semGaveta && <GavetaAgendar />}
 </Documento>
 
 <style>

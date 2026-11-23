@@ -7,7 +7,8 @@
 // A troca barra/menu é por container query em rem: com A+ (texto maior), o menu entra antes.
 import { clinica } from '../../config/clinica.ts';
 import { valorDe } from '../../config/tipos.ts';
-import { linkWhatsApp, ORIGEM } from '../../lib/whatsapp.ts';
+import { linkWhatsApp } from '../../lib/whatsapp.ts';
+import { mensagensWhatsApp } from '../../content/textos/microtextos.ts';
 import Botao from '../base/Botao.astro';
 import ControleTamanho from '../base/ControleTamanho.astro';
 import Icone from '../base/Icone.astro';
@@ -21,7 +22,7 @@ interface Props {
 }
 const { atual = Astro.url.pathname } = Astro.props;
 
-const agendar = linkWhatsApp(`Olá! ${ORIGEM} e quero agendar uma avaliação.`);
+const agendar = linkWhatsApp(mensagensWhatsApp.agendar);
 const tel = valorDe(clinica.telefone);
 const ehAtual = (href: string) => atual.replace(/\/$/, '') === href;
 ---
@@ -50,7 +51,14 @@ const ehAtual = (href: string) => atual.replace(/\/$/, '') === href;
 
     <ControleTamanho id="tamanho-barra" class="cab__tamanho" />
 
-    <Botao href={agendar} icone="whatsapp" dica="abre o WhatsApp" class="cab__agendar">
+    <Botao
+      href={agendar}
+      icone="whatsapp"
+      dica="abre o WhatsApp"
+      class="cab__agendar"
+      data-agendar
+      data-origem="cabecalho"
+    >
       Agendar<span class="cab__agendar-resto"> avaliação</span>
     </Botao>
 

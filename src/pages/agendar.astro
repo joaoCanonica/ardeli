@@ -1,0 +1,18 @@
+---
+// /agendar: o agendador em página própria. Pré-preenche por ?forma= e ?motivo=.
+import Agendador from '../components/agendar/Agendador.astro';
+import { agendador } from '../content/textos/agendador.ts';
+import Pagina from './_PaginaInterna.astro';
+---
+
+<Pagina meta={agendador.meta} verbete={agendador.verbete} botaoFixo={false} semGaveta>
+  <div class="agendar" data-agendar-pagina>
+    <Agendador prefixo="pagina" />
+  </div>
+</Pagina>
+
+<style>
+  .agendar {
+    max-width: 44rem;
+  }
+</style>
