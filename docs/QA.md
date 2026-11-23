@@ -198,3 +198,12 @@ Home com throttling **real** do Chromium (CPU 4×, tela 412 px, mediana de 3; `n
 **Produção:** `ARDELI_MODO=producao` sem nenhuma trava aberta; as páginas de trabalho não são geradas; SEO 100 no Lighthouse (sem `noindex`).
 
 **Depois das mudanças:** axe 0 violações · audit-a11y verde (1.776 verificações) · acabamento verde · e2e 16/16.
+
+**Lighthouse no build de produção** (`docs/qa/lighthouse-producao.json`): SEO **100** em todas as rotas indexáveis (no preview era 63–66 só por causa do `noindex`); Perf 99–100; A11y 100; BP 100; CLS 0. No "4G lento" *simulado*, a home fica em 1,89–1,90 s e /a-clinica em 1,81 s. O simulador não reproduz a rede lenta no navegador, por isso o caminho adaptativo só aparece no throttling real (tabela acima).
+
+**Deploy na Vercel:** projeto `ardeli` (time "Joao Canonica's projects"), ligado a `joaocanonica/ardeli`. Variáveis: `ARDELI_MODO=producao`, `SITE_URL=https://ardeli.com.br`, `ENABLE_EXPERIMENTAL_COREPACK=1` (pnpm 10.28.0). Endereço provisório: **https://ardeli.vercel.app**, sempre com `X-Robots-Tag: noindex` (nenhum `*.vercel.app` entra no Google). O build gera a mídia do zero em ~12–15 min (2 núcleos).
+
+**Para ligar o domínio:**
+1. Na Vercel: projeto `ardeli` → Settings → Domains → adicionar `ardeli.com.br` e `www.ardeli.com.br`.
+2. No registro.br: apontar os registros DNS que a Vercel indicar.
+3. Para o deploy automático, definir `main` como branch de produção, ou fazer o merge do branch no `main`.
