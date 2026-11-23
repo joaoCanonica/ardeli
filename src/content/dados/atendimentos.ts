@@ -2,9 +2,16 @@
 // Registros a partir das áreas do CNES 8422478. Só a musculoesquelética está
 // publicada (a vitrine da clínica diz "Recuperação funcional"). As outras
 // ficam publicado=false até a clínica confirmar que atende (PENDENCIAS).
-// Textos são rascunho: revisão de linguagem na sessão de textos.
+// Publicados: textos em src/content/textos/atendimentos.ts (com fonte de cada frase).
+// Não publicados: rascunho; só são revistos quando a clínica confirmar a área.
+
 import { bloqueante, confirmado } from '../../config/tipos.ts';
+import { textosAtendimentos } from '../textos/atendimentos.ts';
+import { textos } from '../textos/tipos.ts';
 import type { Atendimento } from '../schemas.ts';
+
+const musc = textosAtendimentos.find((a) => a.id === 'musculoesqueletica');
+if (!musc) throw new Error('textos do atendimento musculoesquelético ausentes');
 
 const pendente = (area: string) => bloqueante(`confirmar com a clínica se atende ${area}`);
 
@@ -22,19 +29,12 @@ export const atendimentos: Atendimento[] = [
     nome: 'Ortopedia e dor: coluna, articulações, pós-operatório e recuperação após lesão',
     nomeCurto: 'ortopedia e dor',
     verbete: {
-      palavra: 'recuperação',
-      classe: 's.f.',
-      acepcoes: [
-        'Voltar a fazer, com segurança, o que a dor ou a lesão tirou do seu dia a dia.',
-        'Na Ardeli: avaliação, plano de exercícios e acompanhamento depois de cirurgia, lesão ou dor na coluna e nas articulações.',
-      ],
+      palavra: musc.verbete.palavra,
+      classe: musc.verbete.classe,
+      acepcoes: textos(musc.verbete.acepcoes),
     },
-    paraQuem: [
-      'Quem sente dor na coluna, no ombro, no joelho ou em outras articulações.',
-      'Quem passou por cirurgia ortopédica e precisa recuperar o movimento.',
-      'Quem se machucou e quer voltar às atividades.',
-    ],
-    comoFunciona: COMO_FUNCIONA_BASE,
+    paraQuem: textos(musc.paraQuem),
+    comoFunciona: textos(musc.comoE),
     confirmacao: confirmado(
       true,
       'vitrine da clínica ("Recuperação funcional: movimento, independência e qualidade de vida") + CNES 8422478',

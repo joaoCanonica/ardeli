@@ -52,7 +52,9 @@ export function normalizar(texto: string): string {
 function regexDoTermo(termo: string): RegExp {
   const t = normalizar(termo).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   // Limite de palavra por letras/dígitos ("procura" não casa com "cura"; "100%" casa sozinho).
-  return new RegExp(`(?<![\\p{L}\\p{N}])${t}(?![\\p{L}\\p{N}])`, 'gu');
+  // Plural também conta ("depoimentos", "descontos", "promoções").
+  const plural = t.endsWith('cao') ? `${t}|${t.slice(0, -3)}coes` : `${t}(?:s|es)?`;
+  return new RegExp(`(?<![\\p{L}\\p{N}])(?:${plural})(?![\\p{L}\\p{N}])`, 'gu');
 }
 
 export interface Ocorrencia {

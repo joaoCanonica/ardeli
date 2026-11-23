@@ -42,3 +42,23 @@ Fontes: `docs/ARDELI_INVESTIGACAO_CLIENTE.md` (§2, §11) e `docs/ARDELI_PACOTE_
 | 20 | Vídeo-tour original sem música (e em resolução maior) | `media.manifest.json` | Tour sempre mudo |
 | 21 | Fotos do espaço em alta (≥ 2400 px), fachada de frente com letreiro inteiro | `docs/MIDIA_CATALOGO.md` §6 | Imagens largas limitadas a 720 px |
 | 22 | Relação com o Studio Ar: o Pilates continua lá? O site cita e linka? | — | O site só cita a trajetória da Andriele (fato confirmado) |
+
+## Textos (sessão 5)
+
+O que fica fora do site, ou aparece como "Confirme pelo WhatsApp: a gente explica rapidinho.", até o João confirmar. Fonte única: `pendenciasTextos` em `src/content/textos/index.ts`.
+
+| # | Campo | Efeito nos textos |
+|---|---|---|
+| T1 | SUS: contrato vigente e caminho de acesso | FAQ "Atende pelo SUS?" fora; /convenios diz "Consulte a disponibilidade pelo WhatsApp"; textos do SUS guardados (exige sus-confirmado) |
+| T2 | Precisa de pedido médico? (por convênio) | Pergunta fora do FAQ e da página de atendimento |
+| T3 | Duração da sessão e da primeira avaliação | Pergunta fora do FAQ; /primeira-avaliacao mostra "Confirme pelo WhatsApp" |
+| T4 | Estacionamento | Pergunta fora do FAQ; /como-chegar mostra "Confirme pelo WhatsApp" |
+| T5 | Acessibilidade do espaço (entrada, banheiro, circulação) | Pergunta fora do FAQ; /primeira-avaliacao e /como-chegar mostram "Confirme pelo WhatsApp" |
+| T6 | Ponto de referência | /como-chegar mostra "Confirme pelo WhatsApp" |
+| T7 | Unimed: planos aceitos, guia, pedido médico | "Confirme pelo WhatsApp" em /convenios e no FAQ |
+| T8 | AAPL: como funciona para o associado | "Confirme pelo WhatsApp" em /convenios e no FAQ |
+| T9 | Validar com a Andriele o passo a passo (conversa, avaliação, plano, acompanhamento) e "o que levar" | Publicado como rotina comum da fisioterapia (fonte "pratica"/"orientacao") |
+| T10 | Confirmar que Unimed e AAPL pedem carteirinha | Publicado como orientação ("leve a carteirinha") |
+| T11 | Pode linkar o Instagram do Studio Ar? | Fato "atende em Lages desde 2018, no Studio Ar" sem link |
+
+Frases com fonte "pratica" (rotina comum da fisioterapia) e "orientacao" (explicação geral) estão publicadas, mas a Andriele deve validar o passo a passo da primeira avaliação e a lista "o que levar".

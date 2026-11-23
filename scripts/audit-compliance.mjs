@@ -12,6 +12,7 @@ import { encontrarTermosVetados, normalizar } from '../src/config/termos.ts';
 import { modoAtual } from '../src/config/travas.ts';
 import { convenios } from '../src/content/dados/convenios.ts';
 import { profissionais } from '../src/content/dados/profissionais.ts';
+import { colherFrases, colherRotulos } from '../src/content/textos/index.ts';
 
 const raiz = fileURLToPath(new URL('..', import.meta.url));
 const dist = resolve(raiz, process.env.ARDELI_DIST ?? 'dist');
@@ -78,6 +79,40 @@ const falhas = [];
 const avisos = [];
 const falha = (pagina, msg) => falhas.push(`${pagina}: ${msg}`);
 const avisa = (pagina, msg) => avisos.push(`${pagina}: ${msg}`);
+
+// 0. Textos de src/content (antes de virarem página): mesmas regras.
+const citacaoComNomeTexto =
+  /["“”«][^"“”«»]{12,400}["”»]\s*[—–-]\s*(?:\p{Lu}[\p{Ll}.]+)(?:\s+\p{Lu}[\p{Ll}.]*){0,3}/u;
+let frasesConteudo = 0;
+const mencoesSus = [];
+const todasFrases = colherFrases();
+for (const fr of todasFrases) {
+  frasesConteudo++;
+  const onde = `conteúdo:${fr.onde}`;
+  for (const o of encontrarTermosVetados(fr.texto, titulos)) {
+    falha(onde, `termo vetado "${o.termo}" (${o.motivo}) → "…${o.trecho}…"`);
+  }
+  if (citacaoComNomeTexto.test(fr.texto))
+    falha(onde, 'citação seguida de nome (padrão de depoimento)');
+  if (!susConfirmado && fr.publicavel && /\bSUS\b/.test(fr.texto)) mencoesSus.push(fr);
+}
+// SUS sem confirmação: frase publicável que cita o SUS só passa se o mesmo bloco
+// (mesmo item) tiver "Consulte a disponibilidade" — igual à regra do HTML.
+const bloco = (onde) => onde.split('.').slice(0, -2).join('.');
+for (const fr of mencoesSus) {
+  const vizinhas = todasFrases.filter((x) => x.publicavel && bloco(x.onde) === bloco(fr.onde));
+  if (!vizinhas.some((x) => /consulte a disponibilidade/i.test(x.texto))) {
+    falha(
+      `conteúdo:${fr.onde}`,
+      `SUS mencionado sem "Consulte a disponibilidade" no mesmo bloco → "${fr.texto}"`,
+    );
+  }
+}
+for (const r of colherRotulos()) {
+  for (const o of encontrarTermosVetados(r.texto, titulos)) {
+    falha(`conteúdo:${r.onde}`, `termo vetado "${o.termo}" → "${r.texto}"`);
+  }
+}
 
 for (const arquivo of paginas) {
   const rota =
@@ -146,7 +181,7 @@ for (const arquivo of paginas) {
       if (
         !r.includes(p.nome) ||
         !r.includes('Fisioterapeuta') ||
-        !r.includes(`CREFITO-10 ${numero}`)
+        !new RegExp(`CREFITO-10 (nº )?${numero.replace(/[-]/g, '\\-')}`).test(r)
       ) {
         relatar(rota, `rodapé sem "${p.nome} · Fisioterapeuta · CREFITO-10 ${numero}"`);
       }
@@ -168,7 +203,9 @@ for (const arquivo of paginas) {
   }
 }
 
-console.log(`audit-compliance — modo: ${modo} · ${paginas.length} página(s)\n`);
+console.log(
+  `audit-compliance — modo: ${modo} · ${paginas.length} página(s) · ${frasesConteudo} frases de src/content\n`,
+);
 for (const a of avisos) console.log(`  ! ${a}`);
 for (const f of falhas) console.log(`  ✖ ${f}`);
 if (falhas.length) {

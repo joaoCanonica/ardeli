@@ -4,6 +4,7 @@ Site estático da Ardeli Fisioterapia (Lages/SC), em Astro + TypeScript strict.
 
 **Antes de qualquer mudança, leia [`CLAUDE.md`](CLAUDE.md)** (contexto, regras do COFFITO, travas).
 Dados que faltam ficam em [`docs/PENDENCIAS.md`](docs/PENDENCIAS.md); nada é inventado.
+Textos do site: `src/content/textos` (cada frase com fonte); versão legível em [`docs/TEXTOS.md`](docs/TEXTOS.md).
 
 ## Requisitos
 
@@ -27,6 +28,7 @@ Dados que faltam ficam em [`docs/PENDENCIAS.md`](docs/PENDENCIAS.md); nada é in
 | `pnpm audit-compliance` | varre o `dist/`: termos vetados, depoimento, SUS afirmado, CREFITO no rodapé, mídia fora do índice |
 | `pnpm audit-contraste` | contraste dos tokens por uso (texto AAA, links/botões AA, foco 3:1) e varredura do CSS (Sálvia em texto, Tijolo/Madeira chapados, gradiente) |
 | `bash scripts/subset-fontes.sh` | regera as fontes do site (subset pt-BR) a partir de `media-originais/fontes` (precisa de `fonttools` + `brotli` no Python) |
+| `node scripts/textos-md.mjs` | gera `docs/TEXTOS.md`: todos os textos do site com a fonte de cada frase (para revisão) |
 | `pnpm marca:otimizar` | refaz os SVG inline da marca, favicon e apple-touch-icon a partir de `media-originais/marca` |
 | `pnpm audit-a11y`, `audit-lighthouse`, `audit-seo` | ainda não implementados: **falham de propósito** até a sessão que os cria |
 
