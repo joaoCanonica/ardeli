@@ -12,7 +12,7 @@ import { f, type Frase, type Meta } from './tipos.ts';
 export const metaHome = {
   titulo: 'Fisioterapia no Brusque, em Lages · Ardeli Fisioterapia',
   descricao:
-    'Fisioterapia no bairro Brusque, em Lages (SC). Particular, Unimed e AAPL. Segunda a sexta, das 8h às 20h. Agende sua avaliação pelo WhatsApp.',
+    'Fisioterapia no bairro Brusque, em Lages (SC). Particular, Unimed, AAPL e SUS. Segunda a sexta, das 8h às 20h. Agende pelo WhatsApp.',
 } satisfies Meta;
 
 // ---------- botões e rótulos ----------

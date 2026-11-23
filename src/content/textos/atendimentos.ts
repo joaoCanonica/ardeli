@@ -4,7 +4,19 @@
 import { CONFIRME, f, type Frase, type Meta, type Pergunta, type VerbeteTexto } from './tipos.ts';
 
 export interface TextoAtendimento {
-  readonly id: 'musculoesqueletica';
+  readonly id:
+    | 'musculoesqueletica'
+    | 'neurologia'
+    | 'cardiorrespiratoria'
+    | 'oncologia'
+    | 'obstetrica'
+    | 'queimados';
+  /** Foto real do espaço que acompanha a página (still do tour). */
+  readonly foto: {
+    readonly id: string;
+    readonly legenda: string;
+    readonly tom: 'salvia' | 'madeira' | 'tijolo';
+  };
   readonly meta: Meta;
   readonly verbete: VerbeteTexto;
   readonly oQueE: readonly Frase[];
@@ -17,7 +29,7 @@ export const paginaAtendimentos = {
   meta: {
     titulo: 'Atendimentos de fisioterapia em Lages · Ardeli',
     descricao:
-      'Fisioterapia no bairro Brusque, em Lages: dor na coluna e nas articulações, pós-operatório e recuperação após lesão. Particular, Unimed e AAPL.',
+      'Fisioterapia no Brusque, em Lages: ortopedia e dor, neurologia, respiração, oncologia, gestação e pós-parto e queimaduras. Particular, Unimed, AAPL e SUS.',
   } satisfies Meta,
   verbete: {
     palavra: 'atendimento',
@@ -30,13 +42,28 @@ export const paginaAtendimentos = {
   outros: f(`Não achou o que procura? ${CONFIRME}`, 'orientacao'),
 } as const;
 
+/** Pergunta comum a todos os atendimentos. */
+const perguntaConvenio: Pergunta = {
+  id: 'convenio',
+  pergunta: 'Posso fazer pelo convênio ou pelo SUS?',
+  resposta: [
+    f('Sim. A Ardeli atende particular, Unimed, AAPL e SUS.', 'joao', 'joao2311'),
+    f(
+      'Para saber o que o seu convênio pede, confirme pelo WhatsApp: a gente explica rapidinho.',
+      'orientacao',
+    ),
+  ],
+  publicado: true,
+};
+
 export const textosAtendimentos: readonly TextoAtendimento[] = [
   {
     id: 'musculoesqueletica',
+    foto: { id: 'still-espaldar-4x5', legenda: 'Ginásio de reabilitação', tom: 'tijolo' },
     meta: {
       titulo: 'Fisioterapia para dor e pós-operatório em Lages',
       descricao:
-        'Fisioterapia para dor na coluna e nas articulações, pós-operatório e recuperação após lesão, no bairro Brusque, em Lages. Unimed, AAPL e particular.',
+        'Fisioterapia para dor na coluna e nas articulações, pós-operatório e recuperação após lesão, no Brusque, em Lages. Unimed, AAPL, SUS e particular.',
     },
     verbete: {
       palavra: 'recuperação',
@@ -111,9 +138,15 @@ export const textosAtendimentos: readonly TextoAtendimento[] = [
       },
       {
         id: 'convenio',
-        pergunta: 'Posso fazer pela Unimed ou pela AAPL?',
+        pergunta: 'Posso fazer pelo convênio ou pelo SUS?',
         resposta: [
-          f('Sim. A Ardeli atende particular, Unimed e AAPL.', 'joao', 'postUnimed', 'postAapl'),
+          f(
+            'Sim. A Ardeli atende particular, Unimed, AAPL e SUS.',
+            'joao',
+            'joao2311',
+            'postUnimed',
+            'postAapl',
+          ),
           f(
             'Para saber o que o seu plano pede, confirme pelo WhatsApp: a gente explica rapidinho.',
             'orientacao',
@@ -140,5 +173,286 @@ export const textosAtendimentos: readonly TextoAtendimento[] = [
         publicado: true,
       },
     ],
+  },
+  {
+    id: 'neurologia',
+    foto: {
+      id: 'still-ginasio-amplo-4x5',
+      legenda: 'Ginásio, vista para a avenida',
+      tom: 'tijolo',
+    },
+    meta: {
+      titulo: 'Fisioterapia neurológica em Lages: AVC e Parkinson · Ardeli',
+      descricao:
+        'Fisioterapia depois de AVC e em condições que afetam os nervos e o movimento, no Brusque, em Lages. Particular, Unimed, AAPL e SUS.',
+    },
+    verbete: {
+      palavra: 'equilíbrio',
+      classe: 's.m.',
+      acepcoes: [
+        f('Ficar de pé, andar e se virar com mais firmeza e segurança.', 'orientacao'),
+        f(
+          'Na Ardeli: avaliação, exercícios de movimento, força e equilíbrio, e acompanhamento.',
+          'pratica',
+          'cnes',
+          'joao2311',
+        ),
+      ],
+    },
+    oQueE: [
+      f(
+        'É a fisioterapia para quem teve o sistema nervoso afetado: o cérebro, a medula ou os nervos que comandam o movimento.',
+        'orientacao',
+        'cnes',
+      ),
+      f(
+        'O foco é o dia a dia: levantar da cadeira, andar, subir um degrau, usar as mãos.',
+        'orientacao',
+      ),
+    ],
+    paraQuem: [
+      f('Quem teve AVC (derrame) e quer recuperar movimentos.', 'orientacao'),
+      f(
+        'Quem tem doença de Parkinson ou outra condição que afeta o equilíbrio e a coordenação.',
+        'orientacao',
+      ),
+      f('Quem sente fraqueza, formigamento ou falta de firmeza ao andar.', 'orientacao'),
+    ],
+    comoE: [
+      f(
+        'Tudo começa com uma avaliação: a fisioterapeuta conversa com você e observa como você se move.',
+        'pratica',
+      ),
+      f(
+        'Depois, ela monta um plano com exercícios de força, equilíbrio e coordenação, no ritmo de cada pessoa.',
+        'pratica',
+      ),
+      f(
+        'Os exercícios acontecem no ginásio da clínica, com espaldar (uma escada de madeira presa à parede), bolas, faixas e tablado.',
+        'tour',
+      ),
+      f('Um familiar pode acompanhar e aprender o que fazer em casa.', 'pratica'),
+      f('A cada sessão, o plano é revisto com você.', 'pratica'),
+    ],
+    perguntas: [perguntaConvenio],
+  },
+  {
+    id: 'cardiorrespiratoria',
+    foto: { id: 'still-cardio-4x5', legenda: 'Sala de esteira e bikes', tom: 'tijolo' },
+    meta: {
+      titulo: 'Fisioterapia respiratória e cardíaca em Lages · Ardeli',
+      descricao:
+        'Fisioterapia para respirar melhor e ganhar fôlego: doenças do pulmão e do coração, no Brusque, em Lages. Particular, Unimed, AAPL e SUS.',
+    },
+    verbete: {
+      palavra: 'fôlego',
+      classe: 's.m.',
+      acepcoes: [
+        f(
+          'A reserva de ar que deixa você andar, subir escada e conversar sem cansar tanto.',
+          'orientacao',
+        ),
+        f(
+          'Na Ardeli: avaliação, exercícios de respiração e de condicionamento, e acompanhamento.',
+          'pratica',
+          'cnes',
+          'joao2311',
+        ),
+      ],
+    },
+    oQueE: [
+      f(
+        'É a fisioterapia que cuida da respiração e do condicionamento do corpo, em quem tem problemas no pulmão ou no coração.',
+        'orientacao',
+        'cnes',
+      ),
+      f(
+        'Condicionamento é a capacidade de fazer esforço, como caminhar ou subir escada, com menos cansaço.',
+        'orientacao',
+      ),
+    ],
+    paraQuem: [
+      f(
+        'Quem tem doença respiratória, como asma, bronquite crônica ou enfisema, e sente falta de ar.',
+        'orientacao',
+      ),
+      f(
+        'Quem tem problema no coração e recebeu orientação médica para fazer exercício com acompanhamento.',
+        'orientacao',
+      ),
+      f('Quem ficou com cansaço ou pouco fôlego depois de uma internação.', 'orientacao'),
+    ],
+    comoE: [
+      f(
+        'Tudo começa com uma avaliação: a fisioterapeuta conversa com você e observa a sua respiração e o seu esforço.',
+        'pratica',
+      ),
+      f(
+        'Depois, ela monta um plano com exercícios de respiração e de condicionamento, respeitando as orientações do seu médico.',
+        'pratica',
+      ),
+      f('A clínica tem uma sala com esteira e bicicletas para os exercícios.', 'tour'),
+      f('A cada sessão, o plano é revisto com você.', 'pratica'),
+    ],
+    perguntas: [perguntaConvenio],
+  },
+  {
+    id: 'oncologia',
+    foto: { id: 'still-consultorio-1-4x5', legenda: 'Consultório 1', tom: 'madeira' },
+    meta: {
+      titulo: 'Fisioterapia durante e depois do câncer em Lages · Ardeli',
+      descricao:
+        'Fisioterapia durante e depois do tratamento do câncer, no bairro Brusque, em Lages: movimento, força e cansaço. Particular, Unimed, AAPL e SUS.',
+    },
+    verbete: {
+      palavra: 'cuidado',
+      classe: 's.m.',
+      acepcoes: [
+        f('Atenção ao corpo em cada fase do tratamento, no tempo de cada pessoa.', 'orientacao'),
+        f(
+          'Na Ardeli: avaliação, exercícios e orientações durante e depois do tratamento do câncer.',
+          'pratica',
+          'cnes',
+          'joao2311',
+        ),
+      ],
+    },
+    oQueE: [
+      f(
+        'É a fisioterapia para quem está em tratamento de câncer ou já terminou e quer cuidar do movimento e da disposição.',
+        'orientacao',
+        'cnes',
+      ),
+      f(
+        'Ela acompanha efeitos comuns do tratamento, como cansaço, perda de força e dificuldade de movimentar um braço depois de uma cirurgia.',
+        'orientacao',
+      ),
+    ],
+    paraQuem: [
+      f(
+        'Quem está fazendo tratamento de câncer e foi orientado a fazer fisioterapia.',
+        'orientacao',
+      ),
+      f('Quem terminou o tratamento e quer voltar às atividades do dia a dia.', 'orientacao'),
+      f('Quem fez cirurgia por causa de um câncer, como a de mama.', 'orientacao'),
+    ],
+    comoE: [
+      f(
+        'Tudo começa com uma avaliação: a fisioterapeuta conversa com você, sem pressa, e observa como você se move.',
+        'pratica',
+      ),
+      f(
+        'Depois, ela monta um plano com exercícios e orientações, respeitando as orientações do seu médico.',
+        'pratica',
+      ),
+      f('O atendimento pode ser feito em um dos dois consultórios, com mais privacidade.', 'tour'),
+      f('A cada sessão, o plano é revisto com você.', 'pratica'),
+    ],
+    perguntas: [perguntaConvenio],
+  },
+  {
+    id: 'obstetrica',
+    foto: { id: 'still-consultorio-2-4x5', legenda: 'Consultório 2', tom: 'madeira' },
+    meta: {
+      titulo: 'Fisioterapia na gestação e no pós-parto em Lages · Ardeli',
+      descricao:
+        'Fisioterapia na gravidez e depois do parto, no bairro Brusque, em Lages: dores, postura e retorno às atividades. Particular, Unimed, AAPL e SUS.',
+    },
+    verbete: {
+      palavra: 'gestação',
+      classe: 's.f.',
+      acepcoes: [
+        f('O tempo da gravidez, em que o corpo muda a cada semana.', 'orientacao'),
+        f(
+          'Na Ardeli: avaliação, exercícios e orientações na gravidez e depois do parto.',
+          'pratica',
+          'cnes',
+          'joao2311',
+        ),
+      ],
+    },
+    oQueE: [
+      f(
+        'É a fisioterapia que acompanha a mulher na gravidez e depois do parto.',
+        'orientacao',
+        'cnes',
+      ),
+      f(
+        'Ela ajuda com as dores e os desconfortos dessa fase e com a volta às atividades depois que o bebê nasce.',
+        'orientacao',
+      ),
+    ],
+    paraQuem: [
+      f('Gestantes com dor nas costas, nas pernas ou no quadril.', 'orientacao'),
+      f('Mulheres no pós-parto que querem voltar às atividades com segurança.', 'orientacao'),
+    ],
+    comoE: [
+      f(
+        'Tudo começa com uma avaliação: a fisioterapeuta conversa com você e observa como você se move.',
+        'pratica',
+      ),
+      f(
+        'Depois, ela monta um plano com exercícios e orientações para cada fase, respeitando as orientações do seu médico.',
+        'pratica',
+      ),
+      f('O atendimento pode ser feito em um dos dois consultórios, com mais privacidade.', 'tour'),
+      f('A cada sessão, o plano é revisto com você.', 'pratica'),
+    ],
+    perguntas: [perguntaConvenio],
+  },
+  {
+    id: 'queimados',
+    foto: { id: 'still-ginasio-trelica-4x5', legenda: 'Ginásio de reabilitação', tom: 'tijolo' },
+    meta: {
+      titulo: 'Fisioterapia depois de queimaduras em Lages · Ardeli',
+      descricao:
+        'Fisioterapia para recuperar o movimento depois de uma queimadura, no bairro Brusque, em Lages. Particular, Unimed, AAPL e SUS.',
+    },
+    verbete: {
+      palavra: 'pele',
+      classe: 's.f.',
+      acepcoes: [
+        f(
+          'Quando cicatriza depois de uma queimadura, ela pode repuxar e deixar o movimento mais difícil.',
+          'orientacao',
+        ),
+        f(
+          'Na Ardeli: avaliação, exercícios para movimentar a região e acompanhamento.',
+          'pratica',
+          'cnes',
+          'joao2311',
+        ),
+      ],
+    },
+    oQueE: [
+      f(
+        'É a fisioterapia para quem teve uma queimadura e ficou com dificuldade de mexer a região atingida.',
+        'orientacao',
+        'cnes',
+      ),
+      f(
+        'O cuidado é com o movimento das articulações perto da cicatriz, a força e as tarefas do dia a dia.',
+        'orientacao',
+      ),
+    ],
+    paraQuem: [
+      f('Quem teve queimadura e foi orientado a fazer fisioterapia.', 'orientacao'),
+      f(
+        'Quem sente a pele repuxar ou tem dificuldade de dobrar ou esticar uma parte do corpo depois da queimadura.',
+        'orientacao',
+      ),
+    ],
+    comoE: [
+      f(
+        'Tudo começa com uma avaliação: a fisioterapeuta conversa com você e observa como você se move.',
+        'pratica',
+      ),
+      f(
+        'Depois, ela monta um plano com exercícios para a região, respeitando as orientações do seu médico.',
+        'pratica',
+      ),
+      f('A cada sessão, o plano é revisto com você.', 'pratica'),
+    ],
+    perguntas: [perguntaConvenio],
   },
 ];

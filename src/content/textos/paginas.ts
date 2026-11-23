@@ -13,7 +13,7 @@ export const primeiraAvaliacao = {
   meta: {
     titulo: 'Primeira avaliação de fisioterapia · Ardeli, Lages',
     descricao:
-      'Como é a primeira avaliação de fisioterapia na Ardeli, no Brusque, em Lages: passo a passo, o que levar e como agendar pela Unimed, AAPL ou particular.',
+      'Como é a primeira avaliação de fisioterapia na Ardeli, no Brusque, em Lages: passo a passo, o que levar e como agendar por Unimed, AAPL, SUS ou particular.',
   } satisfies Meta,
   verbete: {
     palavra: 'avaliação',
@@ -78,7 +78,7 @@ export const primeiraAvaliacao = {
     itens: [
       f('Documento com foto.', 'orientacao'),
       f(
-        'Carteirinha do convênio (Unimed ou AAPL), se for o seu caso.',
+        'Carteirinha do convênio (Unimed ou AAPL) ou o Cartão SUS, se for o seu caso.',
         'orientacao',
         'postUnimed',
         'postAapl',

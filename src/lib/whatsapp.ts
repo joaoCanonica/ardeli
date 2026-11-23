@@ -29,6 +29,7 @@ export const mensagens = {
       // Não afirma que atende: pergunta.
       return `Olá! ${ORIGEM} e quero saber se a Ardeli atende pelo ${c.nomeCompleto} e como funciona.`;
     }
+    if (c.id === 'sus') return `Olá! ${ORIGEM} e quero agendar uma avaliação pelo SUS.`;
     if (c.id === 'aapl') {
       return `Olá! ${ORIGEM}. Sou associado(a) da AAPL e quero saber como agendar uma avaliação.`;
     }

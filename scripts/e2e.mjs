@@ -106,22 +106,16 @@ async function enviar(p, raiz, enviada) {
   await c.close();
 }
 
-// 4. SUS bloqueado sem confirmação
+// 4. SUS (confirmado em 23/11/2026): pré-preenchido por ?forma=sus e enviado.
+//    (Enquanto não confirmado, o SUS não era oferecido; a regra continua coberta em tests/agenda.test.ts.)
 {
   const { c, p, enviada } = await contexto();
   await p.goto(`${BASE}/agendar/?forma=sus`);
-  const temSus = await p.locator('input[name="forma"][value="sus"]').count();
-  const algumaMarcada = await p
-    .locator('[data-agendar-pagina] input[name="forma"]:checked')
-    .count();
-  await p.locator('[data-agendar-pagina] button[type="submit"]').click();
-  await p.waitForTimeout(400);
-  const html = await p.content();
-  ok(
-    '4. SUS bloqueado sem confirmação (sem opção, nada marcado, não envia)',
-    temSus === 0 && algumaMarcada === 0 && enviada.url === null && !/Atendimento: SUS/.test(html),
-    `opção SUS: ${temSus}, marcadas: ${algumaMarcada}, enviou: ${enviada.url !== null}`,
-  );
+  const marcado = await p
+    .locator('[data-agendar-pagina] input[name="forma"][value="sus"]')
+    .isChecked();
+  const t = await enviar(p, '[data-agendar-pagina]', enviada);
+  ok('4. SUS pré-preenchido por ?forma=sus', marcado && t === `${INICIO} Atendimento: SUS.`, t);
   await c.close();
 }
 
@@ -184,7 +178,7 @@ async function enviar(p, raiz, enviada) {
 {
   const { c, p } = await contexto();
   let destino = null;
-  await p.route('https://maps.google.com/**', (r) => {
+  await p.route(/https:\/\/(maps|www)\.google\.com\/.*/, (r) => {
     destino = r.request().url();
     return r.fulfill({ status: 200, contentType: 'text/html', body: '<p>Google (simulado)</p>' });
   });
@@ -206,7 +200,7 @@ async function enviar(p, raiz, enviada) {
   await p.waitForTimeout(800);
   ok(
     '/avaliar redireciona (meta refresh + JS), noindex, origem "qr" registrada',
-    destino?.startsWith('https://maps.google.com/') &&
+    /^https:\/\/(maps|www)\.google\.com\//.test(destino ?? '') &&
       /url=https/.test(refresh ?? '') &&
       /noindex/.test(robots ?? '') &&
       eventos.some((e) => e.nome === 'clique_avaliar' && e.props.origem === 'qr'),

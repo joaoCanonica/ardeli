@@ -128,3 +128,18 @@ No ar em **https://ardeli.vercel.app** (produção do branch `main`). Corrigido:
 | Confirmações da clínica (SUS, regras da Unimed e da AAPL, telefone para ligação, feriados, acessibilidade, estacionamento, outras áreas de atendimento, link "Pedir avaliações") | Clínica | O site usa "Confirme pelo WhatsApp" ou omite; nada é afirmado sem confirmação |
 | Data de lançamento (VideoObject do tour) e conta no Plausible (medição) | João | Data provisória 22/11/2026; medição não registra nada até a conta existir |
 | Teste 60+ com uma pessoa real, leitor de tela real, Safari iOS e Firefox | João | Roteiros em docs/QA.md |
+
+## Resolvido em 23/11/2026 (respostas do João)
+
+| Item | Como ficou no site |
+|---|---|
+| **SUS** | Atende. Entra no agendador, em /convenios ("A Ardeli atende pelo SUS?"), nas perguntas frequentes, no JSON-LD, no llms.txt e na imagem de compartilhamento. O caminho da rede pública (encaminhamento da UBS) aparece como orientação geral, com "a clínica explica pelo WhatsApp" |
+| Regras da Unimed, da AAPL e do SUS | Explicadas pelo WhatsApp (as mesmas de todas as clínicas): o "Confirme pelo WhatsApp" é a regra oficial |
+| Telefone | Um número só; WhatsApp de preferência, mas atende ligação |
+| Feriados | Fechado: o status da home diz "fechado (feriado)"; as perguntas frequentes avisam |
+| Estacionamento | "Dá para estacionar na rua, em frente à clínica." (/como-chegar e perguntas frequentes) |
+| Ponto de referência | "Perto do Colégio Industrial e da Delegacia da Polícia Civil." (/como-chegar, seção de endereço e perguntas frequentes) |
+| Atendimentos | As 6 áreas do CNES publicadas, cada uma com página própria: ortopedia e dor, neurologia, respiração e coração, oncologia, gestação e pós-parto, queimaduras. O agendador oferece também "Neurológico" e "Respiratório" |
+| Link de avaliação | "Escrever avaliação" da própria ficha do Google (o mesmo cid do site): /avaliar, o QR e o rodapé abrem direto a janela de avaliar |
+
+**Ainda falta:** ligar o domínio `ardeli.com.br`; o CREFITO-10 pessoal da Andriele; a acessibilidade do espaço (entrada, banheiro); a duração da sessão e se é preciso pedido médico (as duas perguntas continuam fora do site); a data de lançamento (tour); a conta no Plausible. A Andriele deve validar os textos de "como é o atendimento" das 5 áreas novas (fonte `pratica`).

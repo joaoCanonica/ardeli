@@ -30,10 +30,17 @@ describe('whatsapp', () => {
     );
     expect(mensagens.convenio(conv('aapl'))).toMatch(/associado\(a\) da AAPL/);
     expect(mensagens.convenio(conv('particular'))).toMatch(/avaliação particular\.$/);
-    // SUS não confirmado: pergunta, não afirma.
+    // SUS confirmado (23/11/2026): agenda. Sem confirmação, só perguntaria.
     expect(mensagens.convenio(conv('sus'))).toBe(
-      'Olá! Vim pelo site da Ardeli e quero saber se a Ardeli atende pelo SUS (Sistema Único de Saúde) e como funciona.',
+      'Olá! Vim pelo site da Ardeli e quero agendar uma avaliação pelo SUS.',
     );
+    expect(
+      mensagens.convenio({
+        id: 'sus',
+        nomeCompleto: 'SUS',
+        atende: { estado: 'opcional', valor: null },
+      }),
+    ).toMatch(/quero saber se a Ardeli atende pelo SUS/);
     const musc = atendimentos.find((a) => a.id === 'musculoesqueletica');
     expect(mensagens.atendimento(musc ?? { nomeCurto: '' })).toBe(
       'Olá! Vim pelo site da Ardeli e quero saber sobre o atendimento de ortopedia e dor.',
@@ -45,10 +52,12 @@ describe('whatsapp', () => {
 });
 
 describe('avaliar', () => {
-  it('sem o link "Pedir avaliações", cai na ficha (cid) e avisa', () => {
+  it('link de avaliação: o "Escrever avaliação" da mesma ficha (cid) do site', () => {
     const l = linkAvaliar();
-    expect(l.origem).toBe('ficha');
-    expect(l.url).toBe('https://maps.google.com/?cid=10553999783368888140');
-    expect(l.aviso).toMatch(/pendente/);
+    expect(l.origem).toBe('pedir-avaliacoes');
+    expect(l.url).toMatch(/#lrd=0x94e01fcf5a3ddc7d:0x927756e2af408f4c,3$/);
+    // O lrd carrega o cid em hexadecimal: é a mesma ficha.
+    expect(BigInt('0x927756e2af408f4c').toString()).toBe('10553999783368888140');
+    expect(l.aviso).toBeNull();
   });
 });

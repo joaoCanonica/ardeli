@@ -82,10 +82,8 @@ describe.runIf(existsSync(`${dist}/convenios/index.html`))('páginas geradas (di
     const t = texto(ler('perguntas-frequentes/index.html'));
     expect(t).toContain('A Ardeli atende Unimed?');
     for (const q of [
-      'Atende pelo SUS?',
       'Preciso de pedido médico?',
       'Quanto tempo dura a sessão?',
-      'Tem estacionamento?',
       'O espaço é acessível?',
     ]) {
       expect(t).not.toContain(q);

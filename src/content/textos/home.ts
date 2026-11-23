@@ -12,8 +12,9 @@ export const capa = {
     acepcoes: [
       f('Acompanhar a recuperação do seu movimento, da avaliação ao dia a dia.', 'prompt', 'bio'),
       f(
-        'Fisioterapia no bairro Brusque, em Lages: particular, Unimed e AAPL.',
+        'Fisioterapia no bairro Brusque, em Lages: particular, Unimed, AAPL e SUS.',
         'prompt',
+        'joao2311',
         'google',
         'postUnimed',
         'postAapl',
@@ -77,8 +78,9 @@ export const convenio = {
     classe: 's.m.',
     acepcoes: [
       f(
-        'O jeito como você vai ser atendido: particular, Unimed ou AAPL.',
+        'O jeito como você vai ser atendido: particular, Unimed, AAPL ou SUS.',
         'joao',
+        'joao2311',
         'postUnimed',
         'postAapl',
       ),

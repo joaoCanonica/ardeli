@@ -1,7 +1,7 @@
 // Dados cadastrais da clínica. Fonte: docs/ARDELI_INVESTIGACAO_CLIENTE.md §2.
 // Faltou dado → opcional() ou bloqueante(); nunca inventar. Ver docs/PENDENCIAS.md.
 
-import { aviso, bloqueante, confirmado, opcional, type Campo } from './tipos.ts';
+import { aviso, confirmado, opcional, type Campo } from './tipos.ts';
 
 const FONTE_JOAO = 'João (WAXLO), investigação 22/11/2026';
 const FONTE_MAPS = 'ficha do Google Maps, vista em 22/11/2026';
@@ -72,10 +72,9 @@ export const clinica = {
     `${FONTE_JOAO} (mesmo número do Studio Ar)`,
   ),
   /** "Ligar" com um toque. Hoje é o número do WhatsApp; falta confirmar se atende ligação. */
-  telefone: aviso(
-    'telefone para ligação',
-    'é o número do WhatsApp; confirmar se a clínica atende ligação nele',
+  telefone: confirmado(
     { e164: '+5549999281721', exibicao: '(49) 99928-1721' },
+    'João (WAXLO), 23/11/2026: um número só; WhatsApp de preferência, mas atende ligação',
   ),
 
   horario: confirmado(
@@ -89,17 +88,25 @@ export const clinica = {
     `${FONTE_JOAO} + ${FONTE_MAPS}`,
   ),
   /** A clínica fecha nos feriados? Enquanto não confirmar, o site pede para confirmar pelo WhatsApp. */
-  fechaEmFeriados: opcional<boolean>(null),
+  fechaEmFeriados: confirmado(true, 'João (WAXLO), 23/11/2026: fechado nos feriados'),
 
   acessibilidade: opcional<string>(null),
-  estacionamento: opcional<string>(null),
-  pontoDeReferencia: opcional<string>(null),
+  estacionamento: confirmado(
+    'Dá para estacionar na rua, em frente à clínica.',
+    'João (WAXLO), 23/11/2026',
+  ),
+  pontoDeReferencia: confirmado(
+    'Perto do Colégio Industrial e da Delegacia da Polícia Civil.',
+    'João (WAXLO), 23/11/2026',
+  ),
 
   google: {
     /** Link "Pedir avaliações" do Perfil da Empresa. Sem ele, cai na ficha (cid). */
-    linkPedirAvaliacoes: bloqueante("link 'Pedir avaliações' do Perfil da Empresa no Google", {
-      fallback: 'link da ficha no Google Maps (cid)',
-    }) as Campo<string>,
+    // Abre direto "Escrever avaliação" da ficha (lrd …:0x927756e2af408f4c = cid 10553999783368888140).
+    linkPedirAvaliacoes: confirmado(
+      'https://www.google.com/search?q=Ardeli+Fisioterapia+Lages#lrd=0x94e01fcf5a3ddc7d:0x927756e2af408f4c,3',
+      'João (WAXLO), 23/11/2026: link da ficha no Google (o mesmo cid do site)',
+    ),
   },
 
   /**

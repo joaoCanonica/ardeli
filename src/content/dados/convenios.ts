@@ -1,10 +1,12 @@
 // Formas de atendimento. Marcas de terceiros: só o nome em texto, nunca logo.
 // SUS: NÃO afirmar atendimento enquanto não houver confirmação (CLAUDE.md §10).
-import { bloqueante, confirmado, opcional } from '../../config/tipos.ts';
+import { confirmado, opcional } from '../../config/tipos.ts';
 import type { Convenio } from '../schemas.ts';
 
 const FONTE = 'João (WAXLO) + posts da clínica no Instagram, 22/11/2026';
 const CONFIRME = 'Confirme pelo WhatsApp: a gente explica rapidinho.';
+const FONTE_2311 =
+  'João (WAXLO), 23/11/2026: atende SUS; as regras de cada convênio são explicadas pelo WhatsApp (as mesmas de todas as clínicas)';
 
 export const convenios: Convenio[] = [
   {
@@ -22,7 +24,7 @@ export const convenios: Convenio[] = [
     nome: 'Unimed',
     nomeCompleto: 'Unimed Lages',
     atende: confirmado(true, `${FONTE} (arte "Agora atendemos Unimed!")`),
-    regras: opcional(null), // planos aceitos, pedido médico, guia
+    regras: confirmado('o que cada plano pede é explicado pelo WhatsApp', FONTE_2311),
     textoSePendente: CONFIRME,
   },
   {
@@ -31,7 +33,7 @@ export const convenios: Convenio[] = [
     nome: 'AAPL',
     nomeCompleto: 'AAPL (Associação dos Aposentados e Pensionistas de Lages)',
     atende: confirmado(true, `${FONTE} (arte "Nova parceria!": "credenciada com a AAPL")`),
-    regras: opcional(null), // como funciona para o associado
+    regras: confirmado('como funciona para o associado é explicado pelo WhatsApp', FONTE_2311),
     textoSePendente: CONFIRME,
   },
   {
@@ -39,10 +41,8 @@ export const convenios: Convenio[] = [
     ordem: 4,
     nome: 'SUS',
     nomeCompleto: 'SUS (Sistema Único de Saúde)',
-    atende: bloqueante('SUS: contrato vigente e caminho de acesso', {
-      fallback: 'Consulte a disponibilidade pelo WhatsApp',
-    }),
-    regras: opcional(null), // encaminhamento da UBS, regulação municipal
+    atende: confirmado(true, FONTE_2311),
+    regras: confirmado('caminho de acesso explicado pelo WhatsApp', FONTE_2311),
     textoSePendente: 'Consulte a disponibilidade pelo WhatsApp.',
   },
 ];

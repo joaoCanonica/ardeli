@@ -50,14 +50,20 @@ describe('dados', () => {
       fecha: '20:00',
       dias: [1, 2, 3, 4, 5],
     });
-    for (const c of ['acessibilidade', 'estacionamento', 'pontoDeReferencia'] as const) {
-      expect(clinica[c].estado).toBe('opcional');
-    }
+    expect(clinica.acessibilidade.estado).toBe('opcional');
+    expect(valorDe(clinica.estacionamento)).toMatch(/em frente à clínica/);
+    expect(valorDe(clinica.pontoDeReferencia)).toMatch(/Colégio Industrial/);
+    expect(valorDe(clinica.fechaEmFeriados)).toBe(true);
   });
 
-  it('só a musculoesquelética está publicada; nada publicado sem confirmação', () => {
+  it('todos os atendimentos do CNES publicados (João, 23/11/2026); nada sem confirmação', () => {
     expect(atendimentos.filter((a) => a.publicado).map((a) => a.id)).toEqual([
       'musculoesqueletica',
+      'neurologia',
+      'cardiorrespiratoria',
+      'oncologia',
+      'obstetrica',
+      'queimados',
     ]);
     for (const a of atendimentos.filter((x) => x.publicado))
       expect(a.confirmacao.estado).toBe('confirmado');
@@ -74,13 +80,13 @@ describe('dados', () => {
     }
   });
 
-  it('SUS não confirmado; os outros confirmados', () => {
+  it('todos os convênios confirmados, inclusive o SUS (João, 23/11/2026)', () => {
     const estado = Object.fromEntries(convenios.map((c) => [c.id, c.atende.estado]));
     expect(estado).toEqual({
       particular: 'confirmado',
       unimed: 'confirmado',
       aapl: 'confirmado',
-      sus: 'bloqueante',
+      sus: 'confirmado',
     });
     expect(convenios.find((c) => c.id === 'sus')?.textoSePendente).toBe(
       'Consulte a disponibilidade pelo WhatsApp.',
@@ -184,10 +190,8 @@ describe('travas', () => {
       nivel: 'aviso',
       ok: true,
     });
-    expect(v.find((x) => x.id === 'clinica.google.linkPedirAvaliacoes')).toMatchObject({
-      nivel: 'aviso',
-    });
-    expect(v.find((x) => x.id === 'sus')).toMatchObject({ nivel: 'aviso', ok: true });
+    expect(v.find((x) => x.id === 'clinica.google.linkPedirAvaliacoes')).toBeUndefined();
+    expect(v.find((x) => x.id === 'sus')).toMatchObject({ nivel: 'trava', ok: true });
   });
 
   it('camposDe acha campos aninhados', () => {
@@ -247,8 +251,8 @@ describe('scripts', () => {
       audit(pagina('<script type="application/ld+json">{"@type":"AggregateRating"}</script>'))
         .status,
     ).toBe(1);
-    expect(audit(pagina('<p>Atendemos pelo SUS.</p>')).status).toBe(1);
-    expect(audit(pagina('<p>Convênios: Unimed, AAPL e SUS.</p>')).status).toBe(1);
+    // SUS confirmado: afirmar atendimento pelo SUS passa (sem confirmação, reprovaria).
+    expect(audit(pagina('<p>Atendemos pelo SUS.</p>')).status).toBe(0);
     expect(audit(pagina('<img src="/media/img/arte-unimed-720.webp" alt="">')).status).toBe(1);
   });
 

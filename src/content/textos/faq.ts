@@ -46,9 +46,15 @@ export const grupos: readonly { titulo: string; perguntas: readonly Pergunta[] }
       {
         id: 'sus',
         pergunta: 'Atende pelo SUS?',
-        resposta: [f('Consulte a disponibilidade pelo WhatsApp.', 'joao')],
-        publicado: false,
-        pendencia: 'sus',
+        resposta: [
+          f('Sim. A Ardeli atende pelo SUS.', 'joao2311'),
+          f(
+            'Na rede pública, a fisioterapia costuma começar com o encaminhamento da Unidade Básica de Saúde (UBS). Chame no WhatsApp: a clínica explica como funciona no seu caso.',
+            'orientacao',
+            'joao2311',
+          ),
+        ],
+        publicado: true,
       },
       {
         id: 'pedido-medico',
@@ -97,6 +103,7 @@ export const grupos: readonly { titulo: string; perguntas: readonly Pergunta[] }
         pergunta: 'Qual é o horário de atendimento?',
         resposta: [
           f('Segunda a sexta, das 8h às 20h. Sábado e domingo, fechado.', 'joao', 'google'),
+          f('Nos feriados, a clínica fica fechada.', 'joao2311'),
         ],
         publicado: true,
       },
@@ -108,15 +115,17 @@ export const grupos: readonly { titulo: string; perguntas: readonly Pergunta[] }
       {
         id: 'onde-fica',
         pergunta: 'Onde fica a clínica?',
-        resposta: [f('Av. Dom Pedro II, 2700, no bairro Brusque, em Lages (SC).', 'google')],
+        resposta: [
+          f('Av. Dom Pedro II, 2700, no bairro Brusque, em Lages (SC).', 'google'),
+          f('Perto do Colégio Industrial e da Delegacia da Polícia Civil.', 'joao2311'),
+        ],
         publicado: true,
       },
       {
         id: 'estacionamento',
         pergunta: 'Tem estacionamento?',
-        resposta: [f(CONFIRME, 'orientacao')],
-        publicado: false,
-        pendencia: 'estacionamento',
+        resposta: [f('Dá para estacionar na rua, em frente à clínica.', 'joao2311')],
+        publicado: true,
       },
       {
         id: 'acessivel',

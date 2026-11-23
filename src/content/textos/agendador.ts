@@ -5,7 +5,7 @@ export const agendador = {
   meta: {
     titulo: 'Agendar avaliação de fisioterapia · Ardeli, Lages',
     descricao:
-      'Agende sua avaliação de fisioterapia na Ardeli, no Brusque, em Lages: particular, Unimed ou AAPL. Escolha o período e envie pelo WhatsApp.',
+      'Agende sua avaliação de fisioterapia na Ardeli, no Brusque, em Lages: particular, Unimed, AAPL ou SUS. Escolha o período e envie pelo WhatsApp.',
   } satisfies Meta,
   verbete: {
     palavra: 'agendar',

@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { atendimentos } from '../src/content/dados/atendimentos.ts';
 import { convenios } from '../src/content/dados/convenios.ts';
 import type { Convenio } from '../src/content/schemas.ts';
-import { confirmado } from '../src/config/tipos.ts';
+import { bloqueante, confirmado } from '../src/config/tipos.ts';
 import {
   destinoDoPedido,
   montarPedido,
@@ -49,9 +49,20 @@ describe('montarPedido', () => {
     );
   });
 
-  it('SUS não é oferecido nem aceito enquanto não for confirmado', () => {
-    expect(opcoesForma().map((o) => o.id)).toEqual(['particular', 'unimed', 'aapl', 'nao-sei']);
-    expect(() => montarPedido({ forma: 'sus' })).toThrow(/não está confirmada/);
+  it('SUS confirmado (23/11/2026): oferecido; sem confirmação, não é oferecido nem aceito', () => {
+    expect(opcoesForma().map((o) => o.id)).toEqual([
+      'particular',
+      'unimed',
+      'aapl',
+      'sus',
+      'nao-sei',
+    ]);
+    const semSus = convenios.map((c) =>
+      c.id === 'sus' ? ({ ...c, atende: bloqueante('SUS') } as Convenio) : c,
+    );
+    const ctx = { convenios: semSus, atendimentos };
+    expect(opcoesForma(ctx).map((o) => o.id)).not.toContain('sus');
+    expect(() => montarPedido({ forma: 'sus' }, ctx)).toThrow(/não está confirmada/);
   });
 
   it('SUS entra quando confirmado', () => {
@@ -68,20 +79,21 @@ describe('montarPedido', () => {
       'dor',
       'pos-operatorio',
       'recuperacao-lesao',
+      'neurologico',
+      'respiratorio',
       'outro',
     ]);
-    expect(() => montarPedido({ forma: 'unimed', motivo: 'neurologico' })).toThrow(
-      /não é oferecido/,
-    );
+    // Atendimento despublicado: o motivo dele some e não é aceito.
     const ctx = {
       convenios,
       atendimentos: atendimentos.map((a) =>
-        a.id === 'neurologia'
-          ? { ...a, publicado: true, confirmacao: confirmado(true as const, 'teste') }
-          : a,
+        a.id === 'neurologia' ? { ...a, publicado: false } : a,
       ),
     };
-    expect(opcoesMotivo(ctx).map((m) => m.id)).toContain('neurologico');
+    expect(opcoesMotivo(ctx).map((m) => m.id)).not.toContain('neurologico');
+    expect(() => montarPedido({ forma: 'unimed', motivo: 'neurologico' }, ctx)).toThrow(
+      /não é oferecido/,
+    );
   });
 
   it('dias só de segunda a sexta', () => {

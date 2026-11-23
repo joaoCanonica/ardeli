@@ -1,6 +1,6 @@
 # Textos do site — para revisão
 
-Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 frases, 213 rótulos.
+Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 287 frases, 270 rótulos.
 
 - **[guardado]** = escrito, mas fora do site até a confirmação (ex.: SUS, duração da sessão) ou numa pergunta não publicada.
 - Fontes entre colchetes; a lista completa está no fim.
@@ -10,18 +10,23 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 | Página | Title (≤ 60) | Description (≤ 155) |
 |---|---|---|
 | 404 | Página não encontrada · Ardeli Fisioterapia (43) | Esta página não existe no site da Ardeli Fisioterapia, em Lages. Veja os convênios, os atendimentos ou fale pelo WhatsApp. (122) |
-| home | Fisioterapia no Brusque, em Lages · Ardeli Fisioterapia (55) | Fisioterapia no bairro Brusque, em Lages (SC). Particular, Unimed e AAPL. Segunda a sexta, das 8h às 20h. Agende sua avaliação pelo WhatsApp. (141) |
-| convenios | Convênios: Unimed, AAPL e particular · Ardeli Lages (51) | Fisioterapia em Lages pela Unimed, pela AAPL ou particular. Veja quem pode usar, o que levar e como agendar na Ardeli, no bairro Brusque. (137) |
-| atendimentos | Atendimentos de fisioterapia em Lages · Ardeli (46) | Fisioterapia no bairro Brusque, em Lages: dor na coluna e nas articulações, pós-operatório e recuperação após lesão. Particular, Unimed e AAPL. (143) |
-| atendimentos/musculoesqueletica | Fisioterapia para dor e pós-operatório em Lages (47) | Fisioterapia para dor na coluna e nas articulações, pós-operatório e recuperação após lesão, no bairro Brusque, em Lages. Unimed, AAPL e particular. (148) |
-| primeira-avaliacao | Primeira avaliação de fisioterapia · Ardeli, Lages (50) | Como é a primeira avaliação de fisioterapia na Ardeli, no Brusque, em Lages: passo a passo, o que levar e como agendar pela Unimed, AAPL ou particular. (151) |
+| home | Fisioterapia no Brusque, em Lages · Ardeli Fisioterapia (55) | Fisioterapia no bairro Brusque, em Lages (SC). Particular, Unimed, AAPL e SUS. Segunda a sexta, das 8h às 20h. Agende pelo WhatsApp. (132) |
+| convenios | Convênios: Unimed, AAPL, SUS e particular · Ardeli Lages (56) | Fisioterapia em Lages pela Unimed, pela AAPL, pelo SUS ou particular. Veja quem pode usar, o que levar e como agendar na Ardeli, no Brusque. (140) |
+| atendimentos | Atendimentos de fisioterapia em Lages · Ardeli (46) | Fisioterapia no Brusque, em Lages: ortopedia e dor, neurologia, respiração, oncologia, gestação e pós-parto e queimaduras. Particular, Unimed, AAPL e SUS. (154) |
+| atendimentos/musculoesqueletica | Fisioterapia para dor e pós-operatório em Lages (47) | Fisioterapia para dor na coluna e nas articulações, pós-operatório e recuperação após lesão, no Brusque, em Lages. Unimed, AAPL, SUS e particular. (146) |
+| atendimentos/neurologia | Fisioterapia neurológica em Lages: AVC e Parkinson · Ardeli (59) | Fisioterapia depois de AVC e em condições que afetam os nervos e o movimento, no Brusque, em Lages. Particular, Unimed, AAPL e SUS. (131) |
+| atendimentos/cardiorrespiratoria | Fisioterapia respiratória e cardíaca em Lages · Ardeli (54) | Fisioterapia para respirar melhor e ganhar fôlego: doenças do pulmão e do coração, no Brusque, em Lages. Particular, Unimed, AAPL e SUS. (136) |
+| atendimentos/oncologia | Fisioterapia durante e depois do câncer em Lages · Ardeli (57) | Fisioterapia durante e depois do tratamento do câncer, no bairro Brusque, em Lages: movimento, força e cansaço. Particular, Unimed, AAPL e SUS. (143) |
+| atendimentos/obstetrica | Fisioterapia na gestação e no pós-parto em Lages · Ardeli (57) | Fisioterapia na gravidez e depois do parto, no bairro Brusque, em Lages: dores, postura e retorno às atividades. Particular, Unimed, AAPL e SUS. (144) |
+| atendimentos/queimados | Fisioterapia depois de queimaduras em Lages · Ardeli (52) | Fisioterapia para recuperar o movimento depois de uma queimadura, no bairro Brusque, em Lages. Particular, Unimed, AAPL e SUS. (126) |
+| primeira-avaliacao | Primeira avaliação de fisioterapia · Ardeli, Lages (50) | Como é a primeira avaliação de fisioterapia na Ardeli, no Brusque, em Lages: passo a passo, o que levar e como agendar por Unimed, AAPL, SUS ou particular. (155) |
 | quem-cuida | Quem cuida: fisioterapeutas da Ardeli em Lages (46) | Quem cuida de você na Ardeli Fisioterapia, no Brusque, em Lages: Andriele da Silva, que atende na cidade desde 2018, e Nicole de Abreu Batista. (143) |
 | a-clinica | Conheça a clínica de fisioterapia no Brusque · Ardeli (53) | Veja por dentro a Ardeli Fisioterapia, no bairro Brusque, em Lages: recepção, ginásio de reabilitação, sala de esteira e bikes e dois consultórios. (147) |
 | perguntas-frequentes | Perguntas frequentes · Ardeli Fisioterapia, Lages (49) | Dúvidas sobre a Ardeli Fisioterapia, no bairro Brusque, em Lages: atende Unimed? Atende aposentados da AAPL? Como agendar a avaliação? Onde fica? (145) |
 | como-chegar | Como chegar à Ardeli Fisioterapia · Brusque, Lages (50) | Ardeli Fisioterapia: Av. Dom Pedro II, 2700 – Brusque, Lages – SC, 88503-062. Segunda a sexta, das 8h às 20h. Rotas pelo Google Maps, Waze e Apple Mapas. (153) |
 | avaliar | Avalie a Ardeli Fisioterapia no Google (38) | Foi atendido na Ardeli Fisioterapia, no Brusque, em Lages? Conte como foi no Google. Sua opinião ajuda outras pessoas a encontrarem cuidado perto de casa. (154) |
 | privacidade | Privacidade · Ardeli Fisioterapia (33) | Como o site da Ardeli Fisioterapia, em Lages, trata seus dados: sem cadastro e sem guardar nada sobre sua saúde. A mensagem sai do seu celular. (143) |
-| agendar | Agendar avaliação de fisioterapia · Ardeli, Lages (49) | Agende sua avaliação de fisioterapia na Ardeli, no Brusque, em Lages: particular, Unimed ou AAPL. Escolha o período e envie pelo WhatsApp. (138) |
+| agendar | Agendar avaliação de fisioterapia · Ardeli, Lages (49) | Agende sua avaliação de fisioterapia na Ardeli, no Brusque, em Lages: particular, Unimed, AAPL ou SUS. Escolha o período e envie pelo WhatsApp. (143) |
 
 ## home › acolhimento
 
@@ -43,7 +48,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 
 - Fisioterapia no Brusque, em Lages <sub>[google] · `home.capa.h1`</sub>
 - Acompanhar a recuperação do seu movimento, da avaliação ao dia a dia. <sub>[prompt, bio] · `home.capa.verbete.acepcoes.0`</sub>
-- Fisioterapia no bairro Brusque, em Lages: particular, Unimed e AAPL. <sub>[prompt, google, postUnimed, postAapl] · `home.capa.verbete.acepcoes.1`</sub>
+- Fisioterapia no bairro Brusque, em Lages: particular, Unimed, AAPL e SUS. <sub>[prompt, joao2311, google, postUnimed, postAapl] · `home.capa.verbete.acepcoes.1`</sub>
 
 ## home › clinica
 
@@ -55,7 +60,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 
 ## home › convenio
 
-- O jeito como você vai ser atendido: particular, Unimed ou AAPL. <sub>[joao, postUnimed, postAapl] · `home.convenio.verbete.acepcoes.0`</sub>
+- O jeito como você vai ser atendido: particular, Unimed, AAPL ou SUS. <sub>[joao, joao2311, postUnimed, postAapl] · `home.convenio.verbete.acepcoes.0`</sub>
 - Escolha a sua opção e veja o que levar. A mensagem para agendar já vem pronta. <sub>[site] · `home.convenio.verbete.acepcoes.1`</sub>
 - Veja abaixo as formas de atendimento e o que levar em cada uma. <sub>[site] · `home.convenio.semJs`</sub>
 - Confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `home.convenio.pendente`</sub>
@@ -81,7 +86,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 
 ## convenios › pagina
 
-- O jeito como você vai ser atendido na Ardeli: particular, pela Unimed ou pela AAPL. <sub>[joao, postUnimed, postAapl] · `convenios.pagina.verbete.acepcoes.0`</sub>
+- O jeito como você vai ser atendido na Ardeli: particular, pela Unimed, pela AAPL ou pelo SUS. <sub>[joao, joao2311, postUnimed, postAapl] · `convenios.pagina.verbete.acepcoes.0`</sub>
 - Em todos, o primeiro passo é o mesmo: uma avaliação com a fisioterapeuta. <sub>[pratica] · `convenios.pagina.verbete.acepcoes.1`</sub>
 - Escolha a sua forma de atendimento. Se ficar alguma dúvida, é só chamar no WhatsApp. <sub>[orientacao] · `convenios.pagina.introducao`</sub>
 - Em qualquer forma de atendimento, leve um documento com foto e, se tiver, exames recentes e o pedido médico. <sub>[orientacao] · `convenios.pagina.geral`</sub>
@@ -106,12 +111,12 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 - A carteirinha da AAPL e um documento com foto. <sub>[orientacao] · `convenios.itens.2.oQueLevar.0`</sub>
 - Se tiver, o pedido médico e exames recentes. <sub>[orientacao] · `convenios.itens.2.oQueLevar.1`</sub>
 - Chame no WhatsApp e diga que é pela AAPL. A mensagem já vai pronta. <sub>[site] · `convenios.itens.2.comoAgendar.0`</sub>
-- Consulte a disponibilidade pelo WhatsApp. <sub>[joao] · `convenios.itens.3.resumo`</sub>
+- Sim. A Ardeli atende pelo SUS. <sub>[joao2311] · `convenios.itens.3.resumo`</sub>
 - Consulte a disponibilidade pelo WhatsApp. <sub>[joao] · `convenios.itens.3.sePendente.0`</sub>
 - A gente explica a situação do SUS na clínica hoje. <sub>[orientacao] · `convenios.itens.3.sePendente.1`</sub>
-- **[guardado]** Pessoas encaminhadas pela rede pública de saúde de Lages. <sub>[cnes] · `convenios.itens.3.quemPodeUsar.0`</sub>
-- **[guardado]** O encaminhamento, o Cartão SUS e um documento com foto. <sub>[orientacao] · `convenios.itens.3.oQueLevar.0`</sub>
-- **[guardado]** O atendimento pelo SUS começa na Unidade Básica de Saúde (UBS). Com o encaminhamento, a clínica explica os próximos passos. <sub>[orientacao] · `convenios.itens.3.comoAgendar.0`</sub>
+- Quem é atendido pela rede pública de saúde. <sub>[joao2311, orientacao] · `convenios.itens.3.quemPodeUsar.0`</sub>
+- O Cartão SUS, um documento com foto e, se tiver, o encaminhamento e exames recentes. <sub>[orientacao] · `convenios.itens.3.oQueLevar.0`</sub>
+- Na rede pública, a fisioterapia costuma começar com o encaminhamento da Unidade Básica de Saúde (UBS). Chame no WhatsApp: a clínica explica como funciona no seu caso. <sub>[orientacao, joao2311] · `convenios.itens.3.comoAgendar.0`</sub>
 
 ## atendimentos › pagina
 
@@ -135,10 +140,73 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 - A cada sessão, o plano é revisto com você. <sub>[pratica] · `atendimentos.itens.0.comoE.4`</sub>
 - Depende do que a avaliação mostrar e de como você responde aos exercícios. <sub>[pratica] · `atendimentos.itens.0.perguntas.0.resposta.0`</sub>
 - A fisioterapeuta explica o plano e revisa com você ao longo das sessões. <sub>[pratica] · `atendimentos.itens.0.perguntas.0.resposta.1`</sub>
-- Sim. A Ardeli atende particular, Unimed e AAPL. <sub>[joao, postUnimed, postAapl] · `atendimentos.itens.0.perguntas.1.resposta.0`</sub>
+- Sim. A Ardeli atende particular, Unimed, AAPL e SUS. <sub>[joao, joao2311, postUnimed, postAapl] · `atendimentos.itens.0.perguntas.1.resposta.0`</sub>
 - Para saber o que o seu plano pede, confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `atendimentos.itens.0.perguntas.1.resposta.1`</sub>
 - **[guardado]** Confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `atendimentos.itens.0.perguntas.2.resposta.0`</sub>
 - Roupa confortável, que deixe você se mexer à vontade. Se a dor for no joelho ou no ombro, prefira peças que deixem a região livre. <sub>[orientacao] · `atendimentos.itens.0.perguntas.3.resposta.0`</sub>
+- Ficar de pé, andar e se virar com mais firmeza e segurança. <sub>[orientacao] · `atendimentos.itens.1.verbete.acepcoes.0`</sub>
+- Na Ardeli: avaliação, exercícios de movimento, força e equilíbrio, e acompanhamento. <sub>[pratica, cnes, joao2311] · `atendimentos.itens.1.verbete.acepcoes.1`</sub>
+- É a fisioterapia para quem teve o sistema nervoso afetado: o cérebro, a medula ou os nervos que comandam o movimento. <sub>[orientacao, cnes] · `atendimentos.itens.1.oQueE.0`</sub>
+- O foco é o dia a dia: levantar da cadeira, andar, subir um degrau, usar as mãos. <sub>[orientacao] · `atendimentos.itens.1.oQueE.1`</sub>
+- Quem teve AVC (derrame) e quer recuperar movimentos. <sub>[orientacao] · `atendimentos.itens.1.paraQuem.0`</sub>
+- Quem tem doença de Parkinson ou outra condição que afeta o equilíbrio e a coordenação. <sub>[orientacao] · `atendimentos.itens.1.paraQuem.1`</sub>
+- Quem sente fraqueza, formigamento ou falta de firmeza ao andar. <sub>[orientacao] · `atendimentos.itens.1.paraQuem.2`</sub>
+- Tudo começa com uma avaliação: a fisioterapeuta conversa com você e observa como você se move. <sub>[pratica] · `atendimentos.itens.1.comoE.0`</sub>
+- Depois, ela monta um plano com exercícios de força, equilíbrio e coordenação, no ritmo de cada pessoa. <sub>[pratica] · `atendimentos.itens.1.comoE.1`</sub>
+- Os exercícios acontecem no ginásio da clínica, com espaldar (uma escada de madeira presa à parede), bolas, faixas e tablado. <sub>[tour] · `atendimentos.itens.1.comoE.2`</sub>
+- Um familiar pode acompanhar e aprender o que fazer em casa. <sub>[pratica] · `atendimentos.itens.1.comoE.3`</sub>
+- A cada sessão, o plano é revisto com você. <sub>[pratica] · `atendimentos.itens.1.comoE.4`</sub>
+- Sim. A Ardeli atende particular, Unimed, AAPL e SUS. <sub>[joao, joao2311] · `atendimentos.itens.1.perguntas.0.resposta.0`</sub>
+- Para saber o que o seu convênio pede, confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `atendimentos.itens.1.perguntas.0.resposta.1`</sub>
+- A reserva de ar que deixa você andar, subir escada e conversar sem cansar tanto. <sub>[orientacao] · `atendimentos.itens.2.verbete.acepcoes.0`</sub>
+- Na Ardeli: avaliação, exercícios de respiração e de condicionamento, e acompanhamento. <sub>[pratica, cnes, joao2311] · `atendimentos.itens.2.verbete.acepcoes.1`</sub>
+- É a fisioterapia que cuida da respiração e do condicionamento do corpo, em quem tem problemas no pulmão ou no coração. <sub>[orientacao, cnes] · `atendimentos.itens.2.oQueE.0`</sub>
+- Condicionamento é a capacidade de fazer esforço, como caminhar ou subir escada, com menos cansaço. <sub>[orientacao] · `atendimentos.itens.2.oQueE.1`</sub>
+- Quem tem doença respiratória, como asma, bronquite crônica ou enfisema, e sente falta de ar. <sub>[orientacao] · `atendimentos.itens.2.paraQuem.0`</sub>
+- Quem tem problema no coração e recebeu orientação médica para fazer exercício com acompanhamento. <sub>[orientacao] · `atendimentos.itens.2.paraQuem.1`</sub>
+- Quem ficou com cansaço ou pouco fôlego depois de uma internação. <sub>[orientacao] · `atendimentos.itens.2.paraQuem.2`</sub>
+- Tudo começa com uma avaliação: a fisioterapeuta conversa com você e observa a sua respiração e o seu esforço. <sub>[pratica] · `atendimentos.itens.2.comoE.0`</sub>
+- Depois, ela monta um plano com exercícios de respiração e de condicionamento, respeitando as orientações do seu médico. <sub>[pratica] · `atendimentos.itens.2.comoE.1`</sub>
+- A clínica tem uma sala com esteira e bicicletas para os exercícios. <sub>[tour] · `atendimentos.itens.2.comoE.2`</sub>
+- A cada sessão, o plano é revisto com você. <sub>[pratica] · `atendimentos.itens.2.comoE.3`</sub>
+- Sim. A Ardeli atende particular, Unimed, AAPL e SUS. <sub>[joao, joao2311] · `atendimentos.itens.2.perguntas.0.resposta.0`</sub>
+- Para saber o que o seu convênio pede, confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `atendimentos.itens.2.perguntas.0.resposta.1`</sub>
+- Atenção ao corpo em cada fase do tratamento, no tempo de cada pessoa. <sub>[orientacao] · `atendimentos.itens.3.verbete.acepcoes.0`</sub>
+- Na Ardeli: avaliação, exercícios e orientações durante e depois do tratamento do câncer. <sub>[pratica, cnes, joao2311] · `atendimentos.itens.3.verbete.acepcoes.1`</sub>
+- É a fisioterapia para quem está em tratamento de câncer ou já terminou e quer cuidar do movimento e da disposição. <sub>[orientacao, cnes] · `atendimentos.itens.3.oQueE.0`</sub>
+- Ela acompanha efeitos comuns do tratamento, como cansaço, perda de força e dificuldade de movimentar um braço depois de uma cirurgia. <sub>[orientacao] · `atendimentos.itens.3.oQueE.1`</sub>
+- Quem está fazendo tratamento de câncer e foi orientado a fazer fisioterapia. <sub>[orientacao] · `atendimentos.itens.3.paraQuem.0`</sub>
+- Quem terminou o tratamento e quer voltar às atividades do dia a dia. <sub>[orientacao] · `atendimentos.itens.3.paraQuem.1`</sub>
+- Quem fez cirurgia por causa de um câncer, como a de mama. <sub>[orientacao] · `atendimentos.itens.3.paraQuem.2`</sub>
+- Tudo começa com uma avaliação: a fisioterapeuta conversa com você, sem pressa, e observa como você se move. <sub>[pratica] · `atendimentos.itens.3.comoE.0`</sub>
+- Depois, ela monta um plano com exercícios e orientações, respeitando as orientações do seu médico. <sub>[pratica] · `atendimentos.itens.3.comoE.1`</sub>
+- O atendimento pode ser feito em um dos dois consultórios, com mais privacidade. <sub>[tour] · `atendimentos.itens.3.comoE.2`</sub>
+- A cada sessão, o plano é revisto com você. <sub>[pratica] · `atendimentos.itens.3.comoE.3`</sub>
+- Sim. A Ardeli atende particular, Unimed, AAPL e SUS. <sub>[joao, joao2311] · `atendimentos.itens.3.perguntas.0.resposta.0`</sub>
+- Para saber o que o seu convênio pede, confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `atendimentos.itens.3.perguntas.0.resposta.1`</sub>
+- O tempo da gravidez, em que o corpo muda a cada semana. <sub>[orientacao] · `atendimentos.itens.4.verbete.acepcoes.0`</sub>
+- Na Ardeli: avaliação, exercícios e orientações na gravidez e depois do parto. <sub>[pratica, cnes, joao2311] · `atendimentos.itens.4.verbete.acepcoes.1`</sub>
+- É a fisioterapia que acompanha a mulher na gravidez e depois do parto. <sub>[orientacao, cnes] · `atendimentos.itens.4.oQueE.0`</sub>
+- Ela ajuda com as dores e os desconfortos dessa fase e com a volta às atividades depois que o bebê nasce. <sub>[orientacao] · `atendimentos.itens.4.oQueE.1`</sub>
+- Gestantes com dor nas costas, nas pernas ou no quadril. <sub>[orientacao] · `atendimentos.itens.4.paraQuem.0`</sub>
+- Mulheres no pós-parto que querem voltar às atividades com segurança. <sub>[orientacao] · `atendimentos.itens.4.paraQuem.1`</sub>
+- Tudo começa com uma avaliação: a fisioterapeuta conversa com você e observa como você se move. <sub>[pratica] · `atendimentos.itens.4.comoE.0`</sub>
+- Depois, ela monta um plano com exercícios e orientações para cada fase, respeitando as orientações do seu médico. <sub>[pratica] · `atendimentos.itens.4.comoE.1`</sub>
+- O atendimento pode ser feito em um dos dois consultórios, com mais privacidade. <sub>[tour] · `atendimentos.itens.4.comoE.2`</sub>
+- A cada sessão, o plano é revisto com você. <sub>[pratica] · `atendimentos.itens.4.comoE.3`</sub>
+- Sim. A Ardeli atende particular, Unimed, AAPL e SUS. <sub>[joao, joao2311] · `atendimentos.itens.4.perguntas.0.resposta.0`</sub>
+- Para saber o que o seu convênio pede, confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `atendimentos.itens.4.perguntas.0.resposta.1`</sub>
+- Quando cicatriza depois de uma queimadura, ela pode repuxar e deixar o movimento mais difícil. <sub>[orientacao] · `atendimentos.itens.5.verbete.acepcoes.0`</sub>
+- Na Ardeli: avaliação, exercícios para movimentar a região e acompanhamento. <sub>[pratica, cnes, joao2311] · `atendimentos.itens.5.verbete.acepcoes.1`</sub>
+- É a fisioterapia para quem teve uma queimadura e ficou com dificuldade de mexer a região atingida. <sub>[orientacao, cnes] · `atendimentos.itens.5.oQueE.0`</sub>
+- O cuidado é com o movimento das articulações perto da cicatriz, a força e as tarefas do dia a dia. <sub>[orientacao] · `atendimentos.itens.5.oQueE.1`</sub>
+- Quem teve queimadura e foi orientado a fazer fisioterapia. <sub>[orientacao] · `atendimentos.itens.5.paraQuem.0`</sub>
+- Quem sente a pele repuxar ou tem dificuldade de dobrar ou esticar uma parte do corpo depois da queimadura. <sub>[orientacao] · `atendimentos.itens.5.paraQuem.1`</sub>
+- Tudo começa com uma avaliação: a fisioterapeuta conversa com você e observa como você se move. <sub>[pratica] · `atendimentos.itens.5.comoE.0`</sub>
+- Depois, ela monta um plano com exercícios para a região, respeitando as orientações do seu médico. <sub>[pratica] · `atendimentos.itens.5.comoE.1`</sub>
+- A cada sessão, o plano é revisto com você. <sub>[pratica] · `atendimentos.itens.5.comoE.2`</sub>
+- Sim. A Ardeli atende particular, Unimed, AAPL e SUS. <sub>[joao, joao2311] · `atendimentos.itens.5.perguntas.0.resposta.0`</sub>
+- Para saber o que o seu convênio pede, confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `atendimentos.itens.5.perguntas.0.resposta.1`</sub>
 
 ## primeiraAvaliacao › verbete
 
@@ -164,7 +232,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 ## primeiraAvaliacao › oQueLevar
 
 - Documento com foto. <sub>[orientacao] · `primeiraAvaliacao.oQueLevar.itens.0`</sub>
-- Carteirinha do convênio (Unimed ou AAPL), se for o seu caso. <sub>[orientacao, postUnimed, postAapl] · `primeiraAvaliacao.oQueLevar.itens.1`</sub>
+- Carteirinha do convênio (Unimed ou AAPL) ou o Cartão SUS, se for o seu caso. <sub>[orientacao, postUnimed, postAapl] · `primeiraAvaliacao.oQueLevar.itens.1`</sub>
 - Pedido médico, se você tiver. <sub>[orientacao] · `primeiraAvaliacao.oQueLevar.itens.2`</sub>
 - Exames recentes, se você tiver (raio-X, ressonância, laudos). <sub>[orientacao] · `primeiraAvaliacao.oQueLevar.itens.3`</sub>
 - A lista dos remédios que você usa. <sub>[orientacao] · `primeiraAvaliacao.oQueLevar.itens.4`</sub>
@@ -238,15 +306,18 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 - Quais planos e se precisa de guia: Confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `faq.grupos.0.perguntas.0.resposta.1`</sub>
 - Sim. A Ardeli é credenciada pela AAPL, a Associação dos Aposentados e Pensionistas de Lages. <sub>[postAapl] · `faq.grupos.0.perguntas.1.resposta.0`</sub>
 - Como funciona para o associado: Confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `faq.grupos.0.perguntas.1.resposta.1`</sub>
-- **[guardado]** Consulte a disponibilidade pelo WhatsApp. <sub>[joao] · `faq.grupos.0.perguntas.2.resposta.0`</sub>
+- Sim. A Ardeli atende pelo SUS. <sub>[joao2311] · `faq.grupos.0.perguntas.2.resposta.0`</sub>
+- Na rede pública, a fisioterapia costuma começar com o encaminhamento da Unidade Básica de Saúde (UBS). Chame no WhatsApp: a clínica explica como funciona no seu caso. <sub>[orientacao, joao2311] · `faq.grupos.0.perguntas.2.resposta.1`</sub>
 - **[guardado]** Confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `faq.grupos.0.perguntas.3.resposta.0`</sub>
 - Pelo WhatsApp (49) 99928-1721. <sub>[joao] · `faq.grupos.1.perguntas.0.resposta.0`</sub>
 - No site, toque em “Agendar avaliação”: escolha o convênio e o período, e a mensagem já vai pronta. É só enviar. <sub>[site] · `faq.grupos.1.perguntas.0.resposta.1`</sub>
 - Documento com foto, a carteirinha do convênio (se for o caso) e, se tiver, o pedido médico, exames recentes e a lista dos remédios que você usa. <sub>[orientacao] · `faq.grupos.1.perguntas.1.resposta.0`</sub>
 - **[guardado]** Confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `faq.grupos.1.perguntas.2.resposta.0`</sub>
 - Segunda a sexta, das 8h às 20h. Sábado e domingo, fechado. <sub>[joao, google] · `faq.grupos.1.perguntas.3.resposta.0`</sub>
+- Nos feriados, a clínica fica fechada. <sub>[joao2311] · `faq.grupos.1.perguntas.3.resposta.1`</sub>
 - Av. Dom Pedro II, 2700, no bairro Brusque, em Lages (SC). <sub>[google] · `faq.grupos.2.perguntas.0.resposta.0`</sub>
-- **[guardado]** Confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `faq.grupos.2.perguntas.1.resposta.0`</sub>
+- Perto do Colégio Industrial e da Delegacia da Polícia Civil. <sub>[joao2311] · `faq.grupos.2.perguntas.0.resposta.1`</sub>
+- Dá para estacionar na rua, em frente à clínica. <sub>[joao2311] · `faq.grupos.2.perguntas.1.resposta.0`</sub>
 - **[guardado]** Confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `faq.grupos.2.perguntas.2.resposta.0`</sub>
 
 ## comoChegar › verbete
@@ -366,15 +437,35 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 
 ## aberturas › convenios
 
-- Sim. A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende pela Unimed Lages, pela AAPL (Associação dos Aposentados e Pensionistas de Lages) e particular. SUS: consulte a disponibilidade pelo WhatsApp (49) 99928-1721. <sub>[joao, postUnimed, postAapl] · `aberturas.convenios.resposta`</sub>
+- Sim. A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende pela Unimed Lages, pela AAPL (Associação dos Aposentados e Pensionistas de Lages), pelo SUS e particular. O que cada um pede, a gente explica pelo WhatsApp (49) 99928-1721. <sub>[joao, joao2311, postUnimed, postAapl] · `aberturas.convenios.resposta`</sub>
 
 ## aberturas › atendimentos
 
-- A Ardeli atende fisioterapia em ortopedia e dor: coluna, articulações, pós-operatório e recuperação após lesão. Todo atendimento começa com uma avaliação com a fisioterapeuta. <sub>[vitrine, cnes, pratica] · `aberturas.atendimentos.resposta`</sub>
+- A Ardeli atende ortopedia e dor (coluna, articulações, pós-operatório e lesões), neurologia, respiração e coração, oncologia, gestação e pós-parto e queimaduras. Todo atendimento começa com uma avaliação com a fisioterapeuta. <sub>[vitrine, cnes, joao2311, pratica] · `aberturas.atendimentos.resposta`</sub>
 
 ## aberturas › musculoesqueletica
 
-- A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende pessoas com dor na coluna ou nas articulações, depois de uma cirurgia ou de uma lesão. Particular, Unimed ou AAPL, de segunda a sexta, das 8h às 20h. <sub>[vitrine, cnes, joao, google] · `aberturas.musculoesqueletica.resposta`</sub>
+- A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende pessoas com dor na coluna ou nas articulações, depois de uma cirurgia ou de uma lesão. Particular, Unimed, AAPL ou SUS, de segunda a sexta, das 8h às 20h. <sub>[vitrine, cnes, joao, google] · `aberturas.musculoesqueletica.resposta`</sub>
+
+## aberturas › neurologia
+
+- A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende pessoas que tiveram AVC (derrame), têm Parkinson ou outra condição que afeta o movimento. Particular, Unimed, AAPL ou SUS, de segunda a sexta, das 8h às 20h. <sub>[cnes, joao2311, joao] · `aberturas.neurologia.resposta`</sub>
+
+## aberturas › cardiorrespiratoria
+
+- A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende pessoas com doenças do pulmão ou do coração que sentem falta de ar ou cansaço. Particular, Unimed, AAPL ou SUS, de segunda a sexta, das 8h às 20h. <sub>[cnes, joao2311, joao] · `aberturas.cardiorrespiratoria.resposta`</sub>
+
+## aberturas › oncologia
+
+- A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende pessoas em tratamento de câncer ou que já terminaram, com exercícios e orientações no tempo de cada uma. Particular, Unimed, AAPL ou SUS. <sub>[cnes, joao2311] · `aberturas.oncologia.resposta`</sub>
+
+## aberturas › obstetrica
+
+- A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende gestantes e mulheres no pós-parto, com exercícios e orientações para cada fase. Particular, Unimed, AAPL ou SUS, de segunda a sexta, das 8h às 20h. <sub>[cnes, joao2311, joao] · `aberturas.obstetrica.resposta`</sub>
+
+## aberturas › queimados
+
+- A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende quem teve queimadura e ficou com dificuldade de movimentar a região. Particular, Unimed, AAPL ou SUS, de segunda a sexta, das 8h às 20h. <sub>[cnes, joao2311, joao] · `aberturas.queimados.resposta`</sub>
 
 ## aberturas › primeiraAvaliacao
 
@@ -390,15 +481,15 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 
 ## aberturas › perguntasFrequentes
 
-- A Ardeli Fisioterapia fica no bairro Brusque, em Lages, atende particular, Unimed e AAPL, de segunda a sexta, das 8h às 20h. Para agendar a avaliação, é só chamar no WhatsApp (49) 99928-1721. <sub>[joao, google, postUnimed, postAapl] · `aberturas.perguntasFrequentes.resposta`</sub>
+- A Ardeli Fisioterapia fica no bairro Brusque, em Lages, atende particular, Unimed, AAPL e SUS, de segunda a sexta, das 8h às 20h. Para agendar a avaliação, é só chamar no WhatsApp (49) 99928-1721. <sub>[joao, google, postUnimed, postAapl] · `aberturas.perguntasFrequentes.resposta`</sub>
 
 ## aberturas › comoChegar
 
-- A Ardeli Fisioterapia fica na Av. Dom Pedro II, 2700 – Brusque, Lages – SC, 88503-062. Atende de segunda a sexta, das 8h às 20h. WhatsApp: (49) 99928-1721. <sub>[google, joao] · `aberturas.comoChegar.resposta`</sub>
+- A Ardeli Fisioterapia fica na Av. Dom Pedro II, 2700 – Brusque, Lages – SC, 88503-062. Atende de segunda a sexta, das 8h às 20h. WhatsApp: (49) 99928-1721. <sub>[google, joao] · `aberturas.comoChegar.resposta`</sub>
 
 ## aberturas › agendar
 
-- Pelo WhatsApp (49) 99928-1721. Escolha abaixo como você vai ser atendido e quando prefere: a mensagem fica pronta e vai do seu celular direto para a clínica. <sub>[joao, site] · `aberturas.agendar.resposta`</sub>
+- Pelo WhatsApp (49) 99928-1721. Escolha abaixo como você vai ser atendido e quando prefere: a mensagem fica pronta e vai do seu celular direto para a clínica. <sub>[joao, site] · `aberturas.agendar.resposta`</sub>
 
 ## aberturas › privacidade
 
@@ -407,6 +498,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 ## Fontes
 
 - **joao**: João (WAXLO): dados confirmados em 22/11/2026 (docs/ARDELI_INVESTIGACAO_CLIENTE.md §2)
+- **joao2311**: João (WAXLO), 23/11/2026: atende SUS; regras dos convênios pelo WhatsApp; um número só (WhatsApp de preferência); fechado nos feriados; estacionamento em frente; perto do Colégio Industrial e da Delegacia da Polícia Civil; todos os atendimentos do CNES
 - **google**: Ficha da Ardeli no Google Maps, vista em 22/11/2026 (endereço, horário, coordenadas)
 - **cnes**: CNES 8422478 (Cadastro Nacional de Estabelecimentos de Saúde)
 - **crefito**: CREFITO-10: registro de empresa RE005047 (desde 15/07/2026) e inscrição de Nicole de Abreu Batista (444436-F, 21/01/2026)

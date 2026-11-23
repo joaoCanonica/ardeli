@@ -15,7 +15,8 @@ export interface Abertura {
 
 const end = valorDe(clinica.endereco);
 const ENDERECO = end?.linha ?? '';
-const TEL = valorDe(clinica.whatsapp)?.exibicao ?? '';
+// Espaço inseparável no telefone: o número nunca quebra no meio nem fica sozinho na linha.
+const TEL = (valorDe(clinica.whatsapp)?.exibicao ?? '').replace(' ', '\u00a0');
 
 /** Quem cuida, com o CREFITO como está na config (Art. 48). */
 function fraseQuemCuida(): Frase {
@@ -37,10 +38,11 @@ function fraseQuemCuida(): Frase {
 
 export const aberturas = {
   convenios: {
-    h1: 'A Ardeli atende Unimed e AAPL?',
+    h1: 'A Ardeli atende Unimed, AAPL e SUS?',
     resposta: f(
-      `Sim. A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende pela Unimed Lages, pela AAPL (Associação dos Aposentados e Pensionistas de Lages) e particular. SUS: consulte a disponibilidade pelo WhatsApp ${TEL}.`,
+      `Sim. A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende pela Unimed Lages, pela AAPL (Associação dos Aposentados e Pensionistas de Lages), pelo SUS e particular. O que cada um pede, a gente explica pelo WhatsApp ${TEL}.`,
       'joao',
+      'joao2311',
       'postUnimed',
       'postAapl',
     ),
@@ -48,20 +50,65 @@ export const aberturas = {
   atendimentos: {
     h1: 'Que tipo de fisioterapia a Ardeli faz?',
     resposta: f(
-      'A Ardeli atende fisioterapia em ortopedia e dor: coluna, articulações, pós-operatório e recuperação após lesão. Todo atendimento começa com uma avaliação com a fisioterapeuta.',
+      'A Ardeli atende ortopedia e dor (coluna, articulações, pós-operatório e lesões), neurologia, respiração e coração, oncologia, gestação e pós-parto e queimaduras. Todo atendimento começa com uma avaliação com a fisioterapeuta.',
       'vitrine',
       'cnes',
+      'joao2311',
       'pratica',
     ),
   },
   musculoesqueletica: {
     h1: 'Fisioterapia para dor e pós-operatório em Lages',
     resposta: f(
-      'A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende pessoas com dor na coluna ou nas articulações, depois de uma cirurgia ou de uma lesão. Particular, Unimed ou AAPL, de segunda a sexta, das 8h às 20h.',
+      'A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende pessoas com dor na coluna ou nas articulações, depois de uma cirurgia ou de uma lesão. Particular, Unimed, AAPL ou SUS, de segunda a sexta, das 8h às\u00a020h.',
       'vitrine',
       'cnes',
       'joao',
       'google',
+    ),
+  },
+  neurologia: {
+    h1: 'Fisioterapia depois de AVC e para Parkinson em Lages',
+    resposta: f(
+      'A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende pessoas que tiveram AVC (derrame), têm Parkinson ou outra condição que afeta o movimento. Particular, Unimed, AAPL ou SUS, de segunda a sexta, das 8h às\u00a020h.',
+      'cnes',
+      'joao2311',
+      'joao',
+    ),
+  },
+  cardiorrespiratoria: {
+    h1: 'Fisioterapia para respirar melhor e ganhar fôlego em Lages',
+    resposta: f(
+      'A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende pessoas com doenças do pulmão ou do coração que sentem falta de ar ou cansaço. Particular, Unimed, AAPL ou SUS, de segunda a sexta, das 8h às\u00a020h.',
+      'cnes',
+      'joao2311',
+      'joao',
+    ),
+  },
+  oncologia: {
+    h1: 'Fisioterapia durante e depois do tratamento do câncer em Lages',
+    resposta: f(
+      'A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende pessoas em tratamento de câncer ou que já terminaram, com exercícios e orientações no tempo de cada uma. Particular, Unimed, AAPL ou SUS.',
+      'cnes',
+      'joao2311',
+    ),
+  },
+  obstetrica: {
+    h1: 'Fisioterapia na gestação e no pós-parto em Lages',
+    resposta: f(
+      'A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende gestantes e mulheres no pós-parto, com exercícios e orientações para cada fase. Particular, Unimed, AAPL ou SUS, de segunda a sexta, das 8h às\u00a020h.',
+      'cnes',
+      'joao2311',
+      'joao',
+    ),
+  },
+  queimados: {
+    h1: 'Fisioterapia depois de queimaduras em Lages',
+    resposta: f(
+      'A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende quem teve queimadura e ficou com dificuldade de movimentar a região. Particular, Unimed, AAPL ou SUS, de segunda a sexta, das 8h às\u00a020h.',
+      'cnes',
+      'joao2311',
+      'joao',
     ),
   },
   primeiraAvaliacao: {
@@ -86,7 +133,7 @@ export const aberturas = {
   perguntasFrequentes: {
     h1: 'Perguntas frequentes sobre a Ardeli Fisioterapia',
     resposta: f(
-      `A Ardeli Fisioterapia fica no bairro Brusque, em Lages, atende particular, Unimed e AAPL, de segunda a sexta, das 8h às 20h. Para agendar a avaliação, é só chamar no WhatsApp ${TEL}.`,
+      `A Ardeli Fisioterapia fica no bairro Brusque, em Lages, atende particular, Unimed, AAPL e SUS, de segunda a sexta, das 8h às\u00a020h. Para agendar a avaliação, é só chamar no WhatsApp ${TEL}.`,
       'joao',
       'google',
       'postUnimed',
@@ -96,7 +143,7 @@ export const aberturas = {
   comoChegar: {
     h1: 'Fisioterapia no bairro Brusque: onde fica a Ardeli?',
     resposta: f(
-      `A Ardeli Fisioterapia fica na ${ENDERECO}. Atende de segunda a sexta, das 8h às 20h. WhatsApp: ${TEL}.`,
+      `A Ardeli Fisioterapia fica na ${ENDERECO}. Atende de segunda a sexta, das 8h às\u00a020h. WhatsApp: ${TEL}.`,
       'google',
       'joao',
     ),

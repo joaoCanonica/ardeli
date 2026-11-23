@@ -2,7 +2,7 @@
 // Regra que falta confirmar → "Confirme pelo WhatsApp: a gente explica rapidinho."
 // SUS: NADA é afirmado sem confirmação. O texto de "como funciona" fica guardado com
 // exige: 'sus-confirmado' e só vai para a página quando convenios.sus.atende estiver confirmado.
-import { CONFIRME, condicional, f, type Frase, type Meta, type VerbeteTexto } from './tipos.ts';
+import { CONFIRME, f, type Frase, type Meta, type VerbeteTexto } from './tipos.ts';
 
 export interface TextoConvenio {
   readonly id: 'particular' | 'unimed' | 'aapl' | 'sus';
@@ -20,17 +20,18 @@ export interface TextoConvenio {
 
 export const paginaConvenios = {
   meta: {
-    titulo: 'Convênios: Unimed, AAPL e particular · Ardeli Lages',
+    titulo: 'Convênios: Unimed, AAPL, SUS e particular · Ardeli Lages',
     descricao:
-      'Fisioterapia em Lages pela Unimed, pela AAPL ou particular. Veja quem pode usar, o que levar e como agendar na Ardeli, no bairro Brusque.',
+      'Fisioterapia em Lages pela Unimed, pela AAPL, pelo SUS ou particular. Veja quem pode usar, o que levar e como agendar na Ardeli, no Brusque.',
   } satisfies Meta,
   verbete: {
     palavra: 'convênio',
     classe: 's.m.',
     acepcoes: [
       f(
-        'O jeito como você vai ser atendido na Ardeli: particular, pela Unimed ou pela AAPL.',
+        'O jeito como você vai ser atendido na Ardeli: particular, pela Unimed, pela AAPL ou pelo SUS.',
         'joao',
+        'joao2311',
         'postUnimed',
         'postAapl',
       ),
@@ -107,33 +108,27 @@ export const textosConvenios: readonly TextoConvenio[] = [
   {
     id: 'sus',
     titulo: 'SUS',
-    resumo: f('Consulte a disponibilidade pelo WhatsApp.', 'joao'),
+    pergunta: 'A Ardeli atende pelo SUS?',
+    resumo: f('Sim. A Ardeli atende pelo SUS.', 'joao2311'),
+    // Guardado para o caso de o SUS deixar de ser confirmado (convenios.sus.atende).
     sePendente: [
       f('Consulte a disponibilidade pelo WhatsApp.', 'joao'),
       f('A gente explica a situação do SUS na clínica hoje.', 'orientacao'),
     ],
-    // Guardado: só publica com contrato vigente e caminho de acesso confirmados.
-    quemPodeUsar: [
-      condicional(
-        'sus-confirmado',
-        'Pessoas encaminhadas pela rede pública de saúde de Lages.',
-        'cnes',
-      ),
-    ],
+    quemPodeUsar: [f('Quem é atendido pela rede pública de saúde.', 'joao2311', 'orientacao')],
     oQueLevar: [
-      condicional(
-        'sus-confirmado',
-        'O encaminhamento, o Cartão SUS e um documento com foto.',
+      f(
+        'O Cartão SUS, um documento com foto e, se tiver, o encaminhamento e exames recentes.',
         'orientacao',
       ),
     ],
     comoAgendar: [
-      condicional(
-        'sus-confirmado',
-        'O atendimento pelo SUS começa na Unidade Básica de Saúde (UBS). Com o encaminhamento, a clínica explica os próximos passos.',
+      f(
+        'Na rede pública, a fisioterapia costuma começar com o encaminhamento da Unidade Básica de Saúde (UBS). Chame no WhatsApp: a clínica explica como funciona no seu caso.',
         'orientacao',
+        'joao2311',
       ),
     ],
-    botao: 'Perguntar sobre o SUS',
+    botao: 'Agendar pelo SUS',
   },
 ];

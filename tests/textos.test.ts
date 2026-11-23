@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { encontrarTermosVetados } from '../src/config/termos.ts';
 import { atendimentos } from '../src/content/dados/atendimentos.ts';
+import { convenios } from '../src/content/dados/convenios.ts';
 import { grupos } from '../src/content/textos/faq.ts';
 import { capa } from '../src/content/textos/home.ts';
 import {
@@ -67,7 +68,8 @@ describe('COFFITO e termos vetados', () => {
     for (const fr of frases) expect(promessa.test(fr.texto), `${fr.onde}: ${fr.texto}`).toBe(false);
   });
 
-  it('SUS publicável só junto de "Consulte a disponibilidade" no mesmo bloco', () => {
+  it('SUS publicável só junto de "Consulte a disponibilidade" no mesmo bloco (enquanto não confirmado)', () => {
+    if (convenios.find((c) => c.id === 'sus')?.atende.estado === 'confirmado') return;
     const bloco = (onde: string) => onde.split('.').slice(0, -2).join('.');
     for (const fr of frases.filter((x) => x.publicavel && /\bSUS\b/.test(x.texto))) {
       const vizinhas = frases.filter((x) => x.publicavel && bloco(x.onde) === bloco(fr.onde));
@@ -107,7 +109,7 @@ describe('voz', () => {
   it('capa com as acepções pedidas, sem mudar uma vírgula', () => {
     expect(capa.verbete.acepcoes.map((a) => a.texto)).toEqual([
       'Acompanhar a recuperação do seu movimento, da avaliação ao dia a dia.',
-      'Fisioterapia no bairro Brusque, em Lages: particular, Unimed e AAPL.',
+      'Fisioterapia no bairro Brusque, em Lages: particular, Unimed, AAPL e SUS.',
     ]);
   });
 });
@@ -128,7 +130,7 @@ describe('pendências', () => {
   it('perguntas pendentes ficam fora (publicado: false) e apontam a pendência', () => {
     const ids = pendenciasTextos.map((p) => p.id);
     const todas = grupos.flatMap((g) => g.perguntas);
-    for (const id of ['sus', 'pedido-medico', 'duracao-sessao', 'estacionamento', 'acessivel']) {
+    for (const id of ['pedido-medico', 'duracao-sessao', 'acessivel']) {
       const q = todas.find((x) => x.id === id);
       expect(q?.publicado, id).toBe(false);
       expect(ids, id).toContain(q?.pendencia);
@@ -149,9 +151,10 @@ describe('pendências', () => {
 });
 
 describe('microtextos', () => {
-  it('toda mensagem de WhatsApp diz de onde veio; SUS pergunta, não afirma', () => {
+  it('toda mensagem de WhatsApp diz de onde veio; SUS confirmado agenda', () => {
     for (const [k, m] of Object.entries(mensagensWhatsApp)) expect(m, k).toContain(ORIGEM);
-    expect(mensagensWhatsApp.perguntarSus).toMatch(/quero saber se a Ardeli atende pelo SUS/);
+    expect(mensagensWhatsApp.perguntarSus).toMatch(/SUS/);
+    expect(mensagensWhatsApp.perguntarSus).not.toMatch(/quero saber se a Ardeli atende/);
   });
 
   it('rodapé com Art. 48 completo', () => {

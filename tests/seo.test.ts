@@ -62,7 +62,7 @@ describe('JSON-LD', () => {
 
   it('FAQPage só com perguntas publicadas; trilha numerada', () => {
     const faq = noFaq('/perguntas-frequentes/');
-    expect(JSON.stringify(faq)).not.toMatch(/Atende pelo SUS\?/);
+    expect(JSON.stringify(faq)).not.toMatch(/Preciso de pedido médico\?/);
     const t = noTrilha('/convenios/', [
       { nome: 'Início', caminho: '/' },
       { nome: 'Convênios', caminho: '/convenios' },

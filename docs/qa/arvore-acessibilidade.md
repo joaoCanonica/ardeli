@@ -15,6 +15,8 @@ Gerado por `pnpm audit-a11y` (Chromium). Serve de roteiro para o teste com NVDA 
     - text: Unimed
     - radio "AAPL"
     - text: AAPL
+    - radio "SUS"
+    - text: SUS
     - radio "Não sei"
     - text: Não sei
   - group "O que te traz? (opcional)":
@@ -26,6 +28,10 @@ Gerado por `pnpm audit-a11y` (Chromium). Serve de roteiro para o teste com NVDA 
     - text: Pós-operatório
     - radio "Recuperação após lesão"
     - text: Recuperação após lesão
+    - radio "Neurológico"
+    - text: Neurológico
+    - radio "Respiratório"
+    - text: Respiratório
     - radio "Outro"
     - text: Outro
     - radio "Prefiro não dizer" [checked]
@@ -71,6 +77,8 @@ Gerado por `pnpm audit-a11y` (Chromium). Serve de roteiro para o teste com NVDA 
   - text: Unimed
   - radio "AAPL"
   - text: AAPL
+  - radio "SUS"
+  - text: SUS
   - paragraph: Escolha uma opção para ver o que levar e agendar.
 - paragraph
 ```

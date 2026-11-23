@@ -13,9 +13,9 @@ Data: 23/11/2026 · build de preview · fonte das regras: CLAUDE.md §3 e `docs/
 | **Art. 15, III** · sem promessa de resultado | termos vetados ("cura", "garantido", "100%", "acaba com a dor", "sem dor"…) em src/content e no HTML | ✓ nenhuma |
 | **Art. 40, I** · sem preço, promoção, grátis | termos vetados + **novo**: preço em valor (`R$ 120`, "120 reais", "valor da consulta") | ✓ nenhuma (teste negativo reprovou corretamente) |
 | **Art. 30 e 48, I** · "especialista" só com título reconhecido | termo vetado; `titulosReconhecidos` vazio | ✓ nenhuma; áreas aparecem como "atendimentos" |
-| **SUS só confirmado** | `audit-compliance` (toda menção junto de "consulte a disponibilidade"), agendador sem a opção, JSON-LD/llms.txt sem SUS | ✓ "Consulte a disponibilidade pelo WhatsApp" |
+| **SUS só confirmado** | Confirmado pelo João em 23/11/2026. A regra continua no código: sem confirmação, o agendador não oferece o SUS e o audit exige "consulte a disponibilidade" | ✓ SUS confirmado: no agendador, em /convenios, nas perguntas frequentes, no JSON-LD e no llms.txt; o caminho de acesso (UBS) aparece como orientação geral, com "a clínica explica pelo WhatsApp" |
 | **Marcas de terceiros** só em texto | **novo**: nenhuma `<img>`/`<source>`/`<use>` com unimed/aapl/sus | ✓ só o nome em texto |
-| **Área de atendimento não confirmada** | `validate-config` (publicado sem confirmação trava) | ✓ só "ortopedia e dor" publicada |
+| **Área de atendimento não confirmada** | `validate-config` (publicado sem confirmação trava) | ✓ as 6 áreas do CNES publicadas, todas confirmadas pelo João (23/11/2026), com textos sem promessa e sem "especialista" |
 | **Imagem com pessoa sem autorização** | `validate-config` + `prepare-media` | ✓ nenhuma |
 | **Termo vetado no HTML** (lista do CLAUDE.md §8 também) | `audit-compliance` | ✓ |
 
