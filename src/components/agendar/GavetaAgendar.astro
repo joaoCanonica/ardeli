@@ -80,9 +80,19 @@ import Agendador from './Agendador.astro';
     color: var(--cor-marinho);
     cursor: pointer;
   }
+  /* Na gaveta, "Enviar" fica sempre à vista (teste 60+ simulado: com letra grande, o botão
+     ficava 3 rolagens abaixo). */
+  .gaveta__corpo :global(.enviar) {
+    position: sticky;
+    bottom: var(--e-3);
+    z-index: 2;
+    box-shadow: 0 0.5rem 1.25rem -0.25rem rgb(18 48 72 / 0.45);
+  }
   .gaveta__corpo {
     flex: 1;
     overflow-y: auto;
+    /* O botão "Enviar" fica grudado embaixo: o foco nunca some atrás dele (WCAG 2.4.11). */
+    scroll-padding-bottom: 6rem;
     padding: var(--e-5) var(--margem) var(--e-7);
   }
   @media (min-width: 48rem) {

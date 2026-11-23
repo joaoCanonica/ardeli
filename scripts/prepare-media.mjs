@@ -27,6 +27,7 @@ import {
   writeFileSync,
 } from 'node:fs';
 import { tmpdir } from 'node:os';
+import { createRequire } from 'node:module';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
@@ -87,8 +88,20 @@ async function tarefa(nome, hash, arquivos, fazer) {
   return dados;
 }
 
+// ffmpeg: o do sistema (desenvolvimento) ou, se não houver (build da Vercel), o binário
+// estático do pacote @ffmpeg-installer/ffmpeg. FFMPEG=/caminho força um específico.
+const FFMPEG = (() => {
+  if (process.env.FFMPEG) return process.env.FFMPEG;
+  try {
+    execFileSync('ffmpeg', ['-version'], { stdio: 'ignore' });
+    return 'ffmpeg';
+  } catch {
+    return createRequire(import.meta.url)('@ffmpeg-installer/ffmpeg').path;
+  }
+})();
+
 function ffmpeg(...a) {
-  execFileSync('ffmpeg', ['-v', 'error', '-y', ...a], { stdio: ['ignore', 'inherit', 'inherit'] });
+  execFileSync(FFMPEG, ['-v', 'error', '-y', ...a], { stdio: ['ignore', 'inherit', 'inherit'] });
 }
 
 function publicavel(item) {

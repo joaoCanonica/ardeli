@@ -9,6 +9,7 @@
 //   - Convênio só confirmado (healthPlanNetworkId); SUS só com confirmação.
 //   - CREFITO só confirmado (hasCredential); sem número, a pessoa sai sem credencial
 //     (e a produção já trava pelo Art. 48).
+import { registroDe } from '../registro.ts';
 import type {
   BreadcrumbList,
   EducationalOccupationalCredential,
@@ -85,12 +86,13 @@ function pessoas(): Person[] {
         jobTitle: p.profissao,
         worksFor: { '@id': ID.clinica() },
       };
-      if (p.crefito.estado === 'confirmado') {
+      const reg = registroDe(p);
+      if (reg.numeroPessoal) {
         const credencial: EducationalOccupationalCredential = {
           '@type': 'EducationalOccupationalCredential',
-          name: `CREFITO-${regiao} nº ${p.crefito.valor}`,
+          name: `CREFITO-${regiao} nº ${reg.numeroPessoal}`,
           credentialCategory: 'Inscrição profissional de fisioterapeuta',
-          identifier: p.crefito.valor,
+          identifier: reg.numeroPessoal,
           recognizedBy: CREFITO_ORG(regiao),
         };
         pessoa.hasCredential = credencial;

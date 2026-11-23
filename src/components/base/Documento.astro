@@ -2,7 +2,7 @@
 // Casca HTML de toda página: idioma, head, fontes, favicon, noindex no preview
 // e a faixa "em revisão". O script inline só aplica o tamanho de texto salvo
 // (antes da pintura, para não piscar); sem JS, fica o tamanho padrão.
-import { Font } from 'astro:assets';
+import { Font, fontData } from 'astro:assets';
 import scriptTamanho from '../../scripts/inline/tamanho.js?raw';
 import { modoAtual } from '../../config/modo.ts';
 import { configMedicao } from '../../config/medicao.ts';
@@ -43,6 +43,17 @@ const {
 const preview = modoAtual() === 'preview';
 const medicao = configMedicao();
 const foraDoIndice = noindex || preview;
+// woff2 normal de cada fonte da página (o itálico fica sem pré-carregamento, como antes).
+const fontesPreload = [
+  ...new Set(
+    fontes.flatMap((f) =>
+      (fontData[f] ?? [])
+        .filter((d) => d.style === 'normal')
+        .flatMap((d) => d.src.filter((s) => s.format === 'woff2').map((s) => s.url))
+        .slice(0, 1),
+    ),
+  ),
+];
 
 // SEO: canonical e og:url só com domínio (sem ele, a produção trava).
 const caminho = caminhoCanonico(Astro.url.pathname);
@@ -98,9 +109,11 @@ const dados = noindex
         dominio: medicao.dominio,
       })}
     />
-    {fontes.map((f, i) => (
-      <Font cssVariable={f} preload={i < 2 ? [{ style: 'normal' }] : false} />
+    {fontes.map((f) => (
+      <Font cssVariable={f} preload={false} />
     ))}
+    {/* Pré-carregamento das fontes da marca só em rede boa (script abaixo). */}
+    <meta name="ardeli-fontes" content={fontesPreload.join(' ')} />
     <script is:inline set:html={scriptTamanho} />
     <slot name="head" />
   </head>

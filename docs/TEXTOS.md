@@ -300,7 +300,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 - O vídeo da clínica fica no próprio site, sem som. <sub>[site, tour] · `privacidade.secoes.3.texto.1`</sub>
 - Você pode pedir para saber, corrigir ou apagar os dados que a clínica tem sobre você, como as mensagens de WhatsApp. <sub>[lgpd] · `privacidade.secoes.4.texto.0`</sub>
 - Para isso, fale com a clínica pelo WhatsApp (49) 99928-1721 ou na recepção. <sub>[joao] · `privacidade.secoes.4.texto.1`</sub>
-- Ardeli Fisioterapia (60.246.544 Andriele da Silva), Av. Dom Pedro II, 2700 – Brusque, Lages – SC, 88503-062. <sub>[cnes, crefito, google] · `privacidade.secoes.5.texto.0`</sub>
+- Ardeli Fisioterapia (60.246.544 Andriele da Silva, CNPJ 60.246.544/0001-60), Av. Dom Pedro II, 2700 – Brusque, Lages – SC, 88503-062. <sub>[cnes, crefito, google] · `privacidade.secoes.5.texto.0`</sub>
 
 ## naoEncontrada › verbete
 
@@ -344,7 +344,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 ## microtextos › rodape
 
 - Responsável técnica: Andriele da Silva, Fisioterapeuta. <sub>[joao] · `microtextos.rodape.responsavelTecnica`</sub>
-- Registro de empresa no CREFITO-10: RE005047 · CNES 8422478 <sub>[crefito, cnes] · `microtextos.rodape.empresa`</sub>
+- Registro de empresa no CREFITO-10: RE005047 · CNES 8422478 · CNPJ 60.246.544/0001-60 <sub>[crefito, cnes, joao] · `microtextos.rodape.empresa`</sub>
 - Divulgação conforme o Código de Ética da Fisioterapia (Resolução COFFITO 424/2013). <sub>[coffito] · `microtextos.rodape.nota`</sub>
 
 ## agendador › verbete
@@ -382,7 +382,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 fr
 
 ## aberturas › quemCuida
 
-- Na Ardeli, quem cuida de você são Andriele da Silva, fisioterapeuta responsável (CREFITO-10: número em confirmação), e Nicole de Abreu Batista, fisioterapeuta (CREFITO-10 nº 444436-F). A Andriele atende em Lages desde 2018, no Studio Ar Pilates e Fisioterapia. <sub>[joao, crefito, studioAr] · `aberturas.quemCuida.resposta`</sub>
+- Na Ardeli, quem cuida de você são Andriele da Silva, fisioterapeuta (responsável técnica, CREFITO-10 RE005047 (registro da clínica)), e Nicole de Abreu Batista, fisioterapeuta (CREFITO-10 nº 444436-F). A Andriele atende em Lages desde 2018, no Studio Ar Pilates e Fisioterapia. <sub>[joao, crefito, studioAr] · `aberturas.quemCuida.resposta`</sub>
 
 ## aberturas › aClinica
 

@@ -6,6 +6,7 @@ import { CONFIRME, condicional, f, type Frase, type Meta, type VerbeteTexto } fr
 
 /** Endereço em uma linha, igual ao da config (NAP). */
 const LINHA_ENDERECO = valorDe(clinica.endereco)?.linha ?? '';
+const CNPJ = valorDe(clinica.empresa.cnpj) ?? '';
 
 // ---------- /primeira-avaliacao ----------
 export const primeiraAvaliacao = {
@@ -357,7 +358,7 @@ export const privacidade = {
       titulo: 'Quem é responsável',
       texto: [
         f(
-          `Ardeli Fisioterapia (60.246.544 Andriele da Silva), ${LINHA_ENDERECO}.`,
+          `Ardeli Fisioterapia (60.246.544 Andriele da Silva, CNPJ ${CNPJ}), ${LINHA_ENDERECO.replace(' – SC, ', ' – SC,\u00a0')}.`,
           'cnes',
           'crefito',
           'google',

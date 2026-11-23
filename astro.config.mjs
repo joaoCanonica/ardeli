@@ -19,8 +19,8 @@ const hashInline = (arq) =>
 // Escolha e justificativa: docs/TIPOGRAFIA.md. O Astro gera @font-face,
 // preload e fallback com métricas ajustadas (CLS ≈ 0).
 export default defineConfig({
-  // Domínio por env (SITE_URL); sem ele, o preview usa URLs relativas e a produção trava.
-  ...(process.env.SITE_URL ? { site: process.env.SITE_URL.replace(/\/+$/, '') } : {}),
+  // Domínio: ardeli.com.br (confirmado); SITE_URL sobrescreve.
+  site: (process.env.SITE_URL ?? 'https://ardeli.com.br').replace(/\/+$/, ''),
   output: 'static',
   trailingSlash: 'ignore',
   build: { format: 'directory', inlineStylesheets: 'always' },

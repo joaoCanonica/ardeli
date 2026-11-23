@@ -1,6 +1,7 @@
 // /llms.txt (proposta llmstxt.org, v2): H1 com o nome, citação-resumo, detalhes sem
 // títulos e, depois, seções H2 que são só listas de links ("Optional" = secundárias).
 // Gerado da config e dos textos: nada escrito à mão, NAP idêntico ao do site.
+import { registroDe } from '../registro.ts';
 import { clinica } from '../../config/clinica.ts';
 import { valorDe } from '../../config/tipos.ts';
 import { convenios } from '../../content/dados/convenios.ts';
@@ -22,11 +23,7 @@ export function gerarLlmsTxt(): string {
     .sort((a, b) => a.ordem - b.ordem)
     .map(
       (p) =>
-        `  - ${p.nome} · ${p.profissao}${p.responsavel ? ' (responsável técnica)' : ''} · ${
-          p.crefito.estado === 'confirmado'
-            ? `CREFITO-${regiao} nº ${p.crefito.valor}`
-            : `CREFITO-${regiao}: número em confirmação`
-        }`,
+        `  - ${registroDe(p).linha}${p.responsavel && registroDe(p).tipo === 'pessoal' ? ' (responsável técnica)' : ''}`,
     );
   const link = (caminho: string, nome: string, nota: string) =>
     `- [${nome}](${absoluta(caminho)}): ${nota}`;

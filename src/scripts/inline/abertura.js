@@ -11,6 +11,8 @@
   }
   if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) tocar = false;
   if (navigator.connection && navigator.connection.saveData) tocar = false;
+  // Rede lenta ou aparelho simples: nada de abertura (o conteúdo aparece já).
+  if (/rede-lenta|aparelho-simples/.test(document.documentElement.className)) tocar = false;
   if (!tocar) {
     el.remove();
     return;

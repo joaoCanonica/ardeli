@@ -3,8 +3,11 @@
 // Sempre noindex.
 import PaginaCapa from '../components/capa/PaginaCapa.astro';
 import Estilo from './_estilo.astro';
+import { modoAtual } from '../config/modo.ts';
 
 export function getStaticPaths() {
+  // Páginas de trabalho: nunca vão para a produção.
+  if (modoAtual() === 'producao') return [];
   return [
     { params: { interna: '_estilo' }, props: { pagina: 'estilo' } },
     { params: { interna: '_capa-a' }, props: { pagina: 'capa-a' } },

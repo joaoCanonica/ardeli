@@ -170,3 +170,31 @@ Ver `docs/PENDENCIAS.md`:
 - **Q4–Q6:** leitor de tela real, teste com pessoa 60+, Safari iOS e Firefox.
 - **Q7:** decisão sobre fontes × LCP.
 - **Travas 1–2:** CREFITO da Andriele e CNPJ.
+
+## 9. Sessão 10: produção destravada e site mais fluido (23/11/2026)
+
+**Fluidez para todos os públicos (adaptativa, decidida no `<head>` antes da pintura):**
+
+| Situação | O que o site faz |
+|---|---|
+| Rede boa (4G/Wi-Fi) | Fontes da marca pré-carregadas, como antes (CLS 0) |
+| 2G/3G ou "economia de dados" | Fonte do sistema (Georgia / Roboto); não baixa os 74 KB de fontes; nada troca no meio da leitura |
+| Aparelho simples (≤ 2 GB ou ≤ 2 núcleos) | Sem abertura, sem loop da capa, transições instantâneas |
+
+Home com throttling **real** do Chromium (CPU 4×, tela 412 px, mediana de 3; `node scripts/medir-rede.mjs`):
+
+| | 3G lento (400 kbps, 400 ms) | 4G (9 Mbps, 60 ms) |
+|---|---|---|
+| Antes | LCP 3,36 s · CLS **0,041** · 157 KB | LCP 0,69 s · CLS 0 |
+| Depois | **LCP 2,22 s · CLS 0 · 85 KB** | **LCP 0,60 s** · CLS 0 |
+
+**Teste 60+ simulado** (`docs/qa/TESTE_60_SIMULADO.md`, Moto G4, 3G, A++):
+- concluiu as 4 tarefas;
+- A+ sem rolagem: os controles de texto e o telefone foram para o topo do menu;
+- na gaveta, "Enviar pelo WhatsApp" fica sempre à vista;
+- agendar terça à tarde pela Unimed leva ~36 s estimados (5 toques, 2 rolagens). O caminho mínimo (Agendar → Unimed → Enviar) leva ~20 s;
+- atrito que ficou: com A++, "Unimed" não aparece na primeira tela (precisa de 1 rolagem).
+
+**Produção:** `ARDELI_MODO=producao` sem nenhuma trava aberta; as páginas de trabalho não são geradas; SEO 100 no Lighthouse (sem `noindex`).
+
+**Depois das mudanças:** axe 0 violações · audit-a11y verde (1.776 verificações) · acabamento verde · e2e 16/16.

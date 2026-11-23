@@ -27,6 +27,12 @@ export const profissionalSchema = z.object({
   /** Só o número (ex.: "444436-F"); a região vem de clinica.empresa.regiaoCrefito. */
   crefito: campoSchema(z.string().regex(/^\d{4,7}-F$/, 'formato do CREFITO: 000000-F')),
   responsavel: z.boolean(),
+  /**
+   * Quando o nº pessoal ainda não está confirmado: exibir o registro da CLÍNICA
+   * (responsável técnica + CREFITO-10 RE… + CNES), por ordem expressa do João.
+   * Nunca apresentado como número pessoal.
+   */
+  registroDaClinica: campoSchema(z.boolean()).optional(),
   formacao: campoSchema(z.string()),
   /** Títulos de especialidade reconhecidos pelo COFFITO e confirmados. Vazio até confirmar. */
   titulosReconhecidos: z.array(z.object({ titulo: z.string(), fonte: z.string().min(1) })),

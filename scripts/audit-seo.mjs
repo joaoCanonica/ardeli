@@ -7,6 +7,7 @@
 //   - llms.txt no formato llmstxt.org; robots.txt e sitemap.xml;
 //   - imagem OG atual (hash das entradas, inclusive o CREFITO).
 // Preview: domínio ausente é aviso. Produção (ARDELI_MODO=producao): trava.
+import { registroDe } from '../src/lib/registro.ts';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { parseHTML } from 'linkedom';
@@ -321,6 +322,7 @@ if (llms) {
       llms.includes(`${pr.nome} · Fisioterapeuta`),
       `llms.txt sem ${pr.nome} · Fisioterapeuta (Art. 48)`,
     );
+    ok(llms.includes(registroDe(pr).linha), `llms.txt sem "${registroDe(pr).linha}" (Art. 48)`);
     if (pr.crefito.estado === 'confirmado')
       ok(
         llms.includes(`CREFITO-${regiao} nº ${pr.crefito.valor}`),

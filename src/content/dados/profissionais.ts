@@ -11,7 +11,13 @@ export const profissionais: Profissional[] = [
     ordem: 1,
     nome: 'Andriele da Silva',
     profissao: 'Fisioterapeuta',
-    crefito: bloqueante('CREFITO-10 da Andriele da Silva'),
+    // Nº pessoal: não confirmado (não aparece em fonte pública). Até chegar, o site mostra
+    // o registro da clínica, como no perfil oficial — ordem expressa do João, 23/11/2026.
+    crefito: bloqueante('CREFITO-10 pessoal da Andriele da Silva'),
+    registroDaClinica: confirmado(
+      true,
+      'João (WAXLO), 23/11/2026: "vai com isso" — usar o registro que o perfil oficial mostra',
+    ),
     responsavel: true,
     formacao: opcional(null),
     titulosReconhecidos: [],

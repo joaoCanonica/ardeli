@@ -7,7 +7,7 @@ Data: 23/11/2026 · build de preview · fonte das regras: CLAUDE.md §3 e `docs/
 
 | Regra | Como é garantida | Resultado |
 |---|---|---|
-| **Art. 48** · nome + "Fisioterapeuta" + nº do CREFITO-10 em toda divulgação | `audit-compliance` (rodapé de toda página), `audit-seo` (llms.txt), `gerar-og` (imagem de compartilhamento), cartaz do QR, JSON-LD (`hasCredential` só com número) | ✓ nas 17 páginas do build, no llms.txt, na imagem OG e no cartaz. **Andriele: "número em confirmação" → produção travada** |
+| **Art. 48** · nome + "Fisioterapeuta" + nº do CREFITO-10 em toda divulgação | `audit-compliance` (rodapé de toda página), `audit-seo` (llms.txt), `gerar-og` (imagem de compartilhamento), cartaz do QR, JSON-LD (`hasCredential` só com número) | ✓ em todas as páginas, no llms.txt, na imagem OG e no cartaz. **Andriele: "Responsável técnica · CREFITO-10 RE005047 (registro da clínica)"**, por ordem expressa do João (23/11/2026); nº pessoal ainda recomendado |
 | **Art. 15, V** · sem antes e depois, sem identificar paciente | termos vetados; `prepare-media` não publica item com pessoa sem autorização; trechos com reflexo cortados | ✓ nenhuma ocorrência; 4 trechos do tour cortados |
 | **Art. 10, V** · sem depoimento ou avaliação | `audit-compliance` (blockquote, citação + nome, estrelas, JSON-LD de Review), `audit-seo` (AggregateRating/Review em qualquer nível) | ✓ nenhuma; só o botão "Avaliar no Google" |
 | **Art. 15, III** · sem promessa de resultado | termos vetados ("cura", "garantido", "100%", "acaba com a dor", "sem dor"…) em src/content e no HTML | ✓ nenhuma |
@@ -34,17 +34,14 @@ Data: 23/11/2026 · build de preview · fonte das regras: CLAUDE.md §3 e `docs/
 
 | Ponto | Situação |
 |---|---|
-| Identificação de quem oferece o serviço (art. 31; boa prática do Decreto 7.962/2013) | Nome, endereço, telefone, razão social, registro de empresa no CREFITO-10 e CNES no rodapé/privacidade. **CNPJ completo pendente: trava a produção** (`empresa.cnpj` bloqueante) |
+| Identificação de quem oferece o serviço (art. 31; boa prática do Decreto 7.962/2013) | Nome, endereço, telefone, razão social, CNPJ 60.246.544/0001-60, registro de empresa no CREFITO-10 e CNES no rodapé e em /privacidade |
 | Publicidade enganosa (art. 37) | Sem promessa, sem preço, convênios só os confirmados; regras de cada convênio "Confirme pelo WhatsApp" até a clínica confirmar |
 | Informação de horário | "Segunda a sexta, das 8h às 20h"; feriado não afirmado ("confirme pelo WhatsApp") até a clínica confirmar |
 
-## Travas de produção abertas (impedem o deploy em produção)
+## Travas de produção
 
-1. CREFITO-10 da Andriele da Silva (Art. 48).
-2. CNPJ completo.
-3. `SITE_URL` (domínio definitivo) — definir na Vercel.
-
-Prova: `ARDELI_MODO=producao node scripts/validate-config.mjs` → código de saída 1. Com `SITE_URL` definido, sobram 1 e 2.
+**Nenhuma aberta** (23/11/2026, sessão 10): CNPJ 60.246.544/0001-60 confirmado; domínio `ardeli.com.br` confirmado; Andriele com o registro da clínica por ordem expressa (a regra continua: sem nº pessoal e sem essa ordem, trava — coberto por teste).
+`ARDELI_MODO=producao node scripts/validate-config.mjs` → "nenhuma trava aberta". Páginas de trabalho (`/_estilo`, `/_capa-a`, `/_capa-b`) não são geradas em produção.
 
 ## Como repetir
 

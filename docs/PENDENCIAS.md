@@ -103,3 +103,16 @@ Frases com fonte "pratica" (rotina comum da fisioterapia) e "orientacao" (explic
 | Q5 | Teste com uma pessoa de mais de 60 anos | Roteiro e ficha em `docs/QA.md` §4 |
 | Q6 | Safari iOS e Firefox reais | Só Chromium roda neste ambiente; roteiro em `docs/QA.md` §5 |
 | Q7 | LCP da home e de /a-clinica no perfil "4G lento" do Lighthouse (≈ 1,9 s) | Decisão: manter CLS 0 (fontes pré-carregadas) ou trocar por LCP menor com CLS até 0,02 (ver `docs/QA.md` §1) |
+
+## Resolvido em 23/11/2026 (sessão 10, ordens do João)
+
+| Item | Decisão | Como ficou |
+|---|---|---|
+| Trava 1 · CREFITO da Andriele | "vai com o que o perfil oficial mostra" | O nº **pessoal** continua não confirmado (não está em fonte pública). Por ordem expressa, o site mostra a Andriele como **Responsável técnica · CREFITO-10 RE005047 (registro da clínica)** — nunca como número pessoal. Vira aviso, não trava. **Recomendado:** publicar o nº pessoal quando chegar (Art. 48 pede o da profissional) |
+| Trava 2 · CNPJ | 60.246.544/0001-60 (dígitos conferidos) | No rodapé, no cartaz do QR, em /quem-cuida e em /privacidade |
+| 18 / Q1 / Q3 · Domínio | `https://ardeli.com.br` | Valor confirmado na config (`SITE_URL` sobrescreve). Primeiro no ar no endereço da Vercel; o domínio entra depois |
+| Q2 · Vercel | Projeto criado pela conta do João | A Vercel compila do GitHub; o `ffmpeg` vem do pacote `@ffmpeg-installer/ffmpeg` |
+| Q5 · Teste 60+ | Simulado feito (`docs/qa/TESTE_60_SIMULADO.md`) | O teste com uma pessoa real continua com o João |
+| Q7 · LCP × fontes | "mais fluido, para todos os públicos" | Fontes adaptativas: rede boa → fontes da marca (CLS 0); 2G/3G ou economia de dados → fonte do sistema, sem baixar 74 KB. Aparelho simples → sem abertura nem transições |
+
+**Antes de imprimir o cartaz do QR:** o código aponta para `https://ardeli.com.br/avaliar?o=qr`. Imprima só depois que o domínio estiver apontando para a Vercel.

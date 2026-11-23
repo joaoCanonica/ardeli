@@ -2,6 +2,7 @@
 // real e um parágrafo-resposta de 2–3 frases que se sustenta sozinho (Google, IAs).
 // Regras: só fato confirmado (fonte em cada frase), sem promessa, sem "especialista",
 // SUS só como "consulte a disponibilidade". NAP igual ao da config.
+import { registroDe } from '../../lib/registro.ts';
 import { clinica } from '../../config/clinica.ts';
 import { valorDe } from '../../config/tipos.ts';
 import { profissionais } from '../dados/profissionais.ts';
@@ -18,15 +19,13 @@ const TEL = valorDe(clinica.whatsapp)?.exibicao ?? '';
 
 /** Quem cuida, com o CREFITO como está na config (Art. 48). */
 function fraseQuemCuida(): Frase {
-  const regiao = valorDe(clinica.empresa.regiaoCrefito) ?? '10';
   const partes = [...profissionais]
     .sort((a, b) => a.ordem - b.ordem)
     .map((p) => {
-      const reg =
-        p.crefito.estado === 'confirmado'
-          ? `CREFITO-${regiao} nº ${p.crefito.valor}`
-          : `CREFITO-${regiao}: número em confirmação`;
-      return `${p.nome}, ${p.profissao.toLowerCase()}${p.responsavel ? ' responsável' : ''} (${reg})`;
+      const r = registroDe(p);
+      // "responsável técnica" já vem no registro da clínica; não repetir.
+      const papel = p.responsavel && r.tipo !== 'clinica' ? ' responsável' : '';
+      return `${p.nome}, ${p.profissao.toLowerCase()}${papel} (${r.tipo === 'clinica' ? r.curto.replace(/^Responsável técnica · /, 'responsável técnica, ') : r.curto})`;
     });
   return f(
     `Na Ardeli, quem cuida de você são ${partes.join(', e ')}. A Andriele atende em Lages desde 2018, no Studio Ar Pilates e Fisioterapia.`,

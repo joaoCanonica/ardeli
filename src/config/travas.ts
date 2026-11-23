@@ -4,6 +4,7 @@
 // trava = impede produção. aviso = publica com o texto seguro, mas precisa resolver.
 // pendente = dado opcional vazio (a página omite).
 
+import { registroDe } from '../lib/registro.ts';
 import { readFileSync } from 'node:fs';
 import { atendimentos } from '../content/dados/atendimentos.ts';
 import { convenios } from '../content/dados/convenios.ts';
@@ -66,6 +67,17 @@ export function verificarConfig(entrada: EntradaTravas = {}): Verificacao[] {
 
   // 1. CREFITO de cada profissional (Art. 48).
   for (const p of profissionais) {
+    const reg = registroDe(p);
+    if (reg.tipo === 'clinica') {
+      // Ordem expressa do João (23/11/2026): exibir o registro da clínica até o nº pessoal chegar.
+      add(
+        `crefito:${p.id}`,
+        'aviso',
+        true,
+        `${reg.linha} — nº pessoal pendente; recomendado publicá-lo quando chegar (Art. 48)`,
+      );
+      continue;
+    }
     const ok = p.crefito.estado === 'confirmado';
     add(
       `crefito:${p.id}`,
@@ -162,20 +174,25 @@ export function verificarConfig(entrada: EntradaTravas = {}): Verificacao[] {
   // 6. Demais campos da config: bloqueante sem fallback trava; com fallback avisa.
   for (const [caminho, campo] of camposDe(clinica)) {
     if (caminho === 'whatsapp') continue;
-    if (campo.estado === 'bloqueante') {
-      if (campo.fallback) {
-        add(`clinica.${caminho}`, 'aviso', true, `${campo.rotulo} pendente → ${campo.fallback}`);
-      } else {
-        add(`clinica.${caminho}`, 'trava', false, `${campo.rotulo} ausente`);
-      }
-    } else if (campo.estado === 'aviso') {
-      add(`clinica.${caminho}`, 'aviso', true, `${campo.rotulo}: ${campo.motivo}`);
-    } else if (campo.estado === 'opcional' && campo.valor === null) {
-      add(`clinica.${caminho}`, 'pendente', true, `${caminho}: vazio (a página omite)`);
-    }
+    const r = verificarCampo(`clinica.${caminho}`, campo);
+    if (r) v.push(r);
   }
 
   return v;
+}
+
+/** Regra de um campo da config (exportada para teste). */
+export function verificarCampo(id: string, campo: Campo<unknown>): Verificacao | null {
+  if (campo.estado === 'bloqueante') {
+    return campo.fallback
+      ? { id, nivel: 'aviso', ok: true, mensagem: `${campo.rotulo} pendente → ${campo.fallback}` }
+      : { id, nivel: 'trava', ok: false, mensagem: `${campo.rotulo} ausente` };
+  }
+  if (campo.estado === 'aviso')
+    return { id, nivel: 'aviso', ok: true, mensagem: `${campo.rotulo}: ${campo.motivo}` };
+  if (campo.estado === 'opcional' && campo.valor === null)
+    return { id, nivel: 'pendente', ok: true, mensagem: `${id}: vazio (a página omite)` };
+  return null;
 }
 
 export function travasFalhando(v: readonly Verificacao[]): Verificacao[] {

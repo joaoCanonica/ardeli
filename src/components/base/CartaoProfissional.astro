@@ -1,6 +1,7 @@
 ---
 // Quem cuida (COFFITO Art. 48): nome, "Fisioterapeuta", CREFITO-10 nº e só fatos confirmados.
 // Sem foto: monograma (iniciais em serifa) com o símbolo da marca em monocromo.
+import { registroDe } from '../../lib/registro.ts';
 import { clinica } from '../../config/clinica.ts';
 import { valorDe } from '../../config/tipos.ts';
 import type { Profissional } from '../../content/schemas.ts';
@@ -15,6 +16,7 @@ const { profissional: p, nivel = 3 } = Astro.props;
 const Titulo = `h${nivel}` as 'h2' | 'h3';
 const regiao = valorDe(clinica.empresa.regiaoCrefito) ?? '10';
 const crefito = p.crefito.estado === 'confirmado' ? p.crefito.valor : null;
+const registro = registroDe(p);
 const iniciais = p.nome
   .split(' ')
   .filter((x) => x.length > 2)
@@ -44,6 +46,8 @@ const iniciais = p.nome
           <span class="sem-quebra">CREFITO-{regiao}</span>{' '}
           <span class="sem-quebra">nº {crefito}</span>
         </span>
+      ) : registro.tipo === 'clinica' ? (
+        <span>{registro.curto}</span>
       ) : (
         <span class="pendente">CREFITO-{regiao}: número em confirmação</span>
       )}

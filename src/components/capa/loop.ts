@@ -17,7 +17,8 @@ export function iniciarLoopCapa(): void {
     movimento.matches ||
     !tela.matches ||
     rede?.saveData ||
-    /2g|3g/.test(rede?.effectiveType ?? '')
+    /2g|3g/.test(rede?.effectiveType ?? '') ||
+    document.documentElement.classList.contains('aparelho-simples')
   )
     return;
 

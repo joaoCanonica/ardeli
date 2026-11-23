@@ -1,4 +1,5 @@
 import { execFileSync, spawnSync } from 'node:child_process';
+import { registroDe } from '../src/lib/registro.ts';
 import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -6,7 +7,13 @@ import { describe, expect, it } from 'vitest';
 import { clinica } from '../src/config/clinica.ts';
 import { encontrarTermosVetados, termosVetados } from '../src/config/termos.ts';
 import { aviso, bloqueante, confirmado, exigir, opcional, valorDe } from '../src/config/tipos.ts';
-import { camposDe, modoAtual, travasFalhando, verificarConfig } from '../src/config/travas.ts';
+import {
+  camposDe,
+  modoAtual,
+  travasFalhando,
+  verificarCampo,
+  verificarConfig,
+} from '../src/config/travas.ts';
 import { atendimentos } from '../src/content/dados/atendimentos.ts';
 import { convenios } from '../src/content/dados/convenios.ts';
 import { profissionais } from '../src/content/dados/profissionais.ts';
@@ -35,7 +42,8 @@ describe('dados', () => {
   it('cadastro fixo da clínica', () => {
     expect(valorDe(clinica.empresa.cnes)).toBe('8422478');
     expect(valorDe(clinica.empresa.crefitoEmpresa)).toBe('RE005047');
-    expect(clinica.empresa.cnpj.estado).toBe('bloqueante');
+    expect(valorDe(clinica.empresa.cnpj)).toBe('60.246.544/0001-60');
+    expect(valorDe(clinica.dominio)).toBe('https://ardeli.com.br');
     expect(valorDe(clinica.whatsapp)?.numero).toBe('5549999281721');
     expect(valorDe(clinica.horario)).toMatchObject({
       abre: '08:00',
@@ -57,7 +65,7 @@ describe('dados', () => {
 
   it('profissionais: Andriele bloqueante, Nicole 444436-F, sem título nem foto', () => {
     const [andriele, nicole] = profissionais;
-    expect(andriele?.crefito.estado).toBe('bloqueante');
+    expect(andriele?.crefito.estado).toBe('bloqueante'); // nº pessoal: ainda não confirmado
     expect(nicole?.crefito).toMatchObject({ estado: 'confirmado', valor: '444436-F' });
     for (const p of profissionais) {
       expect(p.titulosReconhecidos).toEqual([]);
@@ -129,9 +137,26 @@ describe('travas', () => {
     expect(modoAtual({ ARDELI_MODO: 'producao' })).toBe('producao');
   });
 
-  it('produção trava sem o CREFITO da Andriele', () => {
+  it('Andriele: nº pessoal pendente; exibe o registro da clínica (ordem do João) sem travar', () => {
     const abertas = travasFalhando(verificarConfig()).map((v) => v.id);
-    expect(abertas).toContain('crefito:andriele-da-silva');
+    expect(abertas).not.toContain('crefito:andriele-da-silva');
+    const andriele = profissionais.find((p) => p.id === 'andriele-da-silva');
+    expect(andriele?.crefito.estado).toBe('bloqueante');
+    if (!andriele) throw new Error('Andriele ausente');
+    const r = registroDe(andriele);
+    expect(r.tipo).toBe('clinica');
+    expect(r.numeroPessoal).toBeNull();
+    expect(r.linha).toBe(
+      'Andriele da Silva · Fisioterapeuta · Responsável técnica · CREFITO-10 RE005047 (registro da clínica)',
+    );
+  });
+
+  it('sem nº pessoal e sem a ordem do registro da clínica, continua pendente (trava)', () => {
+    const base = profissionais.find((p) => p.id === 'andriele-da-silva');
+    if (!base) throw new Error('Andriele ausente');
+    expect(registroDe({ ...base, registroDaClinica: undefined }).tipo).toBe('pendente');
+    // Só a responsável técnica pode usar o registro da clínica.
+    expect(registroDe({ ...base, responsavel: false }).tipo).toBe('pendente');
   });
 
   it('imagem com pessoa sem autorização trava; pessoa só em trechos cortados avisa', () => {
@@ -154,9 +179,10 @@ describe('travas', () => {
 
   it('bloqueante sem fallback trava; com fallback avisa', () => {
     const v = verificarConfig();
-    expect(v.find((x) => x.id === 'clinica.empresa.cnpj')).toMatchObject({
-      nivel: 'trava',
-      ok: false,
+    expect(verificarCampo('x', bloqueante('CNPJ'))).toMatchObject({ nivel: 'trava', ok: false });
+    expect(verificarCampo('x', bloqueante('link', { fallback: 'ficha' }))).toMatchObject({
+      nivel: 'aviso',
+      ok: true,
     });
     expect(v.find((x) => x.id === 'clinica.google.linkPedirAvaliacoes')).toMatchObject({
       nivel: 'aviso',
@@ -178,11 +204,15 @@ describe('scripts', () => {
       encoding: 'utf8',
     });
 
-  it('validate-config: preview passa, produção trava', () => {
+  it('validate-config: preview e produção passam (sem trava aberta); SITE_URL inválida quebra', () => {
     expect(rodar('validate-config.mjs', { ARDELI_MODO: 'preview' }).status).toBe(0);
     const prod = rodar('validate-config.mjs', { ARDELI_MODO: 'producao' });
-    expect(prod.status).toBe(1);
-    expect(prod.stdout).toMatch(/CREFITO-10 de Andriele da Silva ausente/);
+    expect(prod.status).toBe(0);
+    expect(prod.stdout).toMatch(/nenhuma trava aberta/);
+    expect(
+      rodar('validate-config.mjs', { ARDELI_MODO: 'producao', SITE_URL: 'http://ardeli.com.br/x' })
+        .status,
+    ).not.toBe(0);
   });
 
   function distFalso(html: string): string {
@@ -200,7 +230,10 @@ describe('scripts', () => {
     const r = audit(
       pagina('<h1>Ardeli Fisioterapia</h1><p>SUS: Consulte a disponibilidade pelo WhatsApp.</p>'),
     );
-    expect(r.stdout + r.stderr).toMatch(/CREFITO-10 de Andriele da Silva pendente/);
+    // Rodapé falso sem a linha da Andriele: no preview é aviso, não falha.
+    expect(r.stdout + r.stderr).toMatch(
+      /rodapé sem "Andriele da Silva · Fisioterapeuta · Responsável técnica/,
+    );
     expect(r.status).toBe(0);
   });
 

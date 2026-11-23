@@ -88,3 +88,11 @@
     --veu: rgb(18 48 72 / 0.88);
   }
 }
+
+/* Rede lenta (2G/3G) ou economia de dados: fonte do sistema, sem baixar as da marca.
+   Nunca troca no meio da leitura (as da marca não chegam a ser usadas): CLS 0.
+   Marcado por src/scripts/inline/tamanho.js antes da pintura. */
+html.rede-lenta {
+  --fonte-serifa: Georgia, 'Times New Roman', serif;
+  --fonte-texto: Roboto, 'Segoe UI', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+}

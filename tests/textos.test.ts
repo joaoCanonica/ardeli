@@ -157,10 +157,12 @@ describe('microtextos', () => {
   it('rodapé com Art. 48 completo', () => {
     const r = rodape();
     expect(r.profissionais.map((p) => p.texto)).toEqual([
-      'Andriele da Silva · Fisioterapeuta · CREFITO-10: número em confirmação',
+      'Andriele da Silva · Fisioterapeuta · Responsável técnica · CREFITO-10 RE005047 (registro da clínica)',
       'Nicole de Abreu Batista · Fisioterapeuta · CREFITO-10 nº 444436-F',
     ]);
-    expect(r.empresa.texto).toBe('Registro de empresa no CREFITO-10: RE005047 · CNES 8422478');
+    expect(r.empresa.texto).toBe(
+      'Registro de empresa no CREFITO-10: RE005047 · CNES 8422478 · CNPJ 60.246.544/0001-60',
+    );
   });
 
   it('toda imagem publicada tem alt (ambiente + o que se vê)', () => {

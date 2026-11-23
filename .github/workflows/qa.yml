@@ -1,0 +1,52 @@
+# QA a cada push. O deploy é feito pela própria Vercel (integração com o GitHub):
+# o build da Vercel gera a mídia com o ffmpeg do pacote @ffmpeg-installer/ffmpeg.
+# Aqui roda o mesmo build de produção e os testes que a Vercel não roda
+# (e2e, acessibilidade, acabamento), para o problema aparecer no GitHub.
+name: qa
+
+on:
+  push:
+    branches: ['**']
+  workflow_dispatch:
+
+concurrency:
+  group: qa-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Chromium do Playwright (testes)
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Checagens (tipos, lint, formato, contraste) e testes
+        run: pnpm check && pnpm test
+
+      - name: Build de produção (travas valem)
+        env:
+          ARDELI_MODO: producao
+        run: pnpm build
+
+      - name: e2e, acessibilidade e acabamento (servidor que imita a Vercel)
+        run: |
+          node scripts/servir.mjs --porta 4330 &
+          sleep 2
+          BASE=http://localhost:4330 node scripts/e2e.mjs
+          BASE=http://localhost:4330 node scripts/audit-a11y.mjs
+          BASE=http://localhost:4330 node scripts/audit-acabamento.mjs

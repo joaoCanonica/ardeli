@@ -5,6 +5,7 @@
 //   pnpm build && pnpm audit-compliance
 //   ARDELI_MODO=producao pnpm audit-compliance
 
+import { registroDe } from '../src/lib/registro.ts';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -173,6 +174,11 @@ for (const arquivo of paginas) {
   } else {
     const r = texto(rodape[0]);
     for (const p of profissionais) {
+      const reg = registroDe(p);
+      if (reg.tipo === 'clinica') {
+        if (!r.includes(reg.linha)) relatar(rota, `rodapé sem "${reg.linha}"`);
+        continue;
+      }
       const numero = p.crefito.estado === 'confirmado' ? p.crefito.valor : null;
       if (!numero) {
         relatar(rota, `rodapé: CREFITO-10 de ${p.nome} pendente`);

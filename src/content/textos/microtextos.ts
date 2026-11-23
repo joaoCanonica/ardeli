@@ -1,4 +1,5 @@
 // Microtextos: botões, mensagens de WhatsApp, alt das imagens, rodapé (Art. 48) e meta da home.
+import { registroDe } from '../../lib/registro.ts';
 import { nap } from '../../lib/seo/nap.ts';
 import { clinica } from '../../config/clinica.ts';
 import { valorDe } from '../../config/tipos.ts';
@@ -177,17 +178,15 @@ export function rodape() {
       .sort((a, b) => a.ordem - b.ordem)
       .map((p) => ({
         nome: p.nome,
-        texto:
-          p.crefito.estado === 'confirmado'
-            ? `${p.nome} · ${p.profissao} · CREFITO-${regiao} nº ${p.crefito.valor}`
-            : `${p.nome} · ${p.profissao} · CREFITO-${regiao}: número em confirmação`,
+        texto: registroDe(p).linha,
         responsavel: p.responsavel,
       })),
     responsavelTecnica: f('Responsável técnica: Andriele da Silva, Fisioterapeuta.', 'joao'),
     empresa: f(
-      `Registro de empresa no CREFITO-${regiao}: ${valorDe(clinica.empresa.crefitoEmpresa) ?? ''} · CNES ${valorDe(clinica.empresa.cnes) ?? ''}`,
+      `Registro de empresa no CREFITO-${regiao}: ${valorDe(clinica.empresa.crefitoEmpresa) ?? ''} · CNES ${valorDe(clinica.empresa.cnes) ?? ''} · CNPJ ${valorDe(clinica.empresa.cnpj) ?? ''}`,
       'crefito',
       'cnes',
+      'joao',
     ),
     nota: f(
       'Divulgação conforme o Código de Ética da Fisioterapia (Resolução COFFITO 424/2013).',

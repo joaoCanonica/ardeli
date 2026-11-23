@@ -73,6 +73,11 @@ const ehAtual = (href: string) => atual.replace(/\/$/, '') === href;
         <span class="cab__menu-rotulo">Menu</span>
       </summary>
       <div class="cab__painel">
+        {/* Telefone e tamanho do texto primeiro: é o que mais se procura (teste 60+). */}
+        <div class="cab__painel-rodape">
+          {tel && <LigarAgora class="cab__ligar" />}
+          <ControleTamanho id="tamanho-menu" />
+        </div>
         <nav aria-label="Principal">
           <ul role="list" class="cab__lista">
             {itensMenu.map((i) => (
@@ -85,10 +90,6 @@ const ehAtual = (href: string) => atual.replace(/\/$/, '') === href;
             ))}
           </ul>
         </nav>
-        <div class="cab__painel-rodape">
-          {tel && <LigarAgora class="cab__ligar" />}
-          <ControleTamanho id="tamanho-menu" />
-        </div>
       </div>
     </details>
   </div>
@@ -286,9 +287,9 @@ const ehAtual = (href: string) => atual.replace(/\/$/, '') === href;
     align-items: center;
     justify-content: space-between;
     gap: var(--e-4);
-    margin-top: var(--e-4);
-    padding-top: var(--e-4);
-    border-top: 2px solid var(--cor-marinho);
+    margin-bottom: var(--e-3);
+    padding-bottom: var(--e-4);
+    border-bottom: 2px solid var(--cor-marinho);
   }
   .cab__painel-rodape :global(.cab__ligar) {
     min-height: var(--botao-altura);

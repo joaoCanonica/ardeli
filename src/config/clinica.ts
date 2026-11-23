@@ -8,12 +8,13 @@ const FONTE_MAPS = 'ficha do Google Maps, vista em 22/11/2026';
 const FONTE_CNES = 'CNES 8422478 / CREFITO-10, dados enviados pelo João';
 
 /**
- * Domínio por variável de ambiente (SITE_URL, definida pelo João na Vercel).
- * Sem ela: bloqueante (trava a produção). Nunca inventado no código.
+ * Domínio: https://ardeli.com.br (confirmado pelo João). A variável SITE_URL sobrescreve;
+ * se vier inválida, o build quebra.
  */
 function dominioDoAmbiente(): Campo<string> {
   const bruto = globalThis.process?.env?.['SITE_URL']?.trim();
-  if (!bruto) return bloqueante('domínio definitivo do site (SITE_URL)') as Campo<string>;
+  // Domínio confirmado pelo João em 23/11/2026. SITE_URL sobrescreve (ex.: outro ambiente).
+  if (!bruto) return confirmado('https://ardeli.com.br', 'João (WAXLO), 23/11/2026');
   const limpo = bruto.replace(/\/+$/, '');
   if (!/^https:\/\/[a-z0-9.-]+\.[a-z]{2,}$/i.test(limpo))
     throw new Error(`SITE_URL inválida: "${bruto}" (use https://dominio, sem caminho)`);
@@ -29,7 +30,10 @@ export const clinica = {
 
   empresa: {
     razaoSocial: confirmado('60.246.544 ANDRIELE DA SILVA', FONTE_CNES),
-    cnpj: bloqueante('CNPJ completo') as Campo<string>,
+    cnpj: confirmado(
+      '60.246.544/0001-60',
+      'João (WAXLO), 23/11/2026 (dígitos verificadores conferidos)',
+    ),
     cnes: confirmado('8422478', FONTE_CNES),
     crefitoEmpresa: confirmado('RE005047', `${FONTE_CNES} (registro definitivo desde 15/07/2026)`),
     regiaoCrefito: confirmado('10', FONTE_CNES),
