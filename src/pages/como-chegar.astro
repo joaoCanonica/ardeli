@@ -1,0 +1,221 @@
+---
+// /como-chegar: endereço, referência, acessibilidade e estacionamento (quando confirmados;
+// até lá, o convite para confirmar pelo WhatsApp), mapa (interativo só após o clique),
+// horário com status e rotas.
+import EnderecoNap from '../components/base/EnderecoNap.astro';
+import Aviso from '../components/base/Aviso.astro';
+import Botao from '../components/base/Botao.astro';
+import FotoAmbiente from '../components/base/FotoAmbiente.astro';
+import Icone from '../components/base/Icone.astro';
+import LigarAgora from '../components/base/LigarAgora.astro';
+import StatusHorario from '../components/base/StatusHorario.astro';
+import TabelaHorario from '../components/base/TabelaHorario.astro';
+import Mapa from '../components/secoes/Mapa.astro';
+import { clinica } from '../config/clinica.ts';
+import { valorDe } from '../config/tipos.ts';
+import { altDe, botoes, mensagensWhatsApp } from '../content/textos/microtextos.ts';
+import { comoChegar as cc } from '../content/textos/paginas.ts';
+import { linkWhatsApp } from '../lib/whatsapp.ts';
+import Pagina from './_PaginaInterna.astro';
+import { aberturas } from '../content/textos/respostas.ts';
+
+const dados = [
+  {
+    rotulo: 'Ponto de referência',
+    valor: valorDe(clinica.pontoDeReferencia),
+    pendente: cc.pontoDeReferencia.sePendente,
+  },
+  {
+    rotulo: 'Acessibilidade',
+    valor: valorDe(clinica.acessibilidade),
+    pendente: cc.acessibilidade.sePendente,
+  },
+  {
+    rotulo: 'Estacionamento',
+    valor: valorDe(clinica.estacionamento),
+    pendente: cc.estacionamento.sePendente,
+  },
+];
+const confirmados = dados.filter((d) => d.valor);
+const pendentes = dados.filter((d) => !d.valor);
+const rotas = [
+  { href: clinica.links.googleMapsRota, rotulo: cc.rotas.google },
+  { href: clinica.links.waze, rotulo: cc.rotas.waze },
+  { href: clinica.links.appleMaps, rotulo: cc.rotas.apple },
+];
+---
+
+<Pagina
+  meta={cc.meta}
+  verbete={cc.verbete}
+  h1={aberturas.comoChegar.h1}
+  resposta={aberturas.comoChegar.resposta}
+>
+  <div class="chegar">
+    <div>
+      <EnderecoNap class="chegar__endereco" />
+      <button type="button" class="copiar" data-copiar hidden>
+        {botoes.copiarEndereco}
+      </button>
+      <span class="copiar__aviso" aria-live="polite" data-copiar-aviso></span>
+      <p class="chegar__plus">{cc.plusCode.texto}</p>
+
+      <ul class="rotas" role="list" aria-label="Rotas até a clínica">
+        {rotas.map((r) => (
+          <li>
+            <a class="rota" href={r.href}>
+              <Icone nome="mapa" tamanho="1.3rem" />
+              {r.rotulo}
+              <span class="visualmente-oculto"> ({botoes.abreMapa})</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      {confirmados.length > 0 && (
+        <dl class="chegar__dados">
+          {confirmados.map((d) => (
+            <>
+              <dt>{d.rotulo}</dt>
+              <dd>{d.valor}</dd>
+            </>
+          ))}
+        </dl>
+      )}
+      {pendentes.length > 0 && (
+        <Aviso titulo="Antes de vir">
+          {pendentes.map((d) => (
+            <p>{d.pendente.texto}</p>
+          ))}
+        </Aviso>
+      )}
+
+      <section class="bloco" aria-labelledby="horario">
+        <h2 id="horario">Horário</h2>
+        <StatusHorario />
+        <TabelaHorario />
+      </section>
+
+      <div class="contato">
+        <LigarAgora />
+        <Botao
+          href={linkWhatsApp(mensagensWhatsApp.comoChegar)}
+          icone="whatsapp"
+          variante="secundario"
+          dica={botoes.abreWhatsApp}
+        >
+          {botoes.whatsapp}
+        </Botao>
+      </div>
+    </div>
+    <div class="chegar__lado">
+      <FotoAmbiente
+        id="still-fachada-4x5"
+        alt={altDe('still-fachada-4x5')}
+        legenda="Fachada · Av. Dom Pedro II, 2700"
+        sizes="(min-width: 64rem) 32rem, 100vw"
+      />
+      <Mapa />
+    </div>
+  </div>
+</Pagina>
+
+<script>
+  import { iniciarCopiar } from '../components/secoes/copiar.ts';
+  iniciarCopiar();
+</script>
+
+<style>
+  .chegar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--e-7);
+  }
+  .chegar__endereco {
+    font-family: var(--fonte-serifa);
+    font-style: normal;
+    font-size: clamp(1.8rem, 1.3rem + 2vw, 2.8rem);
+    line-height: 1.2;
+    color: var(--texto-forte);
+  }
+  .copiar {
+    min-height: var(--alvo-min);
+    margin-top: var(--e-3);
+    padding: var(--e-2) var(--e-4);
+    border: 2px solid var(--cor-marinho);
+    border-radius: var(--raio-botao);
+    background: transparent;
+    color: var(--cor-marinho);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .copiar[hidden] {
+    display: none;
+  }
+  .copiar__aviso {
+    display: block;
+    margin-top: var(--e-2);
+    font-weight: 700;
+  }
+  .chegar__plus {
+    font-size: var(--texto-p);
+  }
+  .rotas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--e-3);
+    margin: var(--e-5) 0;
+    padding: 0;
+    list-style: none;
+  }
+  .rota {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--e-2);
+    min-height: var(--alvo-min);
+    padding: var(--e-2) var(--e-4);
+    border: var(--fio-fino) solid var(--fio-forte);
+    border-radius: var(--raio-botao);
+    color: var(--texto-forte);
+    font-weight: 700;
+    text-decoration: none;
+    background: var(--cor-papel);
+  }
+  .rota:hover {
+    text-decoration: underline;
+  }
+  .chegar__dados dt {
+    font-weight: 700;
+    color: var(--texto-forte);
+  }
+  .chegar__dados dd {
+    margin: 0 0 var(--e-3);
+  }
+  .contato {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--e-4) var(--e-6);
+    margin-top: var(--e-5);
+  }
+  .chegar__lado {
+    display: grid;
+    gap: var(--e-5);
+    align-content: start;
+  }
+  @media (max-width: 20rem) {
+    .contato {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .contato :global(.ligar) {
+      margin-inline: 0;
+    }
+  }
+  @media (min-width: 64rem) {
+    .chegar {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 32rem);
+    }
+  }
+</style>

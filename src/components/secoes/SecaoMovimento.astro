@@ -1,0 +1,131 @@
+---
+// MOVIMENTO (Linho). Gesto: os atendimentos publicados viram pequenos verbetes em lista
+// (palavra + uma acepção), cada um com link; o ginásio com a treliça ao lado.
+import { atendimentos } from '../../content/dados/atendimentos.ts';
+import { movimento } from '../../content/textos/home.ts';
+import { altDe } from '../../content/textos/microtextos.ts';
+import { textos } from '../../content/textos/tipos.ts';
+import FotoAmbiente from '../base/FotoAmbiente.astro';
+import Icone from '../base/Icone.astro';
+import Verbete from '../verbete/Verbete.astro';
+import Secao from './Secao.astro';
+
+const publicados = atendimentos.filter((a) => a.publicado).sort((a, b) => a.ordem - b.ordem);
+---
+
+<Secao id="atendimentos">
+  <div class="movimento">
+    <div>
+      <Verbete
+        palavra={movimento.verbete.palavra}
+        classe={movimento.verbete.classe}
+        acepcoes={textos(movimento.verbete.acepcoes)}
+        id="verbete-movimento"
+      />
+      <ul class="mini-verbetes" role="list">
+        {publicados.map((a) => (
+          <li>
+            <a class="mini-verbete" href={`/atendimentos/${a.id}`}>
+              <span class="mini-verbete__cabeca">
+                <span class="mini-verbete__palavra">{a.verbete.palavra}</span>
+                <span class="mini-verbete__classe">{a.verbete.classe}</span>
+              </span>
+              <span class="mini-verbete__nome">{a.nome}</span>
+              <span class="mini-verbete__acepcao">{a.verbete.acepcoes[0]}</span>
+              <span class="mini-verbete__mais">
+                Saiba mais
+                <Icone nome="seta" tamanho="1.2rem" />
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="movimento__todos">
+        <a href="/atendimentos" class="alvo">
+          {movimento.chamada.texto}
+        </a>
+      </p>
+    </div>
+    <FotoAmbiente
+      id="still-ginasio-trelica-4x5"
+      alt={altDe('still-ginasio-trelica-4x5')}
+      legenda="Ginásio de reabilitação"
+      tom="tijolo"
+      sizes="(min-width: 64rem) 26rem, 100vw"
+      class="movimento__foto"
+    />
+  </div>
+</Secao>
+
+<style>
+  .movimento {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--e-7);
+  }
+  .mini-verbetes {
+    margin: var(--e-6) 0 var(--e-4);
+    padding: 0;
+    list-style: none;
+    border-top: var(--fio-fino) solid var(--fio);
+  }
+  .mini-verbetes li {
+    border-bottom: var(--fio-fino) solid var(--fio);
+  }
+  .mini-verbete {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--e-2);
+    padding: var(--e-5) var(--e-2);
+    color: var(--texto);
+    text-decoration: none;
+    border-radius: var(--raio);
+    transition: background-color var(--duracao-curta) var(--curva);
+  }
+  .mini-verbete:hover {
+    background: var(--cor-papel);
+  }
+  .mini-verbete__cabeca {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5em;
+  }
+  .mini-verbete__palavra {
+    font-family: var(--fonte-serifa);
+    font-size: min(var(--titulo-2), 12vw);
+    line-height: 1;
+    color: var(--texto-forte);
+  }
+  .mini-verbete__classe {
+    font-family: var(--fonte-serifa);
+    font-style: italic;
+    font-size: 1.2rem;
+  }
+  .mini-verbete__nome {
+    font-weight: 700;
+    color: var(--texto-forte);
+  }
+  .mini-verbete__acepcao {
+    max-width: var(--medida);
+  }
+  .mini-verbete__mais {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--e-2);
+    color: var(--link);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+  }
+  .mini-verbete:hover .mini-verbete__mais {
+    color: var(--link-hover);
+  }
+  @media (min-width: 64rem) {
+    .movimento {
+      grid-template-columns: minmax(0, 1fr) 22rem;
+      align-items: start;
+    }
+  }
+</style>

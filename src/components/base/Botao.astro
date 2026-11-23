@@ -1,0 +1,121 @@
+---
+// Botão (link ou <button>). Primário: Marinho com texto Linho, ≥ 56px de altura.
+// Secundário: contorno Marinho. Sobre fundo escuro, as cores se invertem.
+// Movimento só de realce: cor e sombra, 200ms.
+import Icone, { type NomeIcone } from './Icone.astro';
+
+interface Props {
+  variante?: 'primario' | 'secundario';
+  href?: string;
+  type?: 'button' | 'submit';
+  icone?: NomeIcone;
+  /** Texto extra só para leitor de tela (ex.: "abre o WhatsApp"). */
+  dica?: string;
+  largo?: boolean;
+  class?: string;
+  [atributo: string]: unknown;
+}
+const {
+  variante = 'primario',
+  href,
+  type = 'button',
+  icone,
+  dica,
+  largo = false,
+  class: classe,
+  ...resto
+} = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag
+  class:list={['botao', `botao--${variante}`, { 'botao--largo': largo }, classe]}
+  href={href}
+  type={href ? undefined : type}
+  {...resto}
+>
+  {icone && <Icone nome={icone} tamanho="1.5rem" />}
+  <span class="botao__texto">
+    <slot />
+  </span>
+  {dica && <span class="visualmente-oculto">({dica})</span>}
+</Tag>
+
+<style>
+  .botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--e-3);
+    min-height: var(--botao-altura);
+    min-width: var(--alvo-min);
+    padding: var(--e-3) var(--e-5);
+    border: 2px solid var(--cor-marinho);
+    border-radius: var(--raio-botao);
+    font-family: var(--fonte-texto);
+    font-size: var(--texto-g);
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background-color var(--duracao-curta) var(--curva),
+      color var(--duracao-curta) var(--curva),
+      box-shadow var(--duracao-curta) var(--curva);
+  }
+  .botao--largo {
+    width: 100%;
+  }
+  .botao--primario {
+    background: var(--cor-marinho);
+    color: var(--cor-linho);
+  }
+  .botao--primario:hover {
+    background: var(--cor-marinho-profundo);
+    color: var(--cor-linho);
+    box-shadow: 0 0.25rem 0 0 rgb(18 48 72 / 0.18);
+  }
+  .botao--primario:active {
+    box-shadow: none;
+  }
+  .botao--secundario {
+    background: transparent;
+    color: var(--cor-marinho);
+  }
+  .botao--secundario:hover {
+    background: var(--cor-papel);
+    color: var(--cor-marinho);
+  }
+
+  :global(.sobre-escuro) .botao--primario {
+    background: var(--cor-linho);
+    color: var(--cor-marinho);
+    border-color: var(--cor-linho);
+  }
+  :global(.sobre-escuro) .botao--primario:hover {
+    background: var(--cor-papel);
+  }
+  :global(.sobre-escuro) .botao--secundario {
+    color: var(--cor-linho);
+    border-color: var(--cor-linho);
+  }
+  :global(.sobre-escuro) .botao--secundario:hover {
+    background: rgb(248 246 241 / 0.12);
+  }
+
+  /* Tela muito estreita (ex.: 390px com zoom 200%): ícone acima do texto. */
+  @media (max-width: 20rem) {
+    .botao {
+      flex-direction: column;
+      gap: var(--e-1);
+      padding-inline: var(--e-2);
+      font-size: var(--texto-m);
+    }
+  }
+  @media (forced-colors: active) {
+    .botao {
+      border-color: ButtonText;
+    }
+  }
+</style>

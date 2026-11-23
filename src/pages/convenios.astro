@@ -1,0 +1,153 @@
+---
+// /convenios: as 4 formas de atendimento em blocos grandes com âncora (#particular, #unimed,
+// #aapl, #sus). SUS só com o texto seguro enquanto não houver confirmação.
+import Aviso from '../components/base/Aviso.astro';
+import Botao from '../components/base/Botao.astro';
+import { convenios } from '../content/dados/convenios.ts';
+import { paginaConvenios, textosConvenios } from '../content/textos/convenios.ts';
+import { botoes, mensagensWhatsApp } from '../content/textos/microtextos.ts';
+import { montarPedido, type Forma } from '../lib/agenda.ts';
+import { linkWhatsApp } from '../lib/whatsapp.ts';
+import Pagina from './_PaginaInterna.astro';
+import { aberturas } from '../content/textos/respostas.ts';
+
+const blocos = textosConvenios.map((t) => {
+  const dados = convenios.find((c) => c.id === t.id);
+  const confirmado = dados?.atende.estado === 'confirmado';
+  const so = (fr: readonly { texto: string; exige?: string }[]) =>
+    fr.filter((x) => confirmado || !x.exige).map((x) => x.texto);
+  return {
+    ...t,
+    confirmado,
+    quem: so(t.quemPodeUsar),
+    levar: so(t.oQueLevar),
+    agendar: so(t.comoAgendar),
+    href: confirmado
+      ? linkWhatsApp(montarPedido({ forma: t.id as Forma }))
+      : linkWhatsApp(mensagensWhatsApp.perguntarSus),
+  };
+});
+---
+
+<Pagina
+  meta={paginaConvenios.meta}
+  h1={aberturas.convenios.h1}
+  resposta={aberturas.convenios.resposta}
+  verbete={paginaConvenios.verbete}
+  introducao={paginaConvenios.introducao}
+>
+  <nav class="atalhos" aria-label="Formas de atendimento">
+    <ul role="list">
+      {blocos.map((b) => (
+        <li>
+          <a href={`#${b.id}`}>
+            {b.confirmado ? b.titulo : `${b.titulo}: consulte a disponibilidade`}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+
+  <Aviso titulo="Em qualquer forma de atendimento">
+    <p>{paginaConvenios.geral.texto}</p>
+  </Aviso>
+
+  {blocos.map((b) => (
+    <section class="bloco convenio" id={b.id} aria-labelledby={`${b.id}-titulo`}>
+      <h2 id={`${b.id}-titulo`}>{b.pergunta ?? b.titulo}</h2>
+      {b.confirmado ? (
+        <>
+          <p class="convenio__resumo">{b.resumo.texto}</p>
+          <div class="convenio__colunas">
+            <div>
+              <h3>Quem pode usar</h3>
+              <ul class="lista" role="list">
+                {b.quem.map((t) => (
+                  <li>{t}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3>O que levar</h3>
+              <ul class="lista" role="list">
+                {b.levar.map((t) => (
+                  <li>{t}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3>Como agendar</h3>
+              {b.agendar.map((t) => (
+                <p>{t}</p>
+              ))}
+            </div>
+          </div>
+        </>
+      ) : (
+        (b.sePendente ?? []).map((fr) => <p class="convenio__resumo">{fr.texto}</p>)
+      )}
+      <Botao
+        data-agendar={b.confirmado ? '' : undefined}
+        data-forma={b.confirmado ? b.id : undefined}
+        data-origem="convenios"
+        href={b.href}
+        icone="whatsapp"
+        dica={botoes.abreWhatsApp}
+        variante={b.confirmado ? 'primario' : 'secundario'}
+      >
+        {b.botao}
+      </Botao>
+    </section>
+  ))}
+</Pagina>
+
+<style>
+  .atalhos ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--e-3);
+    margin: 0 0 var(--e-6);
+    padding: 0;
+    list-style: none;
+  }
+  .atalhos li {
+    max-width: 100%;
+  }
+  .atalhos a {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--alvo-min);
+    padding: var(--e-2) var(--e-5);
+    border: 2px solid var(--cor-marinho);
+    border-radius: var(--raio-botao);
+    color: var(--cor-marinho);
+    font-weight: 700;
+    text-decoration: none;
+    background: var(--cor-papel);
+  }
+  .atalhos a:hover {
+    text-decoration: underline;
+  }
+  .convenio {
+    margin-top: var(--e-6);
+  }
+  .convenio__resumo {
+    font-size: var(--texto-g);
+    color: var(--texto-forte);
+  }
+  .convenio__colunas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: var(--e-6);
+    margin: var(--e-5) 0 var(--e-6);
+  }
+  .convenio h3 {
+    font-family: var(--fonte-texto);
+    font-size: var(--texto-m);
+    font-weight: 700;
+    padding-bottom: var(--e-2);
+    border-bottom: var(--fio-fino) solid var(--fio);
+  }
+</style>

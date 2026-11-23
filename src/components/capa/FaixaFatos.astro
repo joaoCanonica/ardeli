@@ -1,0 +1,91 @@
+---
+// Faixa de fatos sob a capa: horário (com status ao vivo), endereço, convênios, telefone.
+// Só fatos confirmados (CLAUDE.md §8: números verificáveis).
+import { clinica } from '../../config/clinica.ts';
+import { valorDe } from '../../config/tipos.ts';
+import Icone from '../base/Icone.astro';
+import StatusHorario from '../base/StatusHorario.astro';
+
+const end = valorDe(clinica.endereco);
+const tel = valorDe(clinica.telefone);
+---
+
+<section class="fatos" aria-label="A clínica em resumo">
+  <ul role="list">
+    <li class="fatos__item">
+      <Icone nome="relogio" tamanho="1.6rem" />
+      <StatusHorario semIcone textoFixo="Seg a sex, 8h às 20h" class="fatos__status" />
+    </li>
+    <li class="fatos__item">
+      <Icone nome="mapa" tamanho="1.6rem" />
+      <a href={clinica.links.googleMapsRota} class="alvo">
+        {end ? `${end.logradouro}, ${end.numero}` : 'Como chegar'}
+        <span class="visualmente-oculto">
+          , {end?.bairro}, {end?.cidade} (abre o mapa)
+        </span>
+      </a>
+    </li>
+    <li class="fatos__item">
+      <Icone nome="convenio" tamanho="1.6rem" />
+      <a href="/convenios" class="alvo">
+        Unimed e AAPL<span class="visualmente-oculto"> e particular: ver convênios</span>
+      </a>
+    </li>
+    {tel && (
+      <li class="fatos__item">
+        <Icone nome="telefone" tamanho="1.6rem" />
+        <a href={`tel:${tel.e164}`} class="num alvo">
+          <span class="visualmente-oculto">Ligar: </span>
+          {tel.exibicao}
+        </a>
+      </li>
+    )}
+  </ul>
+</section>
+
+<style>
+  .fatos {
+    background: var(--fundo-cartao);
+    border-bottom: var(--fio-fino) solid var(--fio);
+  }
+  .fatos ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    margin: 0 auto;
+    padding: 0 var(--margem);
+    list-style: none;
+    max-width: 90rem;
+  }
+  .fatos__item {
+    display: flex;
+    align-items: center;
+    gap: var(--e-3);
+    min-height: var(--botao-altura);
+    padding: var(--e-4) var(--e-2);
+    color: var(--texto-forte);
+    font-weight: 700;
+  }
+  .fatos__item + .fatos__item {
+    border-top: var(--fio-fino) solid var(--fio);
+  }
+  .fatos__item :global(.icone) {
+    color: var(--cor-salvia-escura);
+  }
+  .fatos__item a {
+    color: var(--texto-forte);
+    text-decoration-thickness: 0.08em;
+  }
+  .fatos__item :global(.fatos__status) {
+    font-weight: 400;
+  }
+  .fatos__item :global(.fatos__status .status__fixo) {
+    font-weight: 700;
+  }
+  @media (min-width: 60rem) {
+    .fatos__item + .fatos__item {
+      border-top: 0;
+      border-left: var(--fio-fino) solid var(--fio);
+      padding-left: var(--e-5);
+    }
+  }
+</style>

@@ -1,0 +1,89 @@
+---
+// /atendimentos: só os publicados, como verbetes em lista.
+import Icone from '../../components/base/Icone.astro';
+import { atendimentos } from '../../content/dados/atendimentos.ts';
+import { paginaAtendimentos } from '../../content/textos/atendimentos.ts';
+import Pagina from '../_PaginaInterna.astro';
+import { aberturas } from '../../content/textos/respostas.ts';
+
+const publicados = atendimentos.filter((a) => a.publicado).sort((a, b) => a.ordem - b.ordem);
+---
+
+<Pagina
+  meta={paginaAtendimentos.meta}
+  verbete={paginaAtendimentos.verbete}
+  h1={aberturas.atendimentos.h1}
+  resposta={aberturas.atendimentos.resposta}
+>
+  <ul class="lista-atendimentos" role="list">
+    {publicados.map((a) => (
+      <li>
+        <a class="atendimento" href={`/atendimentos/${a.id}`}>
+          <span class="atendimento__cabeca">
+            <span class="atendimento__palavra">{a.verbete.palavra}</span>
+            <span class="atendimento__classe">{a.verbete.classe}</span>
+          </span>
+          <span class="atendimento__nome">{a.nome}</span>
+          <span>{a.verbete.acepcoes[0]}</span>
+          <span class="atendimento__mais">
+            Saiba mais <Icone nome="seta" tamanho="1.2rem" />
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
+  <p>{paginaAtendimentos.outros.texto}</p>
+</Pagina>
+
+<style>
+  .lista-atendimentos {
+    margin: 0 0 var(--e-6);
+    padding: 0;
+    list-style: none;
+    border-top: var(--fio-fino) solid var(--fio);
+  }
+  .lista-atendimentos li {
+    border-bottom: var(--fio-fino) solid var(--fio);
+  }
+  .atendimento {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--e-2);
+    padding: var(--e-5) var(--e-2);
+    color: var(--texto);
+    text-decoration: none;
+    border-radius: var(--raio);
+  }
+  .atendimento:hover {
+    background: var(--cor-papel);
+  }
+  .atendimento__cabeca {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5em;
+  }
+  .atendimento__palavra {
+    font-family: var(--fonte-serifa);
+    font-size: min(var(--titulo-2), 12vw);
+    line-height: 1;
+    color: var(--texto-forte);
+  }
+  .atendimento__classe {
+    font-family: var(--fonte-serifa);
+    font-style: italic;
+    font-size: 1.2rem;
+  }
+  .atendimento__nome {
+    font-weight: 700;
+    color: var(--texto-forte);
+  }
+  .atendimento__mais {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--e-2);
+    color: var(--link);
+    font-weight: 700;
+    text-decoration: underline;
+  }
+</style>

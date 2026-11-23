@@ -1,0 +1,50 @@
+---
+// OPINIÃO (Papel). Gesto: só a pergunta e o convite. Nada de estrelas, contagem ou
+// citação (COFFITO Art. 10, V). Sem incentivo.
+import { opiniao } from '../../content/textos/home.ts';
+import { textos } from '../../content/textos/tipos.ts';
+import Botao from '../base/Botao.astro';
+import Verbete from '../verbete/Verbete.astro';
+import Secao from './Secao.astro';
+---
+
+<Secao id="opiniao" fundo="papel">
+  <div class="opiniao">
+    <Verbete
+      palavra={opiniao.verbete.palavra}
+      classe={opiniao.verbete.classe}
+      acepcoes={textos(opiniao.verbete.acepcoes)}
+      id="verbete-opiniao"
+    />
+    <div class="opiniao__convite">
+      <p class="opiniao__pergunta">{opiniao.pergunta.texto}</p>
+      <Botao href="/avaliar?o=site" variante="secundario" dica="abre o Google">
+        {opiniao.botao}
+      </Botao>
+      <p class="opiniao__nota">{opiniao.nota.texto}</p>
+    </div>
+  </div>
+</Secao>
+
+<style>
+  .opiniao {
+    display: grid;
+    gap: var(--e-6);
+  }
+  .opiniao__pergunta {
+    font-family: var(--fonte-serifa);
+    font-size: var(--titulo-2);
+    line-height: 1.15;
+    color: var(--texto-forte);
+  }
+  .opiniao__nota {
+    margin-top: var(--e-4);
+    font-size: var(--texto-p);
+  }
+  @media (min-width: 64rem) {
+    .opiniao {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      align-items: center;
+    }
+  }
+</style>

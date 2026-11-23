@@ -1,0 +1,35 @@
+---
+// /privacidade: dado de saúde e WhatsApp em linguagem simples (LGPD).
+import { privacidade as pv } from '../content/textos/paginas.ts';
+import Pagina from './_PaginaInterna.astro';
+import { aberturas } from '../content/textos/respostas.ts';
+---
+
+<Pagina
+  meta={pv.meta}
+  verbete={pv.verbete}
+  h1={aberturas.privacidade.h1}
+  resposta={aberturas.privacidade.resposta}
+  botaoFixo={false}
+>
+  <div class="texto">
+    {pv.secoes.map((s, i) => (
+      <section class="bloco" aria-labelledby={`priv-${i}`}>
+        <h2 id={`priv-${i}`}>{s.titulo}</h2>
+        {s.texto.map((fr) => (
+          <p>{fr.texto}</p>
+        ))}
+      </section>
+    ))}
+    <p class="atualizado">{pv.atualizado}</p>
+  </div>
+</Pagina>
+
+<style>
+  .texto {
+    max-width: 46rem;
+  }
+  .atualizado {
+    font-size: var(--texto-p);
+  }
+</style>

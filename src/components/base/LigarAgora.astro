@@ -1,0 +1,55 @@
+---
+// Ligar com um toque (tel:). Número da config; hoje é o mesmo do WhatsApp (aviso em PENDENCIAS).
+import { clinica } from '../../config/clinica.ts';
+import { valorDe } from '../../config/tipos.ts';
+import Icone from './Icone.astro';
+
+interface Props {
+  /** compacto = só ícone + número (cabeçalho). */
+  compacto?: boolean;
+  class?: string;
+}
+const { compacto = false, class: classe } = Astro.props;
+const tel = valorDe(clinica.telefone);
+if (!tel) throw new Error('telefone ausente');
+---
+
+<a class:list={['ligar', { 'ligar--compacto': compacto }, classe]} href={`tel:${tel.e164}`}>
+  <Icone nome="telefone" tamanho="1.4rem" />
+  <span>
+    {compacto ? (
+      <span class="visualmente-oculto">Ligar: </span>
+    ) : (
+      <span class="ligar__rotulo">Ligar </span>
+    )}
+    <span class="num">{tel.exibicao}</span>
+  </span>
+</a>
+
+<style>
+  .ligar {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--e-2);
+    min-height: var(--alvo-min);
+    padding: var(--e-2) var(--e-3);
+    margin-inline: calc(var(--e-3) * -1);
+    color: var(--texto-forte);
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: var(--raio);
+    transition: background-color var(--duracao-curta) var(--curva);
+  }
+  .ligar:hover {
+    background: var(--cor-papel);
+    color: var(--texto-forte);
+  }
+  .ligar .num {
+    text-decoration: underline;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+  }
+  :global(.sobre-escuro) .ligar:hover {
+    background: rgb(248 246 241 / 0.12);
+  }
+</style>

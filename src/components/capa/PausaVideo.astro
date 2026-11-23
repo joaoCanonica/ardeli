@@ -1,0 +1,48 @@
+---
+// Pausar/continuar o loop da capa (WCAG 2.2.2: movimento que dura mais de 5 s).
+// Só aparece quando o vídeo começa a tocar.
+import Icone from '../base/Icone.astro';
+---
+
+<button type="button" class="pausa-video" data-capa-pausa hidden>
+  <span data-rotulo-pausar>
+    <Icone nome="pausa" tamanho="1.4rem" /> Pausar o vídeo
+  </span>
+  <span data-rotulo-tocar hidden>
+    <Icone nome="play" tamanho="1.4rem" /> Continuar o vídeo
+  </span>
+</button>
+
+<style>
+  .pausa-video {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--alvo-min);
+    margin-top: var(--e-4);
+    padding: var(--e-2) var(--e-3);
+    margin-left: calc(var(--e-3) * -1);
+    border: 0;
+    border-radius: var(--raio);
+    background: transparent;
+    color: var(--cor-linho);
+    font: inherit;
+    font-size: var(--texto-p);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+  }
+  .pausa-video:hover {
+    background: rgb(248 246 241 / 0.12);
+  }
+  .pausa-video span {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--e-2);
+  }
+  .pausa-video[hidden],
+  .pausa-video span[hidden] {
+    display: none;
+  }
+</style>

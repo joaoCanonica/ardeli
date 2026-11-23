@@ -1,0 +1,279 @@
+---
+// CONVÊNIO (Papel) — a seção mais importante. Gesto: o seletor grande.
+// Rádios nativos num <fieldset> com <legend>: o leitor de tela anuncia a pergunta, cada
+// opção e a posição ("Unimed, 2 de 3"). Ao escolher, só o bloco escolhido fica visível e um
+// aviso (aria-live) diz o que apareceu. Sem JS: sem rádios, os blocos ficam todos abertos.
+// SUS só vira opção com confirmação; antes disso, um aviso com "Consulte a disponibilidade".
+import { convenios } from '../../content/dados/convenios.ts';
+import { textosConvenios } from '../../content/textos/convenios.ts';
+import { convenio } from '../../content/textos/home.ts';
+import { botoes, mensagensWhatsApp } from '../../content/textos/microtextos.ts';
+import { textos } from '../../content/textos/tipos.ts';
+import { montarPedido, type Forma } from '../../lib/agenda.ts';
+import { linkWhatsApp } from '../../lib/whatsapp.ts';
+import Aviso from '../base/Aviso.astro';
+import Botao from '../base/Botao.astro';
+import Verbete from '../verbete/Verbete.astro';
+import Secao from './Secao.astro';
+
+const confirmados = [...convenios]
+  .sort((a, b) => a.ordem - b.ordem)
+  .filter((c) => c.atende.estado === 'confirmado')
+  .map((c) => ({ dados: c, texto: textosConvenios.find((t) => t.id === c.id) }))
+  .filter(
+    (x): x is { dados: (typeof convenios)[number]; texto: (typeof textosConvenios)[number] } =>
+      !!x.texto,
+  );
+
+const sus = convenios.find((c) => c.id === 'sus');
+const susPendente = sus && sus.atende.estado !== 'confirmado';
+const textoSus = textosConvenios.find((t) => t.id === 'sus');
+// Frase publicável: sem "exige" (as condicionais só entram com confirmação).
+const publicaveis = (fr: readonly { texto: string; exige?: string }[]) =>
+  fr.filter((x) => !x.exige).map((x) => x.texto);
+---
+
+<Secao id="convenios" fundo="papel">
+  <Verbete
+    palavra={convenio.verbete.palavra}
+    classe={convenio.verbete.classe}
+    acepcoes={textos(convenio.verbete.acepcoes)}
+    id="verbete-convenio"
+  />
+
+  <div class="seletor" data-seletor-convenio>
+    <fieldset class="seletor__opcoes" data-seletor-opcoes hidden>
+      <legend class="seletor__pergunta">{convenio.pergunta}</legend>
+      <div class="seletor__grade">
+        {confirmados.map(({ dados }) => (
+          <label class="opcao">
+            <input
+              type="radio"
+              name="forma-atendimento"
+              value={dados.id}
+              aria-controls={`painel-${dados.id}`}
+            />
+            <span class="opcao__nome">{dados.id === 'unimed' ? 'Unimed' : dados.nome}</span>
+          </label>
+        ))}
+      </div>
+      <p class="seletor__dica" data-seletor-dica>
+        Escolha uma opção para ver o que levar e agendar.
+      </p>
+    </fieldset>
+    <p class="seletor__semjs" data-seletor-semjs>
+      {convenio.semJs.texto}
+    </p>
+    <p class="visualmente-oculto" aria-live="polite" data-seletor-anuncio></p>
+
+    <div class="paineis">
+      {confirmados.map(({ dados, texto }) => (
+        <section
+          class="painel"
+          id={`painel-${dados.id}`}
+          data-painel={dados.id}
+          aria-labelledby={`painel-${dados.id}-titulo`}
+        >
+          <h3 class="painel__titulo" id={`painel-${dados.id}-titulo`}>
+            {texto.titulo}
+          </h3>
+          <p class="painel__resumo">{texto.resumo.texto}</p>
+          <div class="painel__colunas">
+            <div>
+              <h4>Quem pode usar</h4>
+              <ul role="list">
+                {publicaveis(texto.quemPodeUsar).map((t) => (
+                  <li>{t}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h4>O que levar</h4>
+              <ul role="list">
+                {publicaveis(texto.oQueLevar).map((t) => (
+                  <li>{t}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h4>Como agendar</h4>
+              {publicaveis(texto.comoAgendar).map((t) => (
+                <p>{t}</p>
+              ))}
+            </div>
+          </div>
+          <Botao
+            data-agendar
+            data-forma={dados.id}
+            data-origem="convenio"
+            href={linkWhatsApp(montarPedido({ forma: dados.id as Forma }))}
+            icone="whatsapp"
+            dica={botoes.abreWhatsApp}
+          >
+            {texto.botao}
+          </Botao>
+        </section>
+      ))}
+    </div>
+  </div>
+
+  {susPendente && textoSus?.sePendente && (
+    <Aviso titulo="SUS" class="aviso-sus">
+      {textoSus.sePendente.map((fr) => (
+        <p>{fr.texto}</p>
+      ))}
+      <p>
+        <a href={linkWhatsApp(mensagensWhatsApp.perguntarSus)} class="alvo">
+          {textoSus.botao}
+          <span class="visualmente-oculto"> ({botoes.abreWhatsApp})</span>
+        </a>
+      </p>
+    </Aviso>
+  )}
+</Secao>
+
+<script>
+  import { iniciarSeletorConvenio } from './convenio.ts';
+  iniciarSeletorConvenio();
+</script>
+
+<style>
+  .seletor {
+    margin-top: var(--e-6);
+  }
+  .seletor__opcoes {
+    margin: 0 0 var(--e-5);
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+  .seletor__opcoes[hidden],
+  .seletor__semjs[hidden] {
+    display: none;
+  }
+  .seletor__pergunta {
+    padding: 0;
+    margin-bottom: var(--e-4);
+    font-family: var(--fonte-serifa);
+    font-size: var(--titulo-2);
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--texto-forte);
+  }
+  .seletor__grade {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    gap: var(--e-3);
+  }
+  .opcao {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--e-3);
+    min-height: 4.5rem;
+    padding: var(--e-3) var(--e-5);
+    border: 2px solid var(--cor-marinho);
+    border-radius: var(--raio-botao);
+    background: var(--cor-linho);
+    color: var(--cor-marinho);
+    font-size: var(--titulo-3);
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+      background-color var(--duracao-curta) var(--curva),
+      color var(--duracao-curta) var(--curva);
+  }
+  .opcao__nome {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 20rem) {
+    .opcao {
+      padding-inline: var(--e-3);
+      font-size: var(--texto-g);
+    }
+  }
+  .opcao input {
+    flex: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0;
+    accent-color: var(--cor-marinho);
+  }
+  .opcao:hover {
+    background: var(--cor-papel);
+  }
+  .opcao:has(input:checked) {
+    background: var(--cor-marinho);
+    color: var(--cor-linho);
+  }
+  .opcao:has(input:checked) input {
+    accent-color: var(--cor-linho);
+  }
+  .opcao:has(input:focus-visible) {
+    outline: 3px solid var(--foco);
+    outline-offset: 3px;
+  }
+  .opcao input:focus-visible {
+    outline: none;
+  }
+  .seletor__dica {
+    margin: var(--e-3) 0 0;
+    font-size: var(--texto-p);
+  }
+
+  .paineis {
+    display: grid;
+    gap: var(--e-5);
+  }
+  .painel {
+    padding: var(--e-5);
+    border-radius: var(--raio);
+    background: var(--cor-linho);
+    border-top: 4px solid var(--cor-marinho);
+  }
+  .painel[hidden] {
+    display: none;
+  }
+  .painel__titulo {
+    font-size: var(--titulo-2);
+    margin-bottom: var(--e-2);
+  }
+  .painel__resumo {
+    font-size: var(--texto-g);
+    color: var(--texto-forte);
+  }
+  .painel__colunas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: var(--e-5);
+    margin: var(--e-5) 0;
+  }
+  .painel h4 {
+    margin: 0 0 var(--e-2);
+    font-family: var(--fonte-texto);
+    font-size: var(--texto-m);
+    font-weight: 700;
+    color: var(--texto-forte);
+    padding-bottom: var(--e-2);
+    border-bottom: var(--fio-fino) solid var(--fio);
+  }
+  .painel ul {
+    margin: 0;
+    padding-left: 1.1em;
+  }
+  .painel li + li {
+    margin-top: var(--e-2);
+  }
+  .painel p:last-child {
+    margin-bottom: 0;
+  }
+  :global(.aviso-sus) {
+    margin-top: var(--e-6);
+  }
+  @media (forced-colors: active) {
+    .opcao:has(input:checked) {
+      border-width: 4px;
+    }
+  }
+</style>

@@ -1,0 +1,51 @@
+---
+// <picture> AVIF + WebP a partir do media-index, com LQIP de fundo e
+// largura/altura reais (sem salto de layout).
+import { imagem } from './midia.ts';
+
+interface Props {
+  id: string;
+  alt: string;
+  sizes?: string;
+  carregar?: 'lazy' | 'eager';
+  prioridade?: boolean;
+  class?: string;
+}
+const {
+  id,
+  alt,
+  sizes = '(min-width: 48rem) 50vw, 100vw',
+  carregar = 'lazy',
+  prioridade = false,
+  class: classe,
+} = Astro.props;
+const img = imagem(id);
+const maior = img.variantes.at(-1);
+if (!maior) throw new Error(`imagem ${id} sem variantes`);
+const srcset = (f: 'avif' | 'webp') => img.variantes.map((v) => `${v[f]} ${v.largura}w`).join(', ');
+---
+
+<picture class:list={['imagem', classe]}>
+  <source type="image/avif" srcset={srcset('avif')} sizes={sizes} />
+  <source type="image/webp" srcset={srcset('webp')} sizes={sizes} />
+  <img
+    src={maior.webp}
+    width={maior.largura}
+    height={maior.altura}
+    alt={alt}
+    loading={carregar}
+    decoding="async"
+    fetchpriority={prioridade ? 'high' : 'auto'}
+    style={`background-image:url(${img.lqip})`}
+  />
+</picture>
+
+<style>
+  .imagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-size: cover;
+    background-color: var(--cor-ardosia);
+  }
+</style>

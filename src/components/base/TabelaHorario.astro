@@ -1,0 +1,94 @@
+---
+// Tabela de horário, segunda a domingo. "Hoje" destacado no aparelho (fuso de Lages).
+// Números tabulares. Sem JS, a tabela completa continua lá.
+import { clinica } from '../../config/clinica.ts';
+import { valorDe } from '../../config/tipos.ts';
+
+interface Props {
+  class?: string;
+}
+const h = valorDe(clinica.horario);
+if (!h) throw new Error('horário ausente');
+const dias: readonly number[] = h.dias;
+const NOMES = ['', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
+const linhas = [1, 2, 3, 4, 5, 6, 7].map((d) => ({ d, nome: NOMES[d], aberto: dias.includes(d) }));
+---
+
+<table class:list={['tabela-horario', Astro.props.class]} data-tabela-horario>
+  <caption>Horário de atendimento</caption>
+  <tbody>
+    {linhas.map(({ d, nome, aberto }) => (
+      <tr data-dia={d}>
+        <th scope="row">
+          {nome}
+          <span class="hoje" data-hoje hidden>
+            hoje
+          </span>
+        </th>
+        <td class="num">
+          {aberto ? (
+            <>
+              <time datetime={h.abre}>{h.abre}</time>–<time datetime={h.fecha}>{h.fecha}</time>
+            </>
+          ) : (
+            'Fechado'
+          )}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+<style>
+  .tabela-horario {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 24rem;
+  }
+  caption {
+    text-align: left;
+    font-weight: 700;
+    color: var(--texto-forte);
+    padding-bottom: var(--e-2);
+  }
+  th,
+  td {
+    text-align: left;
+    padding: var(--e-2) var(--e-3);
+    border-bottom: var(--fio-fino) solid var(--fio);
+    font-weight: 400;
+  }
+  td {
+    text-align: right;
+  }
+  tr[aria-current='date'] {
+    background: var(--cor-papel);
+    box-shadow: inset 4px 0 0 var(--cor-marinho);
+  }
+  tr[aria-current='date'] th,
+  tr[aria-current='date'] td {
+    font-weight: 700;
+    color: var(--texto-forte);
+  }
+  .hoje {
+    margin-left: var(--e-2);
+    padding: 0 var(--e-2);
+    border: 1.5px solid var(--cor-marinho);
+    border-radius: 999px;
+    font-size: var(--texto-p);
+    font-weight: 700;
+  }
+  @media (max-width: 20rem) {
+    th,
+    td {
+      padding-inline: var(--e-1);
+    }
+    .hoje {
+      display: table;
+      margin: var(--e-1) 0 0;
+    }
+  }
+  .hoje[hidden] {
+    display: none;
+  }
+</style>

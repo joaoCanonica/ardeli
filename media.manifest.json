@@ -1,0 +1,643 @@
+{
+  "$comentario": "Fonte da verdade da mídia. Lido por scripts/prepare-media.mjs. Tempos em segundos do arquivo original. Nada com naoUsar=true ou contemPessoa=true sem autorizacaoImagem é publicado.",
+  "versao": 1,
+  "itens": [
+    {
+      "id": "tour",
+      "arquivo": "media-originais/videos/tour.mp4",
+      "tipo": "video",
+      "ambiente": "clínica inteira",
+      "uso": "tour mudo, loops, pôsteres e stills",
+      "trechos": [
+        {
+          "id": "reflexo-vitrine",
+          "in": 1.6,
+          "out": 3.2,
+          "contemPessoa": true,
+          "problema": "reflexo de quem filma no vidro da vitrine"
+        },
+        {
+          "id": "reflexo-porta-1",
+          "in": 6.1,
+          "out": 7.7,
+          "contemPessoa": true,
+          "problema": "reflexo de quem filma (corpo inteiro) na porta de vidro"
+        },
+        {
+          "id": "reflexo-porta-2",
+          "in": 9.9,
+          "out": 11,
+          "contemPessoa": true,
+          "problema": "reflexo de quem filma na porta de vidro aberta"
+        },
+        {
+          "id": "reflexo-espelho-consultorio-1",
+          "in": 41.3,
+          "out": 42.75,
+          "contemPessoa": true,
+          "problema": "reflexo de quem filma no espelho do consultório 1"
+        }
+      ],
+      "resolucaoMax": 1280,
+      "naoUsar": false,
+      "contemPessoa": true,
+      "problemas": [
+        "áudio é música sem licença conhecida: derivados sempre mudos",
+        "720×1280 (vertical), 30 fps, 79,5 s",
+        "reflexo de quem filma em 4 trechos (ver trechos): esses trechos ficam fora de todo derivado",
+        "piso escuro e janelas estouradas (correção global leve só nos stills)"
+      ],
+      "autorizacaoImagem": null,
+      "pessoaApenasNosTrechos": true
+    },
+    {
+      "id": "captura-15-04-51",
+      "arquivo": "media-originais/fotos/capturas/Captura de tela de 2026-11-22 15-04-51.png",
+      "tipo": "captura",
+      "ambiente": "ginásio",
+      "uso": "referência; imagem até 360 px",
+      "trechos": [],
+      "resolucaoMax": 360,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": ["captura de tela pequena (~380 px): no máximo 360 px na tela"]
+    },
+    {
+      "id": "captura-15-05-07",
+      "arquivo": "media-originais/fotos/capturas/Captura de tela de 2026-11-22 15-05-07.png",
+      "tipo": "captura",
+      "ambiente": "consultório 1",
+      "uso": "referência; imagem até 360 px",
+      "trechos": [],
+      "resolucaoMax": 360,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": ["captura de tela pequena (~380 px): no máximo 360 px na tela"]
+    },
+    {
+      "id": "captura-15-05-23",
+      "arquivo": "media-originais/fotos/capturas/Captura de tela de 2026-11-22 15-05-23.png",
+      "tipo": "captura",
+      "ambiente": "fachada (ângulo, de dia)",
+      "uso": "\"Como chegar\" em tamanho pequeno; preferir o still do vídeo",
+      "trechos": [],
+      "resolucaoMax": 360,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": [
+        "captura de tela pequena (~380 px): no máximo 360 px na tela",
+        "fios de rede elétrica cruzando o céu"
+      ]
+    },
+    {
+      "id": "captura-15-05-48",
+      "arquivo": "media-originais/fotos/capturas/Captura de tela de 2026-11-22 15-05-48.png",
+      "tipo": "captura",
+      "ambiente": "cardio",
+      "uso": "referência; imagem até 360 px",
+      "trechos": [],
+      "resolucaoMax": 360,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": ["captura de tela pequena (~380 px): no máximo 360 px na tela"]
+    },
+    {
+      "id": "captura-15-06-04",
+      "arquivo": "media-originais/fotos/capturas/Captura de tela de 2026-11-22 15-06-04.png",
+      "tipo": "captura",
+      "ambiente": "ginásio (espaldar)",
+      "uso": "referência; imagem até 360 px",
+      "trechos": [],
+      "resolucaoMax": 360,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": ["captura de tela pequena (~380 px): no máximo 360 px na tela"]
+    },
+    {
+      "id": "captura-15-06-21",
+      "arquivo": "media-originais/fotos/capturas/Captura de tela de 2026-11-22 15-06-21.png",
+      "tipo": "captura",
+      "ambiente": "fachada (de perto)",
+      "uso": "referência; imagem até 360 px",
+      "trechos": [],
+      "resolucaoMax": 360,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": [
+        "captura de tela pequena (~380 px): no máximo 360 px na tela",
+        "tirada de dentro de um carro: painel escuro no terço de baixo"
+      ]
+    },
+    {
+      "id": "captura-15-06-42",
+      "arquivo": "media-originais/fotos/capturas/Captura de tela de 2026-11-22 15-06-42.png",
+      "tipo": "captura",
+      "ambiente": "consultório 2",
+      "uso": "referência; imagem até 360 px",
+      "trechos": [],
+      "resolucaoMax": 360,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": [
+        "captura de tela pequena (~380 px): no máximo 360 px na tela",
+        "largura de só 287 px"
+      ]
+    },
+    {
+      "id": "arte-dia-do-fisioterapeuta",
+      "arquivo": "media-originais/fotos/capturas/Captura de tela de 2026-11-22 15-52-14.png",
+      "tipo": "arte",
+      "ambiente": "arte do Instagram",
+      "uso": "naoUsar: texto transcrito em docs/dados/textos-das-artes.md",
+      "trechos": [],
+      "resolucaoMax": 360,
+      "naoUsar": true,
+      "contemPessoa": false,
+      "problemas": [
+        "arte com texto queimado",
+        "logos de terceiros (Studio Ar) e símbolo da profissão",
+        "fundo que não é o espaço da Ardeli"
+      ]
+    },
+    {
+      "id": "captura-logo-horizontal",
+      "arquivo": "media-originais/fotos/capturas/Captura de tela de 2026-11-22 15-52-43.png",
+      "tipo": "logo",
+      "ambiente": "logo (captura)",
+      "uso": "naoUsar: substituído pelos SVG em media-originais/marca/",
+      "trechos": [],
+      "resolucaoMax": 360,
+      "naoUsar": true,
+      "contemPessoa": false,
+      "problemas": ["logo rasterizado e pequeno (564×171); usar ardeli-horizontal.svg"]
+    },
+    {
+      "id": "arte-parceria-aapl",
+      "arquivo": "media-originais/fotos/capturas/Captura de tela de 2026-11-22 15-56-33.png",
+      "tipo": "arte",
+      "ambiente": "arte do Instagram",
+      "uso": "naoUsar: texto transcrito em docs/dados/textos-das-artes.md",
+      "trechos": [],
+      "resolucaoMax": 360,
+      "naoUsar": true,
+      "contemPessoa": false,
+      "problemas": [
+        "arte com texto queimado",
+        "logo de terceiro (AAPL) sem autorização",
+        "fundo que não é o espaço da Ardeli"
+      ]
+    },
+    {
+      "id": "arte-unimed",
+      "arquivo": "media-originais/fotos/SaveClip.App_857400492_18152610646488369_2298749860393994895_n.jpg",
+      "tipo": "arte",
+      "ambiente": "arte do Instagram",
+      "uso": "naoUsar: texto transcrito em docs/dados/textos-das-artes.md",
+      "trechos": [],
+      "resolucaoMax": null,
+      "naoUsar": true,
+      "contemPessoa": false,
+      "problemas": ["arte com texto queimado", "logo de terceiro (Unimed) sem autorização"]
+    },
+    {
+      "id": "logo-jpeg",
+      "arquivo": "media-originais/fotos/logo.jpeg",
+      "tipo": "logo",
+      "ambiente": null,
+      "uso": "naoUsar: substituído pelos SVG em media-originais/marca/",
+      "trechos": [],
+      "resolucaoMax": null,
+      "naoUsar": true,
+      "contemPessoa": false,
+      "problemas": ["raster; a marca vale pelos SVG"]
+    },
+    {
+      "id": "marca-logo",
+      "arquivo": "media-originais/marca/ardeli-logo.svg",
+      "tipo": "marca",
+      "ambiente": null,
+      "uso": "marca (SVG; nunca redesenhar)",
+      "trechos": [],
+      "resolucaoMax": null,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": []
+    },
+    {
+      "id": "marca-logo-mono",
+      "arquivo": "media-originais/marca/ardeli-logo-mono.svg",
+      "tipo": "marca",
+      "ambiente": null,
+      "uso": "marca (SVG; nunca redesenhar)",
+      "trechos": [],
+      "resolucaoMax": null,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": []
+    },
+    {
+      "id": "marca-logo-negativo",
+      "arquivo": "media-originais/marca/ardeli-logo-negativo.svg",
+      "tipo": "marca",
+      "ambiente": null,
+      "uso": "marca (SVG; nunca redesenhar)",
+      "trechos": [],
+      "resolucaoMax": null,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": []
+    },
+    {
+      "id": "marca-horizontal",
+      "arquivo": "media-originais/marca/ardeli-horizontal.svg",
+      "tipo": "marca",
+      "ambiente": null,
+      "uso": "marca (SVG; nunca redesenhar)",
+      "trechos": [],
+      "resolucaoMax": null,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": []
+    },
+    {
+      "id": "marca-horizontal-mono",
+      "arquivo": "media-originais/marca/ardeli-horizontal-mono.svg",
+      "tipo": "marca",
+      "ambiente": null,
+      "uso": "marca (SVG; nunca redesenhar)",
+      "trechos": [],
+      "resolucaoMax": null,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": []
+    },
+    {
+      "id": "marca-horizontal-negativo",
+      "arquivo": "media-originais/marca/ardeli-horizontal-negativo.svg",
+      "tipo": "marca",
+      "ambiente": null,
+      "uso": "marca (SVG; nunca redesenhar)",
+      "trechos": [],
+      "resolucaoMax": null,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": []
+    },
+    {
+      "id": "marca-simbolo",
+      "arquivo": "media-originais/marca/ardeli-simbolo.svg",
+      "tipo": "marca",
+      "ambiente": null,
+      "uso": "marca (SVG; nunca redesenhar)",
+      "trechos": [],
+      "resolucaoMax": null,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": []
+    },
+    {
+      "id": "marca-simbolo-mono",
+      "arquivo": "media-originais/marca/ardeli-simbolo-mono.svg",
+      "tipo": "marca",
+      "ambiente": null,
+      "uso": "marca (SVG; nunca redesenhar)",
+      "trechos": [],
+      "resolucaoMax": null,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": []
+    },
+    {
+      "id": "fonte-crimson-pro-normal",
+      "arquivo": "media-originais/fontes/crimson-pro-latin-wght-normal.woff2",
+      "tipo": "fonte",
+      "ambiente": null,
+      "uso": "Crimson Pro (verbetes e títulos): original (Fontsource, subset latino, OFL). O site usa o subset de scripts/subset-fontes.sh",
+      "trechos": [],
+      "resolucaoMax": null,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": []
+    },
+    {
+      "id": "fonte-crimson-pro-italic",
+      "arquivo": "media-originais/fontes/crimson-pro-latin-wght-italic.woff2",
+      "tipo": "fonte",
+      "ambiente": null,
+      "uso": "Crimson Pro itálico (classe gramatical): original (Fontsource, subset latino, OFL). O site usa o subset de scripts/subset-fontes.sh",
+      "trechos": [],
+      "resolucaoMax": null,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": []
+    },
+    {
+      "id": "fonte-atkinson-hyperlegible-next-normal",
+      "arquivo": "media-originais/fontes/atkinson-hyperlegible-next-latin-wght-normal.woff2",
+      "tipo": "fonte",
+      "ambiente": null,
+      "uso": "Atkinson Hyperlegible Next (leitura): original (Fontsource, subset latino, OFL). O site usa o subset de scripts/subset-fontes.sh",
+      "trechos": [],
+      "resolucaoMax": null,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": []
+    },
+    {
+      "id": "fonte-atkinson-hyperlegible-next-italic",
+      "arquivo": "media-originais/fontes/atkinson-hyperlegible-next-latin-wght-italic.woff2",
+      "tipo": "fonte",
+      "ambiente": null,
+      "uso": "Atkinson Hyperlegible Next itálico: original (Fontsource, subset latino, OFL). O site usa o subset de scripts/subset-fontes.sh",
+      "trechos": [],
+      "resolucaoMax": null,
+      "naoUsar": false,
+      "contemPessoa": false,
+      "problemas": []
+    }
+  ],
+  "tour": {
+    "fonte": "tour",
+    "capitulos": [
+      {
+        "id": "fachada",
+        "titulo": "Fachada",
+        "in": 0,
+        "out": 4.5,
+        "poster": 1
+      },
+      {
+        "id": "vitrine",
+        "titulo": "Vitrine",
+        "in": 4.5,
+        "out": 6.5,
+        "poster": 5.25
+      },
+      {
+        "id": "entrada",
+        "titulo": "Entrada",
+        "in": 6.5,
+        "out": 14.75,
+        "poster": 8.75
+      },
+      {
+        "id": "cardio",
+        "titulo": "Sala de esteira e bikes",
+        "in": 14.75,
+        "out": 19.5,
+        "poster": 17
+      },
+      {
+        "id": "ginasio",
+        "titulo": "Ginásio de reabilitação",
+        "in": 19.5,
+        "out": 27.5,
+        "poster": 20.5
+      },
+      {
+        "id": "corredor",
+        "titulo": "Corredor e jardim vertical",
+        "in": 27.5,
+        "out": 32.75,
+        "poster": 29
+      },
+      {
+        "id": "consultorio-1",
+        "titulo": "Consultório 1",
+        "in": 32.75,
+        "out": 42.75,
+        "poster": 40
+      },
+      {
+        "id": "portas",
+        "titulo": "Corredor dos consultórios",
+        "in": 42.75,
+        "out": 49.5,
+        "poster": 48
+      },
+      {
+        "id": "consultorio-2",
+        "titulo": "Consultório 2",
+        "in": 49.5,
+        "out": 60.5,
+        "poster": 52
+      },
+      {
+        "id": "circulacao",
+        "titulo": "Circulação",
+        "in": 60.5,
+        "out": 67,
+        "fora": true,
+        "motivo": "pouco informativo (portas, sanfona, placa)"
+      },
+      {
+        "id": "recepcao",
+        "titulo": "Recepção",
+        "in": 67,
+        "out": 71.5,
+        "poster": 68
+      },
+      {
+        "id": "ginasio-final",
+        "titulo": "Ginásio, vista para a avenida",
+        "in": 71.5,
+        "out": 79.55,
+        "poster": 75
+      }
+    ],
+    "saidas": [
+      {
+        "altura": 1280,
+        "largura": 720
+      },
+      {
+        "altura": 960,
+        "largura": 540
+      }
+    ],
+    "loops": [
+      {
+        "id": "loop-ginasio-final",
+        "in": 72,
+        "out": 77,
+        "maxBytes": 1000000
+      },
+      {
+        "id": "loop-ginasio",
+        "in": 20,
+        "out": 26,
+        "maxBytes": 1000000
+      }
+    ],
+    "correcaoStills": {
+      "$comentario": "Correção global leve, igual em todos os stills. Balanço de branco: mede só os pixels quase neutros (diferença entre canais ≤ 18 e luz entre 110 e 235: paredes brancas e cinza), corrige metade da dominante, ganho limitado a ±4%; sem amostra neutra (< 2% do quadro), não mexe. Curva: levanta um pouco as sombras (piso escuro) e baixa um pouco o branco estourado das janelas.",
+      "balancoDeBranco": {
+        "forca": 0.5,
+        "limite": 0.04,
+        "saturacaoMax": 18,
+        "luzMin": 110,
+        "luzMax": 235
+      },
+      "curva": "0/0.02 0.25/0.28 0.5/0.51 0.85/0.84 1/0.97"
+    },
+    "stills": [
+      {
+        "id": "fachada",
+        "janela": [0, 0.9],
+        "t": 0.867,
+        "recortes": {
+          "4x5": {
+            "y": 0
+          },
+          "16x9": {
+            "y": 120
+          }
+        }
+      },
+      {
+        "id": "tapete",
+        "janela": [13.4, 14.4],
+        "t": 13.6,
+        "recortes": {
+          "4x5": {
+            "y": 200
+          },
+          "16x9": {
+            "y": 470
+          }
+        },
+        "nota": "escolhido à mão: o quadro mais nítido da janela corta o logo; em 13,6 s \"ARDELI FISIOTERAPIA\" aparece inteiro (o símbolo fica fora do quadro em todo o trecho)"
+      },
+      {
+        "id": "cardio",
+        "janela": [16.5, 17.5],
+        "t": 16.533,
+        "recortes": {
+          "4x5": {
+            "y": 380
+          },
+          "16x9": {
+            "y": 520
+          }
+        }
+      },
+      {
+        "id": "ginasio-trelica",
+        "janela": [20, 20.6],
+        "t": 20.567,
+        "recortes": {
+          "4x5": {
+            "y": 0
+          },
+          "16x9": {
+            "y": 150
+          }
+        }
+      },
+      {
+        "id": "espaldar",
+        "janela": [21.5, 22.5],
+        "t": 22.367,
+        "recortes": {
+          "4x5": {
+            "y": 60
+          }
+        }
+      },
+      {
+        "id": "jardim-vertical",
+        "janela": [28.5, 29.5],
+        "t": 29.467,
+        "recortes": {
+          "4x5": {
+            "y": 200
+          },
+          "16x9": {
+            "y": 230
+          }
+        }
+      },
+      {
+        "id": "quadro-fisioterapia",
+        "janela": [35.5, 36.5],
+        "t": 36.4,
+        "recortes": {
+          "4x5": {
+            "y": 0
+          },
+          "quadro": {
+            "x": 280,
+            "y": 0,
+            "w": 430,
+            "h": 950
+          }
+        }
+      },
+      {
+        "id": "consultorio-1",
+        "janela": [39.5, 40.4],
+        "t": 39.867,
+        "recortes": {
+          "4x5": {
+            "y": 280
+          },
+          "16x9": {
+            "y": 500
+          }
+        }
+      },
+      {
+        "id": "consultorio-2",
+        "janela": [51.5, 52.5],
+        "t": 52.333,
+        "recortes": {
+          "4x5": {
+            "y": 150
+          },
+          "16x9": {
+            "y": 380
+          }
+        }
+      },
+      {
+        "id": "quadros-anatomicos",
+        "janela": [59.3, 60.2],
+        "t": 60,
+        "recortes": {
+          "4x5": {
+            "y": 150
+          },
+          "16x9": {
+            "y": 230
+          }
+        }
+      },
+      {
+        "id": "recepcao",
+        "janela": [67.5, 68.5],
+        "t": 67.533,
+        "recortes": {
+          "4x5": {
+            "y": 120
+          },
+          "16x9": {
+            "y": 150
+          }
+        }
+      },
+      {
+        "id": "ginasio-amplo",
+        "janela": [74.5, 75.5],
+        "t": 75.467,
+        "recortes": {
+          "4x5": {
+            "y": 100
+          },
+          "16x9": {
+            "y": 230
+          }
+        }
+      }
+    ]
+  }
+}

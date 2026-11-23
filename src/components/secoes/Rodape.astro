@@ -1,0 +1,132 @@
+---
+// RODAPÉ (Marinho). COFFITO Art. 48: nome, "Fisioterapeuta" e nº do CREFITO-10 de cada
+// profissional, registro da empresa e CNES. Endereço, telefone, horário, Instagram,
+// privacidade e "Avaliar no Google".
+import { clinica } from '../../config/clinica.ts';
+import { valorDe } from '../../config/tipos.ts';
+import { rodape } from '../../content/textos/microtextos.ts';
+import Logo from '../marca/Logo.astro';
+
+const r = rodape();
+const tel = valorDe(clinica.telefone);
+---
+
+<footer class="rodape sobre-escuro">
+  <div class="rodape__dentro">
+    <div class="rodape__marca">
+      <Logo
+        variante="horizontal"
+        tom="negativo"
+        rotulo="Ardeli Fisioterapia"
+        class="rodape__logo"
+      />
+      <address class="rodape__contato">
+        <span data-nap="endereco">{r.endereco}</span>
+        <br />
+        {tel && (
+          <a href={`tel:${tel.e164}`} class="num alvo" data-nap="telefone">
+            {r.telefone}
+          </a>
+        )}
+        <br />
+        {r.horario}
+        <br />
+        <a href={clinica.links.instagram} class="alvo">
+          Instagram {r.instagram}
+          <span class="visualmente-oculto"> (abre o Instagram)</span>
+        </a>
+      </address>
+    </div>
+
+    <div class="rodape__art48">
+      <h2 class="rodape__titulo">Quem responde pelo atendimento</h2>
+      <ul role="list">
+        {r.profissionais.map((p) => (
+          <li>{p.texto}</li>
+        ))}
+      </ul>
+      <p>{r.responsavelTecnica.texto}</p>
+      <p class="num">{r.empresa.texto}</p>
+      <p class="rodape__nota">{r.nota.texto}</p>
+    </div>
+
+    <nav class="rodape__links" aria-label="Rodapé">
+      <ul role="list">
+        <li>
+          <a href="/privacidade" class="alvo">
+            {r.links.privacidade}
+          </a>
+        </li>
+        <li>
+          <a href="/avaliar?o=site" class="alvo">
+            {r.links.avaliar}
+            <span class="visualmente-oculto"> (abre o Google)</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .rodape {
+    padding: var(--e-8) var(--margem) var(--e-7);
+  }
+  .rodape__dentro {
+    display: grid;
+    gap: var(--e-7);
+    max-width: 78rem;
+    margin-inline: auto;
+  }
+  .rodape :global(.rodape__logo) {
+    width: min(14rem, 100%);
+    margin-bottom: var(--e-5);
+  }
+  .rodape__contato {
+    font-style: normal;
+    line-height: 1.9;
+  }
+  .rodape__titulo {
+    font-family: var(--fonte-texto);
+    font-size: var(--texto-m);
+    font-weight: 700;
+    margin-bottom: var(--e-3);
+  }
+  .rodape__art48 ul {
+    margin: 0 0 var(--e-3);
+    padding: 0;
+    list-style: none;
+  }
+  .rodape__art48 li {
+    padding: var(--e-2) 0;
+    border-bottom: var(--fio-fino) solid rgb(248 246 241 / 0.3);
+  }
+  .rodape__art48 p {
+    margin: var(--e-2) 0 0;
+    font-size: var(--texto-p);
+  }
+  .rodape__links ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--e-2) var(--e-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .rodape__links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--alvo-min);
+    font-weight: 700;
+  }
+  @media (min-width: 64rem) {
+    .rodape__dentro {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    }
+    .rodape__links {
+      grid-column: 1 / -1;
+      border-top: var(--fio-fino) solid rgb(248 246 241 / 0.3);
+      padding-top: var(--e-4);
+    }
+  }
+</style>

@@ -1,0 +1,279 @@
+---
+// /a-clinica: o tour completo — vídeo mudo com capítulos (só carrega ao tocar play),
+// stills por ambiente e o quadro "fisioterapia, s.f." em destaque como origem da identidade.
+import FotoAmbiente from '../components/base/FotoAmbiente.astro';
+import Icone from '../components/base/Icone.astro';
+import Imagem from '../components/base/Imagem.astro';
+import { capitulosComPoster, imagem, video } from '../components/base/midia.ts';
+import Verbete from '../components/verbete/Verbete.astro';
+import { clinica } from '../content/textos/home.ts';
+import { altDe } from '../content/textos/microtextos.ts';
+import { aClinica as c } from '../content/textos/paginas.ts';
+import { textos } from '../content/textos/tipos.ts';
+import Pagina from './_PaginaInterna.astro';
+import { aberturas } from '../content/textos/respostas.ts';
+import { noTour } from '../lib/seo/jsonld.ts';
+
+const v720 = video('tour-720p');
+const v540 = video('tour-540p');
+const poster = imagem('poster-fachada').variantes.at(-1)?.webp;
+const caps = capitulosComPoster();
+const mmss = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+const descricoes = c.capitulos as Record<string, { texto: string } | undefined>;
+
+const ambientes = [
+  { id: 'still-fachada-4x5', legenda: 'Fachada', frase: c.capitulos.fachada, tom: 'salvia' },
+  { id: 'still-tapete-4x5', legenda: 'Entrada', frase: c.capitulos.entrada, tom: 'salvia' },
+  { id: 'still-recepcao-4x5', legenda: 'Recepção', frase: c.capitulos.recepcao, tom: 'madeira' },
+  {
+    id: 'still-ginasio-trelica-4x5',
+    legenda: 'Ginásio de reabilitação',
+    frase: c.capitulos.ginasio,
+    tom: 'tijolo',
+  },
+  {
+    id: 'still-ginasio-amplo-4x5',
+    legenda: 'Ginásio, vista para a avenida',
+    frase: c.capitulos['ginasio-final'],
+    tom: 'tijolo',
+  },
+  {
+    id: 'still-cardio-4x5',
+    legenda: 'Sala de esteira e bikes',
+    frase: c.capitulos.cardio,
+    tom: 'tijolo',
+  },
+  {
+    id: 'still-jardim-vertical-4x5',
+    legenda: 'Corredor e jardim vertical',
+    frase: c.capitulos.corredor,
+    tom: 'madeira',
+  },
+  {
+    id: 'still-consultorio-1-4x5',
+    legenda: 'Consultório 1',
+    frase: c.capitulos['consultorio-1'],
+    tom: 'madeira',
+  },
+  {
+    id: 'still-consultorio-2-4x5',
+    legenda: 'Consultório 2',
+    frase: c.capitulos['consultorio-2'],
+    tom: 'madeira',
+  },
+] as const;
+---
+
+<Pagina
+  meta={c.meta}
+  verbete={c.verbete}
+  h1={aberturas.aClinica.h1}
+  resposta={aberturas.aClinica.resposta}
+  nosExtras={[
+    noTour({
+      mp4: v720.mp4,
+      duracao: v720.duracao,
+      poster: poster ?? '',
+      largura: v720.largura,
+      altura: v720.altura,
+    }),
+  ]}
+>
+  <section class="bloco tour-pagina" aria-labelledby="tour" data-tour data-poster={poster}>
+    <h2 id="tour">{c.video.rotulo.replace('Ver o ', 'O ')}</h2>
+    <p>{c.video.aviso.texto}</p>
+    <div class="tour-pagina__grade">
+      <video
+        class="tour-pagina__video"
+        controls
+        muted
+        playsinline
+        preload="none"
+        poster={poster}
+        data-tour-video
+        width="720"
+        height="1280"
+      >
+        <source src={v720.webm} type="video/webm" media="(min-width: 48rem)" />
+        <source src={v720.mp4} type="video/mp4" media="(min-width: 48rem)" />
+        <source src={v540.webm} type="video/webm" />
+        <source src={v540.mp4} type="video/mp4" />
+        <track
+          kind="chapters"
+          src="/media/video/tour-capitulos.vtt"
+          srclang="pt-BR"
+          label="Capítulos"
+          default
+        />
+      </video>
+      <ol
+        class="capitulos"
+        role="list"
+        aria-label="Capítulos do vídeo (o que aparece em cada parte)"
+      >
+        {caps.map((cap, i) => (
+          <li>
+            <button type="button" class="capitulos__ir" data-ir={cap.inicio} hidden>
+              <Icone nome="play" tamanho="1.2rem" />
+              <span class="num">{mmss(cap.inicio)}</span> {i + 1}. {cap.titulo}
+            </button>
+            <span class="capitulos__texto" data-ir-texto>
+              <span class="num">{mmss(cap.inicio)}</span> {i + 1}. {cap.titulo}
+            </span>
+            {descricoes[cap.id] && (
+              <span class="capitulos__descricao">{descricoes[cap.id]?.texto}</span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="bloco" aria-labelledby="ambientes">
+    <h2 id="ambientes">Ambiente por ambiente</h2>
+    <ul class="ambientes" role="list">
+      {ambientes.map((a) => (
+        <li>
+          <FotoAmbiente
+            id={a.id}
+            alt={altDe(a.id)}
+            legenda={a.legenda}
+            tom={a.tom}
+            sizes="(min-width: 64rem) 22rem, (min-width: 40rem) 45vw, 100vw"
+          />
+          <p class="ambientes__frase">{a.frase.texto}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="bloco quadro sobre-escuro" aria-labelledby="quadro-titulo">
+    <div class="quadro__imagem">
+      <Imagem
+        id="still-quadro-fisioterapia-quadro"
+        alt={altDe('quadro-fisioterapia-quadro')}
+        sizes="(min-width: 64rem) 20rem, 60vw"
+      />
+    </div>
+    <div>
+      <h2 id="quadro-titulo">{c.quadro.titulo}</h2>
+      <Verbete
+        palavra={clinica.verbete.palavra}
+        classe={clinica.verbete.classe}
+        acepcoes={textos(clinica.verbete.acepcoes)}
+        nivel="p"
+        id="verbete-quadro"
+      />
+      {c.quadro.texto.map((fr) => (
+        <p>{fr.texto}</p>
+      ))}
+    </div>
+  </section>
+</Pagina>
+
+<script>
+  import { iniciarTour } from '../components/secoes/tour.ts';
+  iniciarTour();
+</script>
+
+<style>
+  .tour-pagina__grade {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--e-6);
+    margin-top: var(--e-5);
+  }
+  .tour-pagina__video {
+    width: auto;
+    max-width: 100%;
+    max-height: 80svh;
+    aspect-ratio: 9 / 16;
+    background: var(--cor-marinho);
+    border-radius: var(--raio);
+  }
+  .capitulos {
+    display: grid;
+    gap: var(--e-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .capitulos li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--e-1);
+    padding-bottom: var(--e-3);
+    border-bottom: var(--fio-fino) solid var(--fio);
+  }
+  .capitulos__ir,
+  .capitulos__texto {
+    justify-self: start;
+    max-width: 100%;
+    flex-wrap: wrap;
+    text-align: left;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--e-2);
+    font: inherit;
+    font-weight: 700;
+    color: var(--texto-forte);
+  }
+  .capitulos__ir {
+    min-height: var(--alvo-min);
+    padding: 0 var(--e-2);
+    margin-left: calc(var(--e-2) * -1);
+    border: 0;
+    border-radius: var(--raio);
+    background: transparent;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+  }
+  .capitulos__ir:hover {
+    background: var(--cor-papel);
+  }
+  .capitulos__ir[hidden],
+  .capitulos__texto[hidden] {
+    display: none;
+  }
+  .capitulos__descricao {
+    font-size: var(--texto-p);
+  }
+  .ambientes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+    gap: var(--e-6) var(--e-5);
+    margin: var(--e-5) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .ambientes__frase {
+    margin: var(--e-2) 0 0;
+  }
+  .quadro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--e-6);
+    margin-top: var(--e-6);
+    padding: var(--e-6) var(--margem);
+    border-radius: var(--raio);
+  }
+  .quadro__imagem {
+    max-width: 20rem;
+  }
+  .quadro__imagem :global(picture) {
+    aspect-ratio: 430 / 950;
+    overflow: hidden;
+    border-radius: var(--raio);
+  }
+  @media (min-width: 64rem) {
+    .tour-pagina__grade {
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: start;
+    }
+    .quadro {
+      grid-template-columns: 20rem minmax(0, 1fr);
+      align-items: center;
+    }
+  }
+</style>

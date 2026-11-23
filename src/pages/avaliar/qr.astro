@@ -1,0 +1,283 @@
+---
+// /avaliar/qr: cartaz para o balcão em A6 e A5, com o símbolo, a frase e o QR (SVG gerado
+// no build). Sem incentivo, sem estrelas. Imprimir: cada tamanho sai na sua página (@page).
+// O QR aponta para {domínio}/avaliar?o=qr quando o domínio estiver confirmado; até lá,
+// aponta direto para o Google (funciona, mas sem contar a origem "qr").
+import QRCode from 'qrcode';
+import Documento from '../../components/base/Documento.astro';
+import Logo from '../../components/marca/Logo.astro';
+import { clinica } from '../../config/clinica.ts';
+import { valorDe } from '../../config/tipos.ts';
+import { avaliar as t } from '../../content/textos/paginas.ts';
+import { linkAvaliar } from '../../lib/avaliar.ts';
+import { rodape } from '../../content/textos/microtextos.ts';
+
+const dominio = valorDe(clinica.dominio);
+const alvo = dominio ? `${dominio.replace(/\/$/, '')}/avaliar?o=qr` : linkAvaliar().url;
+const r = rodape();
+const qr = await QRCode.toString(alvo, {
+  type: 'svg',
+  errorCorrectionLevel: 'M',
+  margin: 0,
+  color: { dark: '#123048', light: '#ffffff' },
+});
+const qrSvg = qr.replace(
+  '<svg ',
+  '<svg role="img" aria-label="Código QR para avaliar a Ardeli no Google" ',
+);
+const folhas = [
+  { id: 'a6', nome: 'A6 (10,5 × 14,8 cm)' },
+  { id: 'a5', nome: 'A5 (14,8 × 21 cm)' },
+] as const;
+---
+
+<Documento
+  titulo="Cartaz para avaliar · Ardeli Fisioterapia"
+  descricao={t.meta.descricao}
+  noindex
+  fontes={['--fonte-crimson', '--fonte-atkinson']}
+>
+  <main id="conteudo" class="qr-pagina">
+    <div class="controles nao-imprimir">
+      <h1>Cartaz “Avaliar no Google”</h1>
+      {!dominio && (
+        <p class="controles__aviso">
+          Domínio ainda não confirmado: o QR aponta direto para a página da clínica no Google.
+          Quando o domínio existir, ele passa a apontar para /avaliar?o=qr.
+        </p>
+      )}
+      <div class="controles__botoes">
+        {folhas.map((f) => (
+          <button
+            type="button"
+            class="controles__botao"
+            data-imprimir-folha={f.id}
+            data-esperando-js
+          >
+            Imprimir {f.nome}
+          </button>
+        ))}
+      </div>
+      <p class="controles__dica">
+        Sem JavaScript, use o comando de imprimir do navegador: sai um A6 e um A5, cada um na sua
+        folha.
+      </p>
+    </div>
+
+    {folhas.map((f) => (
+      <section class={`folha folha--${f.id}`} aria-label={`Cartaz ${f.nome}`}>
+        <Logo variante="vertical" rotulo="Ardeli Fisioterapia" class="folha__logo" />
+        <p class="folha__titulo">{t.qr.titulo}</p>
+        <p class="folha__frase">{t.qr.frase.texto}</p>
+        <div class="folha__qr" set:html={qrSvg} />
+        <p class="folha__instrucao">{t.qr.instrucao.texto}</p>
+        <footer class="folha__rodape">
+          <p>{t.qr.rodape.texto}</p>
+          {r.profissionais.map((pr) => (
+            <p>{pr.texto}</p>
+          ))}
+          <p>{r.empresa.texto}</p>
+        </footer>
+      </section>
+    ))}
+  </main>
+</Documento>
+
+<script>
+  for (const b of document.querySelectorAll<HTMLButtonElement>('[data-imprimir-folha]')) {
+    b.removeAttribute('data-esperando-js');
+    b.addEventListener('click', () => {
+      document.documentElement.dataset.imprimir = b.dataset.imprimirFolha;
+      window.print();
+    });
+  }
+  addEventListener('afterprint', () => delete document.documentElement.dataset.imprimir);
+</script>
+
+<style>
+  .qr-pagina {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: var(--e-7);
+    padding: var(--e-6) var(--margem) var(--e-8);
+  }
+  .controles {
+    max-width: 40rem;
+    text-align: center;
+  }
+  .controles h1 {
+    font-size: var(--titulo-3);
+  }
+  .controles__aviso {
+    padding: var(--e-3) var(--e-4);
+    background: var(--cor-papel);
+    border-left: 4px solid var(--cor-marinho);
+    text-align: left;
+    font-size: var(--texto-p);
+  }
+  .controles__botoes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--e-3);
+  }
+  .controles__botao {
+    min-height: var(--botao-altura);
+    padding: var(--e-3) var(--e-5);
+    border: 2px solid var(--cor-marinho);
+    border-radius: var(--raio-botao);
+    background: var(--cor-marinho);
+    color: var(--cor-linho);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  /* Sem JS os botões não funcionam: ficam invisíveis, mas o espaço é reservado
+     (mostrar depois da 1ª pintura empurrava o cartaz: CLS 0,089). */
+  .controles__botao[data-esperando-js] {
+    visibility: hidden;
+  }
+  .controles__dica {
+    font-size: var(--texto-p);
+  }
+
+  /* A folha: medidas reais em mm (tela e impressão). */
+  .folha {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    color: #123048;
+    text-align: center;
+    box-shadow: 0 0.5rem 1.5rem -0.75rem rgb(18 48 72 / 0.5);
+    font-family: var(--fonte-texto);
+  }
+  .folha--a6 {
+    width: 105mm;
+    height: 148mm;
+    padding: 9mm 8mm;
+    font-size: 10.5pt;
+  }
+  .folha--a5 {
+    width: 148mm;
+    height: 210mm;
+    padding: 13mm 12mm;
+    font-size: 14pt;
+  }
+  .folha :global(.folha__logo) {
+    width: 32%;
+  }
+  .folha__titulo {
+    margin: 0;
+    font-family: var(--fonte-serifa);
+    font-size: 1.75em;
+    line-height: 1.1;
+  }
+  .folha__frase {
+    margin: 0;
+    max-width: 22em;
+    font-size: 1.05em;
+    line-height: 1.35;
+    color: #434d58;
+  }
+  .folha__qr {
+    width: 48%;
+    aspect-ratio: 1;
+  }
+  .folha__qr :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+  .folha__instrucao {
+    margin: 0;
+    font-size: 0.85em;
+    line-height: 1.3;
+  }
+  .folha__rodape p {
+    margin: 0;
+  }
+  .folha__rodape {
+    margin: 0;
+    padding-top: 0.6em;
+    border-top: 1px solid #7b8261;
+    font-size: 0.75em;
+    color: #434d58;
+  }
+
+  @media (max-width: 40rem) {
+    .folha {
+      transform-origin: top center;
+    }
+    .folha--a6 {
+      zoom: 0.85;
+    }
+    .folha--a5 {
+      zoom: 0.6;
+    }
+  }
+  @media (max-width: 370px) {
+    .folha--a6 {
+      zoom: 0.6;
+    }
+    .folha--a5 {
+      zoom: 0.42;
+    }
+  }
+  /* 390 px com zoom 200% (195 px): a prévia encolhe; a impressão continua em mm. */
+  @media (max-width: 300px) {
+    .folha--a6 {
+      zoom: 0.4;
+    }
+    .folha--a5 {
+      zoom: 0.28;
+    }
+  }
+
+  /* Página padrão = A6 (o Chromium usa a padrão na 1ª folha). */
+  @page {
+    size: A6;
+    margin: 0;
+  }
+  @page a6 {
+    size: A6;
+    margin: 0;
+  }
+  @page a5 {
+    size: A5;
+    margin: 0;
+  }
+  @media print {
+    :global(html),
+    :global(body) {
+      background: #fff !important;
+    }
+    :global(.faixa-revisao),
+    .nao-imprimir {
+      display: none !important;
+    }
+    .qr-pagina {
+      display: block;
+      padding: 0;
+    }
+    .folha {
+      box-shadow: none;
+      zoom: 1 !important;
+      break-after: page;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .folha--a6 {
+      page: a6;
+    }
+    .folha--a5 {
+      page: a5;
+    }
+    :global(html[data-imprimir='a6']) .folha--a5,
+    :global(html[data-imprimir='a5']) .folha--a6 {
+      display: none !important;
+    }
+  }
+</style>

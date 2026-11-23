@@ -1,0 +1,45 @@
+---
+// /quem-cuida: cartões das profissionais (foto quando chegar, com autorização) e o Art. 48
+// em cada um; só fatos confirmados; sem "especialista".
+import CartaoProfissional from '../components/base/CartaoProfissional.astro';
+import { profissionais } from '../content/dados/profissionais.ts';
+import { quemCuida as q } from '../content/textos/paginas.ts';
+import Pagina from './_PaginaInterna.astro';
+import { aberturas } from '../content/textos/respostas.ts';
+
+const ordem = [...profissionais].sort((a, b) => a.ordem - b.ordem);
+---
+
+<Pagina
+  meta={q.meta}
+  verbete={q.verbete}
+  h1={aberturas.quemCuida.h1}
+  resposta={aberturas.quemCuida.resposta}
+>
+  <div class="cartoes">
+    {ordem.map((p) => (
+      <CartaoProfissional profissional={p} nivel={2} />
+    ))}
+  </div>
+
+  <section class="bloco" aria-labelledby="trajetoria">
+    <h2 id="trajetoria">Trajetória</h2>
+    <p>{q.studioAr.texto}</p>
+    <p>{q.topClass.texto}</p>
+  </section>
+
+  <section class="bloco" aria-labelledby="registro">
+    <h2 id="registro">Registro profissional</h2>
+    <p>{q.crefitoExplicado.texto}</p>
+    <p class="num">{q.empresa.texto}</p>
+  </section>
+</Pagina>
+
+<style>
+  .cartoes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+    gap: var(--e-5);
+    margin-bottom: var(--e-6);
+  }
+</style>

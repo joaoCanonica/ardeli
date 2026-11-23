@@ -1,0 +1,28 @@
+---
+// Endereço como DADO (NAP): o texto é exatamente nap().endereco, em duas linhas.
+// scripts/audit-seo.mjs confere todo [data-nap="endereco"] contra a config.
+import { nap } from '../../lib/seo/nap.ts';
+
+interface Props {
+  class?: string;
+}
+const { class: classe } = Astro.props;
+const linha = nap().endereco;
+const i = linha.indexOf(' – ');
+const l1 = i > 0 ? linha.slice(0, i) : linha;
+const l2 = i > 0 ? linha.slice(i + 3) : '';
+---
+
+<address class:list={['end-nap', classe]} data-nap="endereco" data-endereco-texto={linha}>
+  <span class="end-nap__l">
+    {l1}
+    {l2 && ' –'}
+  </span>
+  {l2 && <span class="end-nap__l"> {l2}</span>}
+</address>
+
+<style>
+  .end-nap__l {
+    display: block;
+  }
+</style>

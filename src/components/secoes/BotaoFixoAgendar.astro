@@ -1,0 +1,59 @@
+---
+// Botão fixo "Agendar" no celular (≥ 56px). Some quando a seção de endereço ou o rodapé
+// aparecem (onde já há botões). Sem JS, fica sempre visível. Não cobre conteúdo:
+// a página ganha um respiro embaixo no celular.
+import { botoes, mensagensWhatsApp } from '../../content/textos/microtextos.ts';
+import { linkWhatsApp } from '../../lib/whatsapp.ts';
+import Botao from '../base/Botao.astro';
+---
+
+<nav class="fixo" data-botao-fixo aria-label="Atalho">
+  <Botao
+    data-agendar
+    data-origem="botao-fixo"
+    href={linkWhatsApp(mensagensWhatsApp.agendar)}
+    icone="whatsapp"
+    dica={botoes.abreWhatsApp}
+    largo
+  >
+    {botoes.agendar}
+  </Botao>
+</nav>
+<div class="fixo-respiro" aria-hidden="true"></div>
+
+<script>
+  import { iniciarBotaoFixo } from './botao-fixo.ts';
+  iniciarBotaoFixo();
+</script>
+
+<style>
+  .fixo {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    padding: var(--e-2) var(--margem) calc(var(--e-2) + env(safe-area-inset-bottom));
+    background: rgb(248 246 241 / 0.96);
+    border-top: var(--fio-fino) solid var(--fio);
+    transition:
+      transform var(--duracao-media) var(--curva),
+      visibility 0s linear 0s;
+  }
+  .fixo[data-escondido] {
+    transform: translateY(110%);
+    visibility: hidden;
+    transition:
+      transform var(--duracao-media) var(--curva),
+      visibility 0s linear var(--duracao-media);
+  }
+  .fixo-respiro {
+    height: 5.5rem;
+  }
+  @media (min-width: 48rem), (max-height: 32rem) {
+    .fixo,
+    .fixo-respiro {
+      display: none;
+    }
+  }
+</style>

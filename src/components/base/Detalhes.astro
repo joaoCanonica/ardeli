@@ -1,0 +1,96 @@
+---
+// Pergunta frequente: <details> nativo (funciona sem JS, teclado e leitor de tela).
+// Alvo inteiro da pergunta ≥ 56px; o sinal +/− só muda de cor e gira (realce).
+interface Props {
+  pergunta: string;
+  aberto?: boolean;
+  nivel?: 2 | 3 | 4;
+}
+const { pergunta, aberto = false, nivel = 3 } = Astro.props;
+const Titulo = `h${nivel}` as 'h2' | 'h3' | 'h4';
+---
+
+<details class="detalhes" open={aberto}>
+  <summary>
+    <Titulo class="detalhes__pergunta">{pergunta}</Titulo>
+    <span class="detalhes__sinal" aria-hidden="true"></span>
+  </summary>
+  <div class="detalhes__resposta">
+    <slot />
+  </div>
+</details>
+
+<style>
+  .detalhes {
+    border-top: var(--fio-fino) solid var(--fio);
+    max-width: 48rem;
+  }
+  .detalhes:last-of-type {
+    border-bottom: var(--fio-fino) solid var(--fio);
+  }
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--e-4);
+    min-height: var(--botao-altura);
+    padding-block: var(--e-3);
+    cursor: pointer;
+    list-style: none;
+    border-radius: var(--raio);
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  .detalhes__pergunta {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-family: var(--fonte-texto);
+    font-size: var(--texto-g);
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .detalhes__sinal {
+    position: relative;
+    flex: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--texto-forte);
+    transition: transform var(--duracao-media) var(--curva);
+  }
+  .detalhes__sinal::before,
+  .detalhes__sinal::after {
+    content: '';
+    position: absolute;
+    inset: 50% 0 auto;
+    height: 2px;
+    margin-top: -1px;
+    background: currentColor;
+  }
+  .detalhes__sinal::after {
+    transform: rotate(90deg);
+    transition: transform var(--duracao-media) var(--curva);
+  }
+  .detalhes[open] .detalhes__sinal::after {
+    transform: rotate(0deg);
+  }
+  summary:hover .detalhes__pergunta {
+    text-decoration: underline;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+  }
+  .detalhes__resposta {
+    padding: 0 0 var(--e-5);
+  }
+  .detalhes__resposta > :global(:last-child) {
+    margin-bottom: 0;
+  }
+  @media (forced-colors: active) {
+    .detalhes__sinal::before,
+    .detalhes__sinal::after {
+      background: CanvasText;
+    }
+  }
+</style>

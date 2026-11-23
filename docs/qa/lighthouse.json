@@ -1,0 +1,809 @@
+{
+  "base": "http://localhost:4330",
+  "data": "2026-11-23T15:42:11.220Z",
+  "rotas": [
+    {
+      "rota": "/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 99,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 66,
+      "fcp": 1290.9949,
+      "lcp": 1804.9948999999997,
+      "tbt": 0,
+      "cls": 0,
+      "si": 2367.951524000253,
+      "pesoTotal": 165164,
+      "pesoDoc": 33020,
+      "pesoJs": 11523,
+      "pesoCss": 0,
+      "pesoFonte": 74251,
+      "pesoImg": 41275,
+      "pesoMidia": 0,
+      "requisicoes": 19,
+      "terceiros": 0,
+      "falhas": [
+        "first-contentful-paint",
+        "largest-contentful-paint",
+        "speed-index",
+        "is-crawlable"
+      ]
+    },
+    {
+      "rota": "/convenios/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 63,
+      "fcp": 1242.9520000000002,
+      "lcp": 1504.7616,
+      "tbt": 0,
+      "cls": 0,
+      "si": 1242.9520000000002,
+      "pesoTotal": 84425,
+      "pesoDoc": 21231,
+      "pesoJs": 6789,
+      "pesoCss": 0,
+      "pesoFonte": 52315,
+      "pesoImg": 0,
+      "pesoMidia": 0,
+      "requisicoes": 10,
+      "terceiros": 0,
+      "falhas": [
+        "first-contentful-paint",
+        "is-crawlable"
+      ]
+    },
+    {
+      "rota": "/atendimentos/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 63,
+      "fcp": 1206.9476249999998,
+      "lcp": 1505.5580999999997,
+      "tbt": 0,
+      "cls": 0,
+      "si": 1206.9476249999998,
+      "pesoTotal": 83563,
+      "pesoDoc": 20369,
+      "pesoJs": 6789,
+      "pesoCss": 0,
+      "pesoFonte": 52315,
+      "pesoImg": 0,
+      "pesoMidia": 0,
+      "requisicoes": 10,
+      "terceiros": 0,
+      "falhas": [
+        "first-contentful-paint",
+        "is-crawlable"
+      ]
+    },
+    {
+      "rota": "/atendimentos/musculoesqueletica/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 66,
+      "fcp": 1241.47325,
+      "lcp": 1580.9786,
+      "tbt": 0,
+      "cls": 0,
+      "si": 1241.47325,
+      "pesoTotal": 100828,
+      "pesoDoc": 21745,
+      "pesoJs": 6789,
+      "pesoCss": 0,
+      "pesoFonte": 52315,
+      "pesoImg": 15889,
+      "pesoMidia": 0,
+      "requisicoes": 11,
+      "terceiros": 0,
+      "falhas": [
+        "first-contentful-paint",
+        "largest-contentful-paint",
+        "is-crawlable"
+      ]
+    },
+    {
+      "rota": "/primeira-avaliacao/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 63,
+      "fcp": 1206.654125,
+      "lcp": 1505.3233,
+      "tbt": 0,
+      "cls": 0,
+      "si": 1206.654125,
+      "pesoTotal": 84668,
+      "pesoDoc": 21474,
+      "pesoJs": 6789,
+      "pesoCss": 0,
+      "pesoFonte": 52315,
+      "pesoImg": 0,
+      "pesoMidia": 0,
+      "requisicoes": 10,
+      "terceiros": 0,
+      "falhas": [
+        "first-contentful-paint",
+        "is-crawlable"
+      ]
+    },
+    {
+      "rota": "/quem-cuida/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 63,
+      "fcp": 1204.7296,
+      "lcp": 1504.7296,
+      "tbt": 0,
+      "cls": 0,
+      "si": 1204.7296,
+      "pesoTotal": 106012,
+      "pesoDoc": 20882,
+      "pesoJs": 6789,
+      "pesoCss": 0,
+      "pesoFonte": 74251,
+      "pesoImg": 0,
+      "pesoMidia": 0,
+      "requisicoes": 11,
+      "terceiros": 0,
+      "falhas": [
+        "first-contentful-paint",
+        "is-crawlable"
+      ]
+    },
+    {
+      "rota": "/a-clinica/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 66,
+      "fcp": 1249.2752500000001,
+      "lcp": 1733.2202000000002,
+      "tbt": 0,
+      "cls": 0,
+      "si": 1249.2752500000001,
+      "pesoTotal": 209193,
+      "pesoDoc": 24102,
+      "pesoJs": 8598,
+      "pesoCss": 0,
+      "pesoFonte": 52315,
+      "pesoImg": 119083,
+      "pesoMidia": 0,
+      "requisicoes": 16,
+      "terceiros": 0,
+      "falhas": [
+        "first-contentful-paint",
+        "largest-contentful-paint",
+        "is-crawlable"
+      ]
+    },
+    {
+      "rota": "/perguntas-frequentes/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 63,
+      "fcp": 1248.4885,
+      "lcp": 1505.1908,
+      "tbt": 0,
+      "cls": 0,
+      "si": 1248.4885,
+      "pesoTotal": 84051,
+      "pesoDoc": 20857,
+      "pesoJs": 6789,
+      "pesoCss": 0,
+      "pesoFonte": 52315,
+      "pesoImg": 0,
+      "pesoMidia": 0,
+      "requisicoes": 10,
+      "terceiros": 0,
+      "falhas": [
+        "first-contentful-paint",
+        "is-crawlable"
+      ]
+    },
+    {
+      "rota": "/como-chegar/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 99,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 66,
+      "fcp": 1506.0113,
+      "lcp": 1731.0113000000001,
+      "tbt": 0,
+      "cls": 0,
+      "si": 1506.0113,
+      "pesoTotal": 126019,
+      "pesoDoc": 24193,
+      "pesoJs": 8580,
+      "pesoCss": 0,
+      "pesoFonte": 74251,
+      "pesoImg": 14905,
+      "pesoMidia": 0,
+      "requisicoes": 14,
+      "terceiros": 0,
+      "falhas": [
+        "first-contentful-paint",
+        "largest-contentful-paint",
+        "is-crawlable"
+      ]
+    },
+    {
+      "rota": "/agendar/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 63,
+      "fcp": 1249.7355000000002,
+      "lcp": 1505.3884000000003,
+      "tbt": 0,
+      "cls": 0,
+      "si": 1249.7355000000002,
+      "pesoTotal": 81828,
+      "pesoDoc": 19774,
+      "pesoJs": 5649,
+      "pesoCss": 0,
+      "pesoFonte": 52315,
+      "pesoImg": 0,
+      "pesoMidia": 0,
+      "requisicoes": 9,
+      "terceiros": 0,
+      "falhas": [
+        "first-contentful-paint",
+        "is-crawlable"
+      ]
+    },
+    {
+      "rota": "/privacidade/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 63,
+      "fcp": 1246.2528750000001,
+      "lcp": 1502.6023,
+      "tbt": 0,
+      "cls": 0,
+      "si": 1246.2528750000001,
+      "pesoTotal": 83870,
+      "pesoDoc": 20676,
+      "pesoJs": 6789,
+      "pesoCss": 0,
+      "pesoFonte": 52315,
+      "pesoImg": 0,
+      "pesoMidia": 0,
+      "requisicoes": 10,
+      "terceiros": 0,
+      "falhas": [
+        "first-contentful-paint",
+        "is-crawlable"
+      ]
+    },
+    {
+      "rota": "/avaliar/qr/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 98,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 63,
+      "fcp": 860.2431250000001,
+      "lcp": 1236.29175,
+      "tbt": 0,
+      "cls": 0.08945190794905179,
+      "si": 860.2431250000001,
+      "pesoTotal": 65019,
+      "pesoDoc": 13485,
+      "pesoJs": 2396,
+      "pesoCss": 0,
+      "pesoFonte": 45048,
+      "pesoImg": 0,
+      "pesoMidia": 0,
+      "requisicoes": 6,
+      "terceiros": 0,
+      "falhas": [
+        "cumulative-layout-shift",
+        "is-crawlable"
+      ]
+    }
+  ],
+  "extras": [
+    {
+      "rotulo": "4G /",
+      "rota": "/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 66,
+      "fcp": 551.8063999999999,
+      "lcp": 590.6611999999999,
+      "tbt": 0,
+      "cls": 0,
+      "si": 1216.5073046987984,
+      "pesoTotal": 165164,
+      "pesoDoc": 33020,
+      "pesoJs": 11523,
+      "pesoCss": 0,
+      "pesoFonte": 74251,
+      "pesoImg": 41275,
+      "pesoMidia": 0,
+      "requisicoes": 19,
+      "terceiros": 0,
+      "falhas": [
+        "is-crawlable"
+      ]
+    },
+    {
+      "rotulo": "4G /convenios/",
+      "rota": "/convenios/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 63,
+      "fcp": 455.94187500000004,
+      "lcp": 544.7535,
+      "tbt": 0,
+      "cls": 0,
+      "si": 455.94187500000004,
+      "pesoTotal": 84425,
+      "pesoDoc": 21231,
+      "pesoJs": 6789,
+      "pesoCss": 0,
+      "pesoFonte": 52315,
+      "pesoImg": 0,
+      "pesoMidia": 0,
+      "requisicoes": 10,
+      "terceiros": 0,
+      "falhas": [
+        "is-crawlable"
+      ]
+    },
+    {
+      "rotulo": "4G /atendimentos/",
+      "rota": "/atendimentos/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 63,
+      "fcp": 493.366375,
+      "lcp": 524.23965,
+      "tbt": 0,
+      "cls": 0,
+      "si": 493.366375,
+      "pesoTotal": 83563,
+      "pesoDoc": 20369,
+      "pesoJs": 6789,
+      "pesoCss": 0,
+      "pesoFonte": 52315,
+      "pesoImg": 0,
+      "pesoMidia": 0,
+      "requisicoes": 10,
+      "terceiros": 0,
+      "falhas": [
+        "is-crawlable"
+      ]
+    },
+    {
+      "rotulo": "4G /atendimentos/musculoesqueletica/",
+      "rota": "/atendimentos/musculoesqueletica/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 66,
+      "fcp": 455.3802245957354,
+      "lcp": 544.3041796765883,
+      "tbt": 0,
+      "cls": 0,
+      "si": 455.3802245957354,
+      "pesoTotal": 100828,
+      "pesoDoc": 21745,
+      "pesoJs": 6789,
+      "pesoCss": 0,
+      "pesoFonte": 52315,
+      "pesoImg": 15889,
+      "pesoMidia": 0,
+      "requisicoes": 11,
+      "terceiros": 0,
+      "falhas": [
+        "is-crawlable"
+      ]
+    },
+    {
+      "rotulo": "4G /primeira-avaliacao/",
+      "rota": "/primeira-avaliacao/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 63,
+      "fcp": 488.7378749999999,
+      "lcp": 520.4854499999999,
+      "tbt": 0,
+      "cls": 0,
+      "si": 488.7378749999999,
+      "pesoTotal": 84668,
+      "pesoDoc": 21474,
+      "pesoJs": 6789,
+      "pesoCss": 0,
+      "pesoFonte": 52315,
+      "pesoImg": 0,
+      "pesoMidia": 0,
+      "requisicoes": 10,
+      "terceiros": 0,
+      "falhas": [
+        "is-crawlable"
+      ]
+    },
+    {
+      "rotulo": "4G /quem-cuida/",
+      "rota": "/quem-cuida/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 63,
+      "fcp": 489.66387499999996,
+      "lcp": 555.4621999999999,
+      "tbt": 0,
+      "cls": 0,
+      "si": 489.66387499999996,
+      "pesoTotal": 106012,
+      "pesoDoc": 20882,
+      "pesoJs": 6789,
+      "pesoCss": 0,
+      "pesoFonte": 74251,
+      "pesoImg": 0,
+      "pesoMidia": 0,
+      "requisicoes": 11,
+      "terceiros": 0,
+      "falhas": [
+        "is-crawlable"
+      ]
+    },
+    {
+      "rotulo": "4G /a-clinica/",
+      "rota": "/a-clinica/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 66,
+      "fcp": 494.1899,
+      "lcp": 577.1899000000001,
+      "tbt": 0,
+      "cls": 0,
+      "si": 494.1899,
+      "pesoTotal": 209193,
+      "pesoDoc": 24102,
+      "pesoJs": 8598,
+      "pesoCss": 0,
+      "pesoFonte": 52315,
+      "pesoImg": 119083,
+      "pesoMidia": 0,
+      "requisicoes": 16,
+      "terceiros": 0,
+      "falhas": [
+        "is-crawlable"
+      ]
+    },
+    {
+      "rotulo": "4G /perguntas-frequentes/",
+      "rota": "/perguntas-frequentes/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 63,
+      "fcp": 472.5538,
+      "lcp": 485.10760000000005,
+      "tbt": 0,
+      "cls": 0,
+      "si": 472.5538,
+      "pesoTotal": 84051,
+      "pesoDoc": 20857,
+      "pesoJs": 6789,
+      "pesoCss": 0,
+      "pesoFonte": 52315,
+      "pesoImg": 0,
+      "pesoMidia": 0,
+      "requisicoes": 10,
+      "terceiros": 0,
+      "falhas": [
+        "is-crawlable"
+      ]
+    },
+    {
+      "rotulo": "4G /como-chegar/",
+      "rota": "/como-chegar/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 66,
+      "fcp": 498.71312499999993,
+      "lcp": 582.3409999999999,
+      "tbt": 0,
+      "cls": 0,
+      "si": 498.71312499999993,
+      "pesoTotal": 126019,
+      "pesoDoc": 24193,
+      "pesoJs": 8580,
+      "pesoCss": 0,
+      "pesoFonte": 74251,
+      "pesoImg": 14905,
+      "pesoMidia": 0,
+      "requisicoes": 14,
+      "terceiros": 0,
+      "falhas": [
+        "is-crawlable"
+      ]
+    },
+    {
+      "rotulo": "4G /agendar/",
+      "rota": "/agendar/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 63,
+      "fcp": 493.88725000000005,
+      "lcp": 585.2647000000001,
+      "tbt": 0,
+      "cls": 0,
+      "si": 493.88725000000005,
+      "pesoTotal": 81828,
+      "pesoDoc": 19774,
+      "pesoJs": 5649,
+      "pesoCss": 0,
+      "pesoFonte": 52315,
+      "pesoImg": 0,
+      "pesoMidia": 0,
+      "requisicoes": 9,
+      "terceiros": 0,
+      "falhas": [
+        "is-crawlable"
+      ]
+    },
+    {
+      "rotulo": "4G /privacidade/",
+      "rota": "/privacidade/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 100,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 63,
+      "fcp": 491.89712499999996,
+      "lcp": 523.87655,
+      "tbt": 0,
+      "cls": 0,
+      "si": 491.89712499999996,
+      "pesoTotal": 83870,
+      "pesoDoc": 20676,
+      "pesoJs": 6789,
+      "pesoCss": 0,
+      "pesoFonte": 52315,
+      "pesoImg": 0,
+      "pesoMidia": 0,
+      "requisicoes": 10,
+      "terceiros": 0,
+      "falhas": [
+        "is-crawlable"
+      ]
+    },
+    {
+      "rotulo": "4G /avaliar/qr/",
+      "rota": "/avaliar/qr/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 98,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 63,
+      "fcp": 383.67125,
+      "lcp": 475.0055,
+      "tbt": 0,
+      "cls": 0.08945190794905179,
+      "si": 383.67125,
+      "pesoTotal": 65019,
+      "pesoDoc": 13485,
+      "pesoJs": 2396,
+      "pesoCss": 0,
+      "pesoFonte": 45048,
+      "pesoImg": 0,
+      "pesoMidia": 0,
+      "requisicoes": 6,
+      "terceiros": 0,
+      "falhas": [
+        "cumulative-layout-shift",
+        "is-crawlable"
+      ]
+    },
+    {
+      "rotulo": "home COM abertura (sessão nova)",
+      "rota": "/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 99,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 66,
+      "fcp": 1358.3032,
+      "lcp": 1888.4554866455076,
+      "tbt": 0,
+      "cls": 0,
+      "si": 2431.5239179998375,
+      "pesoTotal": 165164,
+      "pesoDoc": 33020,
+      "pesoJs": 11523,
+      "pesoCss": 0,
+      "pesoFonte": 74251,
+      "pesoImg": 41275,
+      "pesoMidia": 0,
+      "requisicoes": 19,
+      "terceiros": 0,
+      "falhas": [
+        "first-contentful-paint",
+        "largest-contentful-paint",
+        "speed-index",
+        "is-crawlable"
+      ]
+    },
+    {
+      "rotulo": "home SEM abertura (reduced-motion)",
+      "rota": "/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 99,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 66,
+      "fcp": 1582.2354814557639,
+      "lcp": 1885.8532221836458,
+      "tbt": 0,
+      "cls": 0,
+      "si": 1582.2354814557639,
+      "pesoTotal": 165164,
+      "pesoDoc": 33020,
+      "pesoJs": 11523,
+      "pesoCss": 0,
+      "pesoFonte": 74251,
+      "pesoImg": 41275,
+      "pesoMidia": 0,
+      "requisicoes": 19,
+      "terceiros": 0,
+      "falhas": [
+        "first-contentful-paint",
+        "largest-contentful-paint",
+        "is-crawlable"
+      ]
+    },
+    {
+      "rotulo": "home · 3G lento, CPU 6×",
+      "rota": "/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 66,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 66,
+      "fcp": 4411.1584,
+      "lcp": 6211.1584,
+      "tbt": 0,
+      "cls": 0,
+      "si": 5093.911968417378,
+      "pesoTotal": 165164,
+      "pesoDoc": 33020,
+      "pesoJs": 11523,
+      "pesoCss": 0,
+      "pesoFonte": 74251,
+      "pesoImg": 41275,
+      "pesoMidia": 0,
+      "requisicoes": 19,
+      "terceiros": 0,
+      "falhas": [
+        "first-contentful-paint",
+        "largest-contentful-paint",
+        "speed-index",
+        "is-crawlable"
+      ]
+    },
+    {
+      "rotulo": "/agendar · 3G lento, CPU 6×",
+      "rota": "/agendar/",
+      "seoFalhas": [
+        "is-crawlable"
+      ],
+      "perf": 76,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 63,
+      "fcp": 3206.6393749999997,
+      "lcp": 4805.3115,
+      "tbt": 0,
+      "cls": 0,
+      "si": 3206.6393749999997,
+      "pesoTotal": 81828,
+      "pesoDoc": 19774,
+      "pesoJs": 5649,
+      "pesoCss": 0,
+      "pesoFonte": 52315,
+      "pesoImg": 0,
+      "pesoMidia": 0,
+      "requisicoes": 9,
+      "terceiros": 0,
+      "falhas": [
+        "first-contentful-paint",
+        "largest-contentful-paint",
+        "speed-index",
+        "is-crawlable"
+      ]
+    }
+  ]
+}

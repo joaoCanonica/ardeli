@@ -1,0 +1,30 @@
+---
+// Ações da capa: agendar (WhatsApp; o agendador chega na sessão 7) e convênios.
+import { linkWhatsApp } from '../../lib/whatsapp.ts';
+import { mensagensWhatsApp } from '../../content/textos/microtextos.ts';
+import Botao from '../base/Botao.astro';
+const agendar = linkWhatsApp(mensagensWhatsApp.agendar);
+---
+
+<div class="botoes-capa">
+  <Botao href={agendar} icone="whatsapp" dica="abre o WhatsApp" data-agendar data-origem="capa">
+    Agendar avaliação
+  </Botao>
+  <Botao href="/convenios" variante="secundario" icone="convenio">
+    Ver convênios aceitos
+  </Botao>
+</div>
+
+<style>
+  .botoes-capa {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--e-3);
+    margin-top: var(--e-5);
+  }
+  @media (max-width: 30rem) {
+    .botoes-capa :global(.botao) {
+      flex: 1 1 100%;
+    }
+  }
+</style>

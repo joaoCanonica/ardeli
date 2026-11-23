@@ -1,0 +1,138 @@
+---
+// Quem cuida (COFFITO Art. 48): nome, "Fisioterapeuta", CREFITO-10 nº e só fatos confirmados.
+// Sem foto: monograma (iniciais em serifa) com o símbolo da marca em monocromo.
+import { registroDe } from '../../lib/registro.ts';
+import { clinica } from '../../config/clinica.ts';
+import { valorDe } from '../../config/tipos.ts';
+import type { Profissional } from '../../content/schemas.ts';
+import Logo from '../marca/Logo.astro';
+import Imagem from './Imagem.astro';
+
+interface Props {
+  profissional: Profissional;
+  nivel?: 2 | 3;
+}
+const { profissional: p, nivel = 3 } = Astro.props;
+const Titulo = `h${nivel}` as 'h2' | 'h3';
+const regiao = valorDe(clinica.empresa.regiaoCrefito) ?? '10';
+const crefito = p.crefito.estado === 'confirmado' ? p.crefito.valor : null;
+const registro = registroDe(p);
+const iniciais = p.nome
+  .split(' ')
+  .filter((x) => x.length > 2)
+  .map((x) => x[0])
+  .filter((_, i, a) => i === 0 || i === a.length - 1)
+  .join('');
+---
+
+<article class="cartao-prof">
+  <div class="cartao-prof__retrato">
+    {p.foto ? (
+      <Imagem id={p.foto.midiaId} alt={`Retrato de ${p.nome}`} sizes="10rem" />
+    ) : (
+      <div class="monograma" aria-hidden="true">
+        <Logo variante="simbolo" tom="mono" rotulo="" class="monograma__simbolo" />
+        <span class="monograma__iniciais">{iniciais}</span>
+      </div>
+    )}
+  </div>
+  <div class="cartao-prof__texto">
+    <Titulo class="cartao-prof__nome">{p.nome}</Titulo>
+    <p class="cartao-prof__registro">
+      {p.profissao}
+      <span aria-hidden="true"> · </span>
+      {crefito ? (
+        <span class="num">
+          <span class="sem-quebra">CREFITO-{regiao}</span>{' '}
+          <span class="sem-quebra">nº {crefito}</span>
+        </span>
+      ) : registro.tipo === 'clinica' ? (
+        <span>{registro.curto}</span>
+      ) : (
+        <span class="pendente">CREFITO-{regiao}: número em confirmação</span>
+      )}
+    </p>
+    {p.resumo.length > 0 && (
+      <ul class="cartao-prof__resumo">
+        {p.resumo.map((r) => (
+          <li>{r.texto}</li>
+        ))}
+      </ul>
+    )}
+  </div>
+</article>
+
+<style>
+  .cartao-prof {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: var(--e-5);
+    align-items: start;
+    padding: var(--e-5);
+    background: var(--fundo-cartao);
+    border-radius: var(--raio);
+    border-top: var(--fio-fino) solid var(--fio);
+    max-width: 40rem;
+  }
+  .monograma {
+    position: relative;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    background: var(--fundo);
+    border-radius: var(--raio);
+  }
+  .monograma :global(.monograma__simbolo) {
+    position: absolute;
+    inset: 12%;
+    color: var(--cor-salvia); /* sálvia: grafismo (símbolo em SVG, não é texto) */
+    opacity: 0.35;
+  }
+  .monograma__iniciais {
+    position: relative;
+    font-family: var(--fonte-serifa);
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: var(--cor-marinho);
+    letter-spacing: 0.02em;
+  }
+  .cartao-prof__nome {
+    font-size: var(--titulo-3);
+    margin-bottom: var(--e-1);
+  }
+  .cartao-prof__registro {
+    margin-bottom: var(--e-3);
+    color: var(--texto-forte);
+  }
+  .pendente {
+    font-style: italic;
+  }
+  .sem-quebra {
+    white-space: nowrap;
+  }
+  .cartao-prof__resumo {
+    margin: 0;
+    padding-left: 1.1em;
+  }
+  .cartao-prof__resumo li + li {
+    margin-top: var(--e-2);
+  }
+  @media (max-width: 20rem) {
+    .cartao-prof {
+      grid-template-columns: 1fr;
+    }
+    .cartao-prof__retrato {
+      width: 5rem;
+    }
+  }
+  @media (min-width: 20.01rem) and (max-width: 26rem) {
+    .cartao-prof {
+      grid-template-columns: 4.5rem 1fr;
+      gap: var(--e-4);
+      padding: var(--e-4);
+    }
+    .monograma__iniciais {
+      font-size: 1.6rem;
+    }
+  }
+</style>

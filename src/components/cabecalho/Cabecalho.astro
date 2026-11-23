@@ -1,0 +1,354 @@
+---
+// Cabeçalho do site.
+// Desktop: logo · Convênios, Atendimentos, Quem cuida, A clínica, Como chegar · A−/A+ · Agendar avaliação.
+// Celular: logo · Agendar · Menu (itens ≥ 56px, com telefone e A−/A+).
+// O menu é um <details> (abre e fecha sem JS); o JS só fecha com Esc, clique fora ou num link.
+// Fixo ao rolar, sem mudar de altura (sem salto de layout): só ganha fio e sombra leve.
+// A troca barra/menu é por container query em rem: com A+ (texto maior), o menu entra antes.
+import { clinica } from '../../config/clinica.ts';
+import { valorDe } from '../../config/tipos.ts';
+import { linkWhatsApp } from '../../lib/whatsapp.ts';
+import { mensagensWhatsApp } from '../../content/textos/microtextos.ts';
+import Botao from '../base/Botao.astro';
+import ControleTamanho from '../base/ControleTamanho.astro';
+import Icone from '../base/Icone.astro';
+import LigarAgora from '../base/LigarAgora.astro';
+import Logo from '../marca/Logo.astro';
+import { itensMenu } from './itens.ts';
+
+interface Props {
+  /** Caminho da página atual, para marcar o item (aria-current). */
+  atual?: string;
+}
+const { atual = Astro.url.pathname } = Astro.props;
+
+const agendar = linkWhatsApp(mensagensWhatsApp.agendar);
+const tel = valorDe(clinica.telefone);
+const ehAtual = (href: string) => atual.replace(/\/$/, '') === href;
+---
+
+<a class="pular" href="#conteudo">
+  Pular para o conteúdo
+</a>
+<div class="cab-sentinela" data-cab-sentinela aria-hidden="true"></div>
+<header class="cab" data-cabecalho>
+  <div class="cab__barra">
+    <a class="cab__marca" href="/" aria-label="Ardeli Fisioterapia: página inicial">
+      <Logo variante="horizontal" rotulo="" />
+    </a>
+
+    <nav class="cab__nav" aria-label="Principal">
+      <ul role="list">
+        {itensMenu.map((i) => (
+          <li>
+            <a href={i.href} aria-current={ehAtual(i.href) ? 'page' : undefined}>
+              {i.rotulo}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <ControleTamanho id="tamanho-barra" class="cab__tamanho" />
+
+    <Botao
+      href={agendar}
+      icone="whatsapp"
+      dica="abre o WhatsApp"
+      class="cab__agendar"
+      data-agendar
+      data-origem="cabecalho"
+    >
+      Agendar<span class="cab__agendar-resto"> avaliação</span>
+    </Botao>
+
+    <details class="cab__menu" data-cab-menu>
+      <summary class="cab__menu-botao">
+        <span class="cab__menu-icone cab__menu-icone--abrir">
+          <Icone nome="menu" tamanho="1.6rem" />
+        </span>
+        <span class="cab__menu-icone cab__menu-icone--fechar">
+          <Icone nome="fechar" tamanho="1.6rem" />
+        </span>
+        <span class="cab__menu-rotulo">Menu</span>
+      </summary>
+      <div class="cab__painel">
+        {/* Telefone e tamanho do texto primeiro: é o que mais se procura (teste 60+). */}
+        <div class="cab__painel-rodape">
+          {tel && <LigarAgora class="cab__ligar" />}
+          <ControleTamanho id="tamanho-menu" />
+        </div>
+        <nav aria-label="Principal">
+          <ul role="list" class="cab__lista">
+            {itensMenu.map((i) => (
+              <li>
+                <a href={i.href} aria-current={ehAtual(i.href) ? 'page' : undefined}>
+                  <span>{i.rotulo}</span>
+                  <Icone nome="seta" tamanho="1.4rem" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </details>
+  </div>
+</header>
+
+<script>
+  import { iniciarCabecalho } from './cabecalho.ts';
+  iniciarCabecalho();
+</script>
+
+<style>
+  .pular {
+    position: absolute;
+    left: var(--e-3);
+    top: var(--e-3);
+    z-index: 100;
+    padding: var(--e-3) var(--e-4);
+    background: var(--cor-marinho);
+    color: var(--cor-linho);
+    font-weight: 700;
+    border-radius: var(--raio);
+    transform: translateY(-200%);
+  }
+  .pular:focus {
+    transform: none;
+    color: var(--cor-linho);
+  }
+  .cab-sentinela {
+    height: 1px;
+    margin-bottom: -1px;
+  }
+
+  .cab {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    container: cab / inline-size;
+    background: var(--fundo);
+    border-bottom: var(--fio-fino) solid transparent;
+    transition:
+      border-color var(--duracao-media) var(--curva),
+      box-shadow var(--duracao-media) var(--curva);
+  }
+  .cab[data-rolado] {
+    border-bottom-color: var(--fio);
+    box-shadow: 0 0.35rem 1rem -0.75rem rgb(18 48 72 / 0.35);
+  }
+
+  .cab__barra {
+    display: flex;
+    align-items: center;
+    gap: var(--e-3);
+    min-height: 4.5rem;
+    padding: var(--e-2) var(--margem);
+  }
+  .cab__marca {
+    display: inline-flex;
+    align-items: center;
+    flex: none;
+    min-height: var(--alvo-min);
+    width: clamp(7.25rem, 34vw, 12rem);
+    margin-right: auto;
+    border-radius: var(--raio);
+    transition: opacity var(--duracao-curta) var(--curva);
+  }
+
+  /* ---------- barra (desktop) ---------- */
+  .cab__nav {
+    display: none;
+  }
+  .cab__nav ul {
+    display: flex;
+    gap: var(--e-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .cab__nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--alvo-min);
+    padding: 0 var(--e-3);
+    color: var(--texto-forte);
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: var(--raio);
+    transition: background-color var(--duracao-curta) var(--curva);
+  }
+  .cab__nav a:hover {
+    background: var(--cor-papel);
+    text-decoration: underline;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.25em;
+  }
+  .cab__nav a[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.35em;
+  }
+  .cab :global(.cab__tamanho) {
+    display: none !important;
+  }
+  .cab__agendar-resto {
+    display: none;
+  }
+
+  /* ---------- menu (celular e tablet) ---------- */
+  .cab__menu {
+    position: static;
+  }
+  .cab__menu-botao {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.1rem;
+    min-width: var(--botao-altura);
+    min-height: var(--botao-altura);
+    padding: var(--e-1) var(--e-2);
+    border: 2px solid var(--cor-marinho);
+    border-radius: var(--raio-botao);
+    color: var(--cor-marinho);
+    font-size: var(--texto-p);
+    font-weight: 700;
+    line-height: 1;
+    list-style: none;
+    cursor: pointer;
+    transition: background-color var(--duracao-curta) var(--curva);
+  }
+  .cab__menu-botao::-webkit-details-marker {
+    display: none;
+  }
+  .cab__menu-botao:hover {
+    background: var(--cor-papel);
+  }
+  .cab__menu-icone--fechar,
+  .cab__menu[open] .cab__menu-icone--abrir {
+    display: none;
+  }
+  .cab__menu[open] .cab__menu-icone--fechar {
+    display: inline-flex;
+  }
+  .cab__painel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    max-height: calc(100dvh - 4.5rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: var(--e-2) var(--margem) var(--e-6);
+    background: var(--fundo);
+    border-top: var(--fio-fino) solid var(--fio);
+    border-bottom: 2px solid var(--cor-marinho);
+    box-shadow: 0 1.5rem 2rem -1.5rem rgb(18 48 72 / 0.45);
+  }
+  .cab__lista {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .cab__lista li + li {
+    border-top: var(--fio-fino) solid var(--fio);
+  }
+  .cab__lista a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--e-4);
+    min-height: var(--botao-altura);
+    padding: var(--e-2) var(--e-2);
+    color: var(--texto-forte);
+    font-family: var(--fonte-serifa);
+    font-size: min(var(--titulo-3), 10vw);
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: var(--raio);
+  }
+  .cab__lista a:hover,
+  .cab__lista a[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.25em;
+  }
+  .cab__lista a span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .cab__lista a :global(.icone) {
+    color: var(--cor-salvia-escura);
+  }
+  .cab__painel-rodape {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--e-4);
+    margin-bottom: var(--e-3);
+    padding-bottom: var(--e-4);
+    border-bottom: 2px solid var(--cor-marinho);
+  }
+  .cab__painel-rodape :global(.cab__ligar) {
+    min-height: var(--botao-altura);
+    font-size: var(--texto-g);
+    margin-inline: 0;
+  }
+
+  /* Agendar compacto no celular; "avaliação" continua no nome acessível. */
+  .cab :global(.cab__agendar) {
+    padding-inline: var(--e-3);
+  }
+
+  /* Obs.: em container query, rem = raiz do site (18px no padrão; 20/22px com A+/A++). */
+  @container cab (min-width: 30rem) {
+    .cab__agendar-resto {
+      display: inline;
+    }
+  }
+  /* Barra completa só quando tudo cabe (em rem: com A+/A++ a troca acontece antes). */
+  @container cab (min-width: 74rem) {
+    .cab__nav {
+      display: block;
+    }
+    .cab :global(.cab__tamanho:not([hidden])) {
+      display: inline-flex !important;
+    }
+    .cab__menu {
+      display: none;
+    }
+    .cab__marca {
+      margin-right: var(--e-3);
+    }
+    .cab__nav {
+      margin-right: auto;
+    }
+  }
+
+  /* Tela muito estreita (390px com zoom 200%): símbolo menor; Agendar ocupa a 2ª linha. */
+  @container cab (max-width: 20.5rem) {
+    .cab__barra {
+      flex-wrap: wrap;
+    }
+    .cab__marca {
+      width: 8rem;
+    }
+    .cab :global(.cab__agendar) {
+      order: 3;
+      flex: 1 0 100%;
+    }
+  }
+  /* Com zoom alto ou tela baixa, o cabeçalho não fica fixo (não rouba a tela). */
+  @media (max-height: 32rem), (max-width: 20rem) {
+    .cab {
+      position: relative;
+    }
+  }
+
+  /* Abertura: o logo do cabeçalho espera o símbolo chegar. */
+  :global(html.abrindo) .cab__marca {
+    opacity: 0;
+  }
+</style>

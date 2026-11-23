@@ -1,0 +1,86 @@
+---
+// Fundo da capa A: imagem diferente por tela (celular: still 4:5 do ginásio com a treliça;
+// desktop: ginásio amplo 16:9) e, no desktop, o loop "ginasio-final" mudo, que só
+// carrega DEPOIS do load (não disputa o LCP). Sem loop com reduced-motion, Save-Data,
+// rede lenta ou sem JS. O botão de pausa (WCAG 2.2.2) é <PausaVideo>, fora do fundo
+// (o fundo fica atrás do véu e com aria-hidden).
+import { imagem, video } from '../base/midia.ts';
+
+interface Props {
+  celular?: string;
+  desktop?: string;
+  loop?: string;
+}
+const {
+  celular = 'still-ginasio-trelica-4x5',
+  desktop = 'still-ginasio-amplo-16x9',
+  loop = 'loop-ginasio-final',
+} = Astro.props;
+
+const imgCel = imagem(celular);
+const imgDesk = imagem(desktop);
+const v = video(loop);
+const srcset = (img: typeof imgCel, f: 'avif' | 'webp') =>
+  img.variantes.map((x) => `${x[f]} ${x.largura}w`).join(', ');
+const maior = imgCel.variantes.at(-1);
+if (!maior) throw new Error('capa sem imagem');
+const posterDesk = imgDesk.variantes.at(-1)?.webp;
+const DESKTOP = '(min-width: 48rem)';
+---
+
+<div
+  class="fundo-capa"
+  data-fundo-capa
+  data-mp4={v.mp4}
+  data-webm={v.webm}
+  data-poster={posterDesk}
+  data-midia={DESKTOP}
+>
+  <picture>
+    <source media={DESKTOP} type="image/avif" srcset={srcset(imgDesk, 'avif')} sizes="100vw" />
+    <source media={DESKTOP} type="image/webp" srcset={srcset(imgDesk, 'webp')} sizes="100vw" />
+    <source type="image/avif" srcset={srcset(imgCel, 'avif')} sizes="100vw" />
+    <source type="image/webp" srcset={srcset(imgCel, 'webp')} sizes="100vw" />
+    <img
+      src={maior.webp}
+      width={maior.largura}
+      height={maior.altura}
+      alt=""
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      style={`background-image:url(${imgCel.lqip})`}
+    />
+  </picture>
+</div>
+
+<script>
+  import { iniciarLoopCapa } from './loop.ts';
+  iniciarLoopCapa();
+</script>
+
+<style>
+  .fundo-capa,
+  .fundo-capa picture,
+  .fundo-capa img,
+  .fundo-capa :global(video) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .fundo-capa img,
+  .fundo-capa :global(video) {
+    object-fit: cover;
+    object-position: 50% 45%;
+    background-size: cover;
+    background-color: var(--cor-ardosia);
+  }
+  .fundo-capa :global(video) {
+    opacity: 0;
+    transition: opacity var(--duracao-longa) var(--curva);
+  }
+  .fundo-capa :global(video.visivel) {
+    opacity: 1;
+  }
+</style>

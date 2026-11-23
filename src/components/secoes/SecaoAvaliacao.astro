@@ -1,0 +1,168 @@
+---
+// AVALIAÇÃO (Linho). Gesto: os 4 passos ligados por um fio contínuo — na horizontal
+// no desktop, na vertical no celular — como as acepções de um verbete.
+import { avaliacao } from '../../content/textos/home.ts';
+import { altDe, botoes, mensagensWhatsApp } from '../../content/textos/microtextos.ts';
+import { textos } from '../../content/textos/tipos.ts';
+import { linkWhatsApp } from '../../lib/whatsapp.ts';
+import Botao from '../base/Botao.astro';
+import FotoAmbiente from '../base/FotoAmbiente.astro';
+import Link from '../base/Link.astro';
+import Verbete from '../verbete/Verbete.astro';
+import Secao from './Secao.astro';
+---
+
+<Secao id="avaliacao">
+  <div class="avaliacao">
+    <div class="avaliacao__texto">
+      <Verbete
+        palavra={avaliacao.verbete.palavra}
+        classe={avaliacao.verbete.classe}
+        acepcoes={textos(avaliacao.verbete.acepcoes)}
+        id="verbete-avaliacao"
+      />
+      <ol class="passos" role="list" aria-label="Como é a primeira avaliação">
+        {avaliacao.passos.map((p, i) => (
+          <li class="passo">
+            <span class="passo__n num" aria-hidden="true">
+              {i + 1}
+            </span>
+            <h3 class="passo__titulo">
+              <span class="visualmente-oculto">Passo {i + 1}: </span>
+              {p.titulo}
+            </h3>
+            <p class="passo__texto">{p.texto.texto}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="avaliacao__acoes">
+        <Botao
+          data-agendar
+          data-origem="avaliacao"
+          href={linkWhatsApp(mensagensWhatsApp.agendar)}
+          icone="whatsapp"
+          dica={botoes.abreWhatsApp}
+        >
+          {botoes.agendar}
+        </Botao>
+        <Link href="/primeira-avaliacao" sozinho>
+          {botoes.primeiraAvaliacao}
+        </Link>
+      </div>
+    </div>
+    <FotoAmbiente
+      id="still-consultorio-1-4x5"
+      alt={altDe('still-consultorio-1-4x5')}
+      legenda="Consultório 1"
+      tom="madeira"
+      sizes="(min-width: 64rem) 26rem, 100vw"
+      class="avaliacao__foto"
+    />
+  </div>
+</Secao>
+
+<style>
+  .avaliacao {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--e-7);
+  }
+  .passos {
+    display: grid;
+    gap: 0;
+    margin: var(--e-6) 0 var(--e-6);
+    padding: 0;
+    list-style: none;
+  }
+  .passo {
+    position: relative;
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    column-gap: var(--e-4);
+    padding-bottom: var(--e-5);
+  }
+  /* O fio que liga os passos (vertical no celular). */
+  .passo::before {
+    content: '';
+    position: absolute;
+    left: 1.5rem;
+    top: 3rem;
+    bottom: 0;
+    border-left: var(--fio-fino) solid var(--fio);
+  }
+  .passo:last-child::before {
+    display: none;
+  }
+  .passo__n {
+    grid-row: span 2;
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border: var(--fio-fino) solid var(--fio);
+    border-radius: 50%;
+    background: var(--cor-linho);
+    font-family: var(--fonte-serifa);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--texto-forte);
+  }
+  .passo__titulo {
+    overflow-wrap: anywhere;
+    margin: 0.55rem 0 var(--e-1);
+    font-family: var(--fonte-serifa);
+    font-size: var(--titulo-3);
+  }
+  .passo__texto {
+    margin: 0;
+  }
+  .avaliacao__acoes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--e-4) var(--e-6);
+  }
+  .avaliacao :global(.avaliacao__foto) {
+    max-width: 26rem;
+  }
+
+  @media (min-width: 64rem) {
+    .avaliacao {
+      grid-template-columns: minmax(0, 1fr) 22rem;
+      align-items: start;
+    }
+    .avaliacao :global(.avaliacao__foto) {
+      position: sticky;
+      top: 6rem;
+    }
+  }
+  /* Lado a lado (4 colunas) quando há espaço; o fio vira horizontal. */
+  @container (min-width: 46rem) {
+    .passos {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      column-gap: var(--e-4);
+    }
+    .passo {
+      grid-template-columns: minmax(0, 1fr);
+      padding-bottom: 0;
+    }
+    .passo::before {
+      left: 3rem;
+      right: calc(var(--e-4) * -1);
+      top: 1.5rem;
+      bottom: auto;
+      border-left: 0;
+      border-top: var(--fio-fino) solid var(--fio);
+    }
+    .passo__n {
+      grid-row: auto;
+      margin-bottom: var(--e-2);
+    }
+    .passo__titulo {
+      margin-top: var(--e-2);
+    }
+  }
+  .avaliacao__texto {
+    container-type: inline-size;
+  }
+</style>

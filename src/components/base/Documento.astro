@@ -1,0 +1,144 @@
+---
+// Casca HTML de toda página: idioma, head, fontes, favicon, noindex no preview
+// e a faixa "em revisão". O script inline só aplica o tamanho de texto salvo
+// (antes da pintura, para não piscar); sem JS, fica o tamanho padrão.
+import { Font, fontData } from 'astro:assets';
+import scriptTamanho from '../../scripts/inline/tamanho.js?raw';
+import { modoAtual } from '../../config/modo.ts';
+import { configMedicao } from '../../config/medicao.ts';
+import {
+  grafo,
+  noClinica,
+  noPagina,
+  noSite,
+  noTrilha,
+  serializar,
+  type Migalha,
+} from '../../lib/seo/jsonld.ts';
+import { OG_IMAGEM, absoluta, caminhoCanonico, dominio } from '../../lib/seo/site.ts';
+import '../../styles/tokens.css';
+import '../../styles/base.css';
+
+interface Props {
+  titulo: string;
+  descricao?: string;
+  /** Força noindex (ex.: /_estilo). No preview, toda página é noindex. */
+  noindex?: boolean;
+  /** Variáveis de fonte a carregar. Padrão: as duas do site. */
+  fontes?: readonly ('--fonte-crimson' | '--fonte-atkinson')[];
+  /** Trilha (BreadcrumbList), da home até a página. Sem trilha na home. */
+  migalhas?: readonly Migalha[];
+  /** Nós extras do JSON-LD (FAQPage, VideoObject…). */
+  nosExtras?: Parameters<typeof grafo>[0];
+}
+
+const {
+  titulo,
+  descricao = 'Ardeli Fisioterapia: fisioterapia em Lages/SC, no bairro Brusque.',
+  noindex = false,
+  fontes = ['--fonte-crimson', '--fonte-atkinson'],
+  migalhas = [],
+  nosExtras = [],
+} = Astro.props;
+const preview = modoAtual() === 'preview';
+const medicao = configMedicao();
+const foraDoIndice = noindex || preview;
+// woff2 normal de cada fonte da página (o itálico fica sem pré-carregamento, como antes).
+const fontesPreload = [
+  ...new Set(
+    fontes.flatMap((f) =>
+      (fontData[f] ?? [])
+        .filter((d) => d.style === 'normal')
+        .flatMap((d) => d.src.filter((s) => s.format === 'woff2').map((s) => s.url))
+        .slice(0, 1),
+    ),
+  ),
+];
+
+// SEO: canonical e og:url só com domínio (sem ele, a produção trava).
+const caminho = caminhoCanonico(Astro.url.pathname);
+const temDominio = dominio() !== null;
+const canonical = absoluta(caminho);
+const ogImagem = absoluta(OG_IMAGEM.caminho);
+const tituloOg = titulo.split(' · ')[0] ?? titulo;
+// JSON-LD só em página que pode ser indexada (o preview leva, para validar; noindex explícito não).
+const dados = noindex
+  ? null
+  : serializar(
+      grafo([
+        noClinica(),
+        noSite(),
+        noPagina({ caminho, titulo, descricao, comTrilha: migalhas.length > 0 }),
+        ...(migalhas.length > 0 ? [noTrilha(caminho, migalhas)] : []),
+        ...nosExtras,
+      ]),
+    );
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo}</title>
+    <meta name="description" content={descricao} />
+    {foraDoIndice && <meta name="robots" content="noindex, nofollow" />}
+    {temDominio && !noindex && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Ardeli Fisioterapia" />
+    <meta property="og:title" content={tituloOg} />
+    <meta property="og:description" content={descricao} />
+    {temDominio && <meta property="og:url" content={canonical} />}
+    <meta property="og:image" content={ogImagem} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content={String(OG_IMAGEM.largura)} />
+    <meta property="og:image:height" content={String(OG_IMAGEM.altura)} />
+    <meta property="og:image:alt" content={OG_IMAGEM.alt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="describedby" href="/llms.txt" type="text/markdown" />
+    <meta name="theme-color" content="#f8f6f1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta
+      name="ardeli-medicao"
+      content={JSON.stringify({
+        ativo: medicao.ativo,
+        endpoint: medicao.endpoint,
+        dominio: medicao.dominio,
+      })}
+    />
+    {fontes.map((f) => (
+      <Font cssVariable={f} preload={false} />
+    ))}
+    {/* Pré-carregamento das fontes da marca só em rede boa (script abaixo). */}
+    <meta name="ardeli-fontes" content={fontesPreload.join(' ')} />
+    <script is:inline set:html={scriptTamanho} />
+    <slot name="head" />
+  </head>
+  <body>
+    {preview && (
+      <aside class="faixa-revisao" aria-label="Aviso">
+        Versão em revisão: alguns dados ainda estão sendo confirmados com a clínica.
+      </aside>
+    )}
+    <slot />
+    {/* JSON-LD no fim do body: não atrasa o conteúdo (vale em qualquer lugar da página). */}
+    {dados && <script type="application/ld+json" set:html={dados} />}
+    <script>
+      import { iniciarMedicaoCliques } from '../../scripts/medicao-cliques.ts';
+      iniciarMedicaoCliques();
+    </script>
+  </body>
+</html>
+
+<style>
+  .faixa-revisao {
+    background: var(--cor-marinho);
+    color: var(--cor-linho);
+    font-size: var(--texto-p);
+    text-align: center;
+    padding: var(--e-2) var(--margem);
+  }
+</style>

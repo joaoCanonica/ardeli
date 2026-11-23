@@ -1,0 +1,59 @@
+---
+// Foto real do espaço com legenda do ambiente. Tijolo e Madeira aparecem só
+// aqui, como fio de ambiente na legenda (nunca chapado, nunca texto).
+import Imagem from './Imagem.astro';
+
+interface Props {
+  id: string;
+  alt: string;
+  /** Nome do ambiente, ex.: "Ginásio de reabilitação". */
+  legenda: string;
+  tom?: 'tijolo' | 'madeira' | 'salvia';
+  proporcao?: '9/16' | '4/5' | '16/9';
+  sizes?: string;
+  class?: string;
+}
+const { id, alt, legenda, tom = 'salvia', proporcao = '4/5', sizes, class: classe } = Astro.props;
+---
+
+<figure
+  class:list={['foto-ambiente', `foto-ambiente--${tom}`, classe]}
+  style={`--proporcao: ${proporcao}`}
+>
+  <Imagem id={id} alt={alt} {...(sizes ? { sizes } : {})} />
+  <figcaption>{legenda}</figcaption>
+</figure>
+
+<style>
+  .foto-ambiente {
+    margin: 0;
+  }
+  .foto-ambiente :global(picture) {
+    aspect-ratio: var(--proporcao);
+    overflow: hidden;
+    border-radius: var(--raio);
+  }
+  figcaption {
+    display: flex;
+    align-items: center;
+    gap: var(--e-3);
+    margin-top: var(--e-3);
+    font-size: var(--texto-p);
+    color: var(--texto);
+  }
+  figcaption::before {
+    content: '';
+    flex: none;
+    width: 1.5rem;
+    border-top: 2px solid var(--fio-ambiente);
+  }
+  .foto-ambiente--tijolo {
+    --fio-ambiente: var(--cor-tijolo);
+  }
+  .foto-ambiente--madeira {
+    --fio-ambiente: var(--cor-madeira);
+  }
+  .foto-ambiente--salvia {
+    --fio-ambiente: var(--cor-salvia);
+  }
+</style>

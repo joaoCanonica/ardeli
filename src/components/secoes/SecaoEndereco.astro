@@ -1,0 +1,194 @@
+---
+// ENDEREÇO (Linho). Gesto: o endereço grande, com copiar. Fachada, horário com status,
+// mapa (interativo só com consentimento), rotas, ligar e WhatsApp.
+import EnderecoNap from '../base/EnderecoNap.astro';
+import { clinica } from '../../config/clinica.ts';
+import { valorDe } from '../../config/tipos.ts';
+import { endereco } from '../../content/textos/home.ts';
+import { altDe, botoes, mensagensWhatsApp } from '../../content/textos/microtextos.ts';
+import { comoChegar } from '../../content/textos/paginas.ts';
+import { textos } from '../../content/textos/tipos.ts';
+import { linkWhatsApp } from '../../lib/whatsapp.ts';
+import Botao from '../base/Botao.astro';
+import FotoAmbiente from '../base/FotoAmbiente.astro';
+import Icone from '../base/Icone.astro';
+import LigarAgora from '../base/LigarAgora.astro';
+import StatusHorario from '../base/StatusHorario.astro';
+import TabelaHorario from '../base/TabelaHorario.astro';
+import Verbete from '../verbete/Verbete.astro';
+import Mapa from './Mapa.astro';
+import Secao from './Secao.astro';
+
+const referencia = valorDe(clinica.pontoDeReferencia);
+const rotas = [
+  { href: clinica.links.googleMapsRota, rotulo: comoChegar.rotas.google },
+  { href: clinica.links.waze, rotulo: comoChegar.rotas.waze },
+  { href: clinica.links.appleMaps, rotulo: comoChegar.rotas.apple },
+];
+---
+
+<Secao id="como-chegar" data-secao-endereco>
+  <Verbete
+    palavra={endereco.verbete.palavra}
+    classe={endereco.verbete.classe}
+    acepcoes={textos(endereco.verbete.acepcoes)}
+    id="verbete-endereco"
+  />
+
+  <div class="endereco">
+    <div class="endereco__principal">
+      <EnderecoNap class="endereco__grande" />
+      <button type="button" class="copiar" data-copiar hidden>
+        {botoes.copiarEndereco}
+      </button>
+      <span class="copiar__aviso" aria-live="polite" data-copiar-aviso></span>
+      {referencia && <p class="referencia">{referencia}</p>}
+
+      <div class="horario">
+        <StatusHorario />
+        <TabelaHorario />
+      </div>
+
+      <div class="acoes">
+        <ul class="rotas" role="list" aria-label="Rotas até a clínica">
+          {rotas.map((r) => (
+            <li>
+              <a class="rota" href={r.href}>
+                <Icone nome="mapa" tamanho="1.3rem" />
+                {r.rotulo}
+                <span class="visualmente-oculto"> ({botoes.abreMapa})</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div class="contato">
+          <LigarAgora />
+          <Botao
+            href={linkWhatsApp(mensagensWhatsApp.comoChegar)}
+            icone="whatsapp"
+            variante="secundario"
+            dica={botoes.abreWhatsApp}
+          >
+            {botoes.whatsapp}
+          </Botao>
+        </div>
+      </div>
+    </div>
+
+    <div class="endereco__lado">
+      <FotoAmbiente
+        id="still-fachada-4x5"
+        alt={altDe('still-fachada-4x5')}
+        legenda="Fachada · Av. Dom Pedro II, 2700"
+        tom="salvia"
+        sizes="(min-width: 64rem) 32rem, 100vw"
+      />
+      <Mapa />
+    </div>
+  </div>
+</Secao>
+
+<script>
+  import { iniciarCopiar } from './copiar.ts';
+  iniciarCopiar();
+</script>
+
+<style>
+  .endereco {
+    display: grid;
+    gap: var(--e-7);
+    margin-top: var(--e-6);
+  }
+  .endereco__grande {
+    font-family: var(--fonte-serifa);
+    font-style: normal;
+    font-size: clamp(1.8rem, 1.3rem + 2vw, 2.8rem);
+    line-height: 1.2;
+    color: var(--texto-forte);
+  }
+  .copiar {
+    min-height: var(--alvo-min);
+    margin-top: var(--e-3);
+    padding: var(--e-2) var(--e-4);
+    border: 2px solid var(--cor-marinho);
+    border-radius: var(--raio-botao);
+    background: transparent;
+    color: var(--cor-marinho);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .copiar:hover {
+    background: var(--cor-papel);
+  }
+  .copiar[hidden] {
+    display: none;
+  }
+  .copiar__aviso {
+    display: block;
+    margin-top: var(--e-2);
+    font-weight: 700;
+    color: var(--texto-forte);
+  }
+  .horario {
+    display: grid;
+    gap: var(--e-4);
+    margin: var(--e-6) 0;
+  }
+  .acoes {
+    display: grid;
+    gap: var(--e-5);
+  }
+  .rotas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--e-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .rota {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--e-2);
+    min-height: var(--alvo-min);
+    padding: var(--e-2) var(--e-4);
+    border: var(--fio-fino) solid var(--fio-forte);
+    border-radius: var(--raio-botao);
+    color: var(--texto-forte);
+    font-weight: 700;
+    text-decoration: none;
+    background: var(--cor-papel);
+  }
+  .rota:hover {
+    text-decoration: underline;
+  }
+  .contato {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--e-4) var(--e-6);
+  }
+  @media (max-width: 20rem) {
+    .contato {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .contato > :global(*) {
+      max-width: 100%;
+    }
+    .contato :global(.ligar) {
+      margin-inline: 0;
+    }
+  }
+  .endereco__lado {
+    display: grid;
+    gap: var(--e-5);
+    align-content: start;
+  }
+  @media (min-width: 64rem) {
+    .endereco {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 32rem);
+    }
+  }
+</style>

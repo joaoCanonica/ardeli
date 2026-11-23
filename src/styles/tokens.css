@@ -1,0 +1,98 @@
+/*
+ * Tokens da Ardeli. Fonte única das cores: este arquivo.
+ * scripts/audit-contraste.mjs lê estes valores e verifica cada par de uso.
+ *
+ * Regras (CLAUDE.md §6):
+ * - Sálvia: marca, fios, ícones, áreas grandes. NUNCA texto pequeno sobre claro.
+ * - Sálvia escura: derivada da Sálvia (mesmo matiz e croma em OKLCH, luz
+ *   reduzida até 5,5:1 sobre Linho) → links.
+ * - Tijolo e Madeira: só cor de ambiente (fio de legenda de foto). Nunca chapado,
+ *   nunca fundo, nunca texto.
+ */
+
+:root {
+  /* ---------- cor ---------- */
+  --cor-linho: #f8f6f1; /* fundo */
+  --cor-papel: #ffffff; /* cartões */
+  --cor-marinho: #123048; /* títulos, texto forte, botão primário, fundo escuro */
+  --cor-marinho-profundo: #0a1d2c; /* hover/pressionado do botão primário */
+  --cor-ardosia: #434d58; /* texto */
+  --cor-salvia: #7b8261; /* marca, fios, ícones, áreas grandes */
+  --cor-salvia-escura: #606747; /* links (derivada; 5,51:1 sobre Linho) */
+  --cor-tijolo: #b5483f; /* só ambiente */
+  --cor-madeira: #b9773f; /* só ambiente */
+
+  /* Papéis (use estes nos componentes, não as cores cruas). */
+  --fundo: var(--cor-linho);
+  --fundo-cartao: var(--cor-papel);
+  --fundo-escuro: var(--cor-marinho);
+  --texto: var(--cor-ardosia);
+  --texto-forte: var(--cor-marinho);
+  --texto-sobre-escuro: var(--cor-linho);
+  --link: var(--cor-salvia-escura);
+  --link-hover: var(--cor-marinho);
+  --fio: var(--cor-salvia);
+  --fio-forte: var(--cor-ardosia);
+  --foco: var(--cor-marinho);
+  --foco-sobre-escuro: var(--cor-linho);
+  --veu: rgb(18 48 72 / 0.82); /* Marinho a 82% sobre foto: AAA (7,2:1) mesmo sobre pixel branco */
+
+  /* ---------- tipografia ---------- */
+  --fonte-serifa: var(--fonte-crimson), Georgia, serif;
+  --fonte-texto: var(--fonte-atkinson), Arial, sans-serif;
+
+  /* Escala (rem; html = 112,5% → 1rem = 18px no tamanho padrão do navegador). */
+  --texto-p: 0.8889rem; /* 16px: notas, legendas */
+  --texto-m: 1rem; /* 18px: corpo */
+  --texto-g: 1.1667rem; /* 21px: chamada */
+  --titulo-3: 1.4444rem; /* 26px */
+  --titulo-2: clamp(1.8rem, 1.4rem + 1.6vw, 2.6rem);
+  --verbete-nota: 1.5rem;
+  --verbete-secao: clamp(2.6rem, 1.9rem + 3vw, 4.4rem);
+  --verbete-capa: clamp(3.6rem, 2rem + 7vw, 7.5rem);
+  --entrelinha: 1.6;
+  --entrelinha-titulo: 1.1;
+  --medida: 64ch; /* largura máxima de leitura */
+
+  /* ---------- espaço ---------- */
+  --e-1: 0.25rem;
+  --e-2: 0.5rem;
+  --e-3: 0.75rem;
+  --e-4: 1rem;
+  --e-5: 1.5rem;
+  --e-6: 2rem;
+  --e-7: 3rem;
+  --e-8: 4.5rem;
+  --margem: clamp(1rem, 0.6rem + 2vw, 2.5rem);
+
+  /* ---------- forma ---------- */
+  --raio: 0.25rem;
+  --raio-botao: 0.375rem;
+  --fio-fino: 1px;
+  --alvo-min: 3rem; /* 48px no tamanho padrão (WCAG 2.5.8 pede 24px; 2.5.5 AAA pede 44px) */
+  --botao-altura: 3.5rem; /* 56px */
+
+  /* ---------- movimento (só realce) ---------- */
+  --duracao-curta: 200ms;
+  --duracao-media: 300ms;
+  --duracao-longa: 400ms;
+  --curva: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Alto contraste pedido pelo sistema: texto todo em Marinho, fios mais fortes, véu mais denso. */
+@media (prefers-contrast: more) {
+  :root {
+    --texto: var(--cor-marinho);
+    --link: var(--cor-marinho);
+    --fio: var(--cor-ardosia);
+    --veu: rgb(18 48 72 / 0.88);
+  }
+}
+
+/* Rede lenta (2G/3G) ou economia de dados: fonte do sistema, sem baixar as da marca.
+   Nunca troca no meio da leitura (as da marca não chegam a ser usadas): CLS 0.
+   Marcado por src/scripts/inline/tamanho.js antes da pintura. */
+html.rede-lenta {
+  --fonte-serifa: Georgia, 'Times New Roman', serif;
+  --fonte-texto: Roboto, 'Segoe UI', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+}

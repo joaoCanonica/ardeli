@@ -1,0 +1,34 @@
+---
+// Página com cabeçalho, abertura, capa (A ou B) e faixa de fatos.
+// Usada por "/" (capa A) e pelas rotas de comparação /_capa-a e /_capa-b (noindex).
+import Abertura from '../abertura/Abertura.astro';
+import Documento from '../base/Documento.astro';
+import Cabecalho from '../cabecalho/Cabecalho.astro';
+import CapaA from './CapaA.astro';
+import CapaB from './CapaB.astro';
+import FaixaFatos from './FaixaFatos.astro';
+
+interface Props {
+  variante: 'a' | 'b';
+  titulo?: string;
+  noindex?: boolean;
+}
+const {
+  variante,
+  titulo = 'Ardeli Fisioterapia · Fisioterapia no Brusque, em Lages',
+  noindex = false,
+} = Astro.props;
+---
+
+<Documento
+  titulo={titulo}
+  noindex={noindex}
+  descricao="Fisioterapia no bairro Brusque, em Lages (SC). Particular, Unimed e AAPL. Segunda a sexta, das 8h às 20h."
+>
+  <Abertura />
+  <Cabecalho />
+  <main id="conteudo" tabindex="-1">
+    {variante === 'a' ? <CapaA /> : <CapaB />}
+    <FaixaFatos />
+  </main>
+</Documento>

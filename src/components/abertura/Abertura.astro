@@ -1,0 +1,85 @@
+---
+// Abertura curtíssima (≤ 1,2 s), uma vez por sessão:
+//   0–650 ms   o #arco do símbolo se desenha (máscara com traço circular animado);
+//   350–850 ms a #figura e a #letra-a aparecem;
+//   850–1200 ms o símbolo voa até o logo do cabeçalho e o véu Linho some.
+// Não roda: sem JS, com prefers-reduced-motion, com Save-Data, sem sessionStorage,
+// ou se já rodou nesta sessão. Qualquer interação (toque, tecla, roda, rolagem) pula.
+// A capa já está pintada por baixo: a camada é só um <div> com SVG (não entra no LCP).
+// O script é inline e roda antes da primeira pintura, para não piscar a capa.
+import simboloBruto from '../marca/svg/ardeli-simbolo.svg?raw';
+import scriptAbertura from '../../scripts/inline/abertura.js?raw';
+
+// Geometria do arco no símbolo (medida no SVG): centro (1064,6; 766,9), raio 360–404,
+// do ângulo 63,5° ao 302,7° no sentido horário (239° de 360°).
+const mascara =
+  '<defs><mask id="abertura-mascara" maskUnits="userSpaceOnUse" x="600" y="300" width="900" height="950">' +
+  '<circle class="abertura__traco" cx="1064.6" cy="766.9" r="382" fill="none" stroke="#fff" stroke-width="84" ' +
+  'pathLength="360" stroke-dasharray="360 360" stroke-dashoffset="360" transform="rotate(63.5 1064.6 766.9)"/>' +
+  '</mask></defs>';
+const svg = simboloBruto
+  .replace('<svg ', '<svg aria-hidden="true" focusable="false" class="abertura__simbolo" ')
+  .replace(/(<svg[^>]*>)/, `$1${mascara}`)
+  .replace('id="arco"', 'id="arco" mask="url(#abertura-mascara)"');
+---
+
+<div id="abertura" class="abertura" aria-hidden="true" hidden set:html={svg} />
+
+<script is:inline set:html={scriptAbertura} />
+<style>
+  .abertura {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: grid;
+    place-items: center;
+    background: var(--fundo);
+    transition: background-color 330ms cubic-bezier(0.2, 0, 0, 1);
+    /* Segurança: some sozinha mesmo se o script parar. */
+    animation: abertura-sumir 0s linear 2s forwards;
+  }
+  .abertura[hidden] {
+    display: none;
+  }
+  .abertura--saindo {
+    background: transparent;
+  }
+  .abertura :global(.abertura__simbolo) {
+    width: min(38vmin, 13rem);
+    height: auto;
+    overflow: visible;
+  }
+  .abertura :global(.abertura__traco) {
+    animation: abertura-tracar 650ms cubic-bezier(0.45, 0, 0.2, 1) forwards;
+  }
+  .abertura :global(#figura) {
+    opacity: 0;
+    animation: abertura-aparecer 420ms cubic-bezier(0.2, 0, 0, 1) 350ms forwards;
+  }
+  .abertura :global(#letra-a) {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: abertura-aparecer 420ms cubic-bezier(0.2, 0, 0, 1) 430ms forwards;
+  }
+  @keyframes abertura-tracar {
+    to {
+      stroke-dashoffset: 121;
+    }
+  }
+  @keyframes abertura-aparecer {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes abertura-sumir {
+    to {
+      visibility: hidden;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .abertura {
+      display: none !important;
+    }
+  }
+</style>

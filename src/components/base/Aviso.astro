@@ -1,0 +1,60 @@
+---
+// Informação importante (ex.: regra de convênio, SUS). role="note": o leitor de
+// tela anuncia como observação. A importância está no texto e no ícone, não só na cor.
+import Icone from './Icone.astro';
+
+interface Props {
+  tipo?: 'informacao' | 'importante';
+  titulo?: string;
+  class?: string;
+}
+const { tipo = 'informacao', titulo, class: classe } = Astro.props;
+---
+
+<div class:list={['aviso', `aviso--${tipo}`, classe]} role="note">
+  <Icone nome={tipo === 'importante' ? 'atencao' : 'info'} tamanho="1.6rem" />
+  <div class="aviso__corpo">
+    {titulo && <p class="aviso__titulo">{titulo}</p>}
+    <slot />
+  </div>
+</div>
+
+<style>
+  .aviso {
+    display: flex;
+    gap: var(--e-4);
+    padding: var(--e-4) var(--e-5);
+    background: var(--fundo-cartao);
+    border-left: 4px solid var(--cor-salvia);
+    border-radius: 0 var(--raio) var(--raio) 0;
+    max-width: 44rem;
+  }
+  .aviso--importante {
+    border-left-color: var(--cor-marinho);
+  }
+  .aviso :global(.icone) {
+    color: var(--texto-forte);
+    margin-top: 0.1em;
+  }
+  .aviso__titulo {
+    font-weight: 700;
+    color: var(--texto-forte);
+    margin-bottom: var(--e-1);
+  }
+  .aviso__corpo > :global(:last-child) {
+    margin-bottom: 0;
+  }
+  @media (max-width: 20rem) {
+    .aviso {
+      flex-direction: column;
+      gap: var(--e-2);
+      padding: var(--e-3);
+    }
+  }
+  @media (forced-colors: active) {
+    .aviso {
+      border: 1px solid CanvasText;
+      border-left-width: 4px;
+    }
+  }
+</style>
