@@ -1,0 +1,110 @@
+---
+// /atendimentos/<id>: só atendimentos PUBLICADOS e confirmados ganham página.
+// Trava: publicado sem texto (ou sem confirmação) quebra o build.
+import Botao from '../../components/base/Botao.astro';
+import Detalhes from '../../components/base/Detalhes.astro';
+import FotoAmbiente from '../../components/base/FotoAmbiente.astro';
+import { atendimentos } from '../../content/dados/atendimentos.ts';
+import type { Atendimento } from '../../content/schemas.ts';
+import { textosAtendimentos, type TextoAtendimento } from '../../content/textos/atendimentos.ts';
+import { altDe, botoes } from '../../content/textos/microtextos.ts';
+import { linkWhatsApp, mensagens } from '../../lib/whatsapp.ts';
+import Pagina from '../_PaginaInterna.astro';
+
+export function getStaticPaths() {
+  return atendimentos
+    .filter((a) => a.publicado)
+    .map((a) => {
+      if (a.confirmacao.estado !== 'confirmado')
+        throw new Error(`atendimento ${a.id} publicado sem confirmação`);
+      const t = textosAtendimentos.find((x) => x.id === a.id);
+      if (!t)
+        throw new Error(
+          `atendimento ${a.id} publicado sem textos em src/content/textos/atendimentos.ts`,
+        );
+      return { params: { id: a.id }, props: { a, t } };
+    });
+}
+
+const { a, t } = Astro.props as { a: Atendimento; t: TextoAtendimento };
+const perguntas = t.perguntas.filter((p) => p.publicado);
+---
+
+<Pagina meta={t.meta} verbete={t.verbete}>
+  <div class="atendimento">
+    <div>
+      <section class="bloco" aria-labelledby="o-que-e">
+        <h2 id="o-que-e">O que é</h2>
+        {t.oQueE.map((fr) => (
+          <p>{fr.texto}</p>
+        ))}
+      </section>
+      <section class="bloco" aria-labelledby="para-quem">
+        <h2 id="para-quem">Para quem</h2>
+        <ul class="lista" role="list">
+          {t.paraQuem.map((fr) => (
+            <li>{fr.texto}</li>
+          ))}
+        </ul>
+      </section>
+      <section class="bloco" aria-labelledby="como-e">
+        <h2 id="como-e">Como é o atendimento na Ardeli</h2>
+        <ol class="lista" role="list">
+          {t.comoE.map((fr) => (
+            <li>{fr.texto}</li>
+          ))}
+        </ol>
+      </section>
+      {perguntas.length > 0 && (
+        <section class="bloco" aria-labelledby="perguntas">
+          <h2 id="perguntas">Perguntas comuns</h2>
+          {perguntas.map((p) => (
+            <Detalhes pergunta={p.pergunta}>
+              {p.resposta.map((fr) => (
+                <p>{fr.texto}</p>
+              ))}
+            </Detalhes>
+          ))}
+        </section>
+      )}
+      <div class="bloco">
+        <Botao
+          href={linkWhatsApp(mensagens.atendimento(a))}
+          icone="whatsapp"
+          dica={botoes.abreWhatsApp}
+        >
+          {botoes.agendar}
+        </Botao>
+      </div>
+    </div>
+    <FotoAmbiente
+      id="still-espaldar-4x5"
+      alt={altDe('still-espaldar-4x5')}
+      legenda="Ginásio de reabilitação"
+      tom="tijolo"
+      sizes="(min-width: 64rem) 22rem, 100vw"
+      class="atendimento__foto"
+    />
+  </div>
+</Pagina>
+
+<style>
+  .atendimento {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--e-7);
+  }
+  .atendimento :global(.atendimento__foto) {
+    max-width: 22rem;
+  }
+  @media (min-width: 64rem) {
+    .atendimento {
+      grid-template-columns: minmax(0, 1fr) 22rem;
+      align-items: start;
+    }
+    .atendimento :global(.atendimento__foto) {
+      position: sticky;
+      top: 6rem;
+    }
+  }
+</style>

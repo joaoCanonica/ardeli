@@ -1,0 +1,56 @@
+---
+// 404: verbete "desvio" e caminhos de volta. Sempre fora do índice.
+import Botao from '../components/base/Botao.astro';
+import { botoes, mensagensWhatsApp } from '../content/textos/microtextos.ts';
+import { naoEncontrada as n } from '../content/textos/paginas.ts';
+import { linkWhatsApp } from '../lib/whatsapp.ts';
+import Pagina from './_PaginaInterna.astro';
+
+const caminhos = [
+  { href: '/convenios', rotulo: 'Convênios' },
+  { href: '/atendimentos', rotulo: 'Atendimentos' },
+  { href: '/primeira-avaliacao', rotulo: 'Primeira avaliação' },
+  { href: '/como-chegar', rotulo: 'Como chegar' },
+  { href: '/perguntas-frequentes', rotulo: 'Perguntas frequentes' },
+];
+---
+
+<Pagina meta={n.meta} verbete={n.verbete} h1="Página não encontrada" noindex botaoFixo={false}>
+  <ul class="caminhos" role="list">
+    {caminhos.map((c) => (
+      <li>
+        <a href={c.href}>{c.rotulo}</a>
+      </li>
+    ))}
+  </ul>
+  <div class="acoes">
+    <Botao href="/" variante="secundario">
+      {n.inicio}
+    </Botao>
+    <Botao href={linkWhatsApp(mensagensWhatsApp.geral)} icone="whatsapp" dica={botoes.abreWhatsApp}>
+      {botoes.whatsapp}
+    </Botao>
+  </div>
+</Pagina>
+
+<style>
+  .caminhos {
+    display: grid;
+    gap: var(--e-2);
+    margin: 0 0 var(--e-6);
+    padding: 0;
+    list-style: none;
+  }
+  .caminhos a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--alvo-min);
+    font-size: var(--texto-g);
+    font-weight: 700;
+  }
+  .acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--e-4);
+  }
+</style>

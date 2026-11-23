@@ -1,0 +1,25 @@
+---
+// /perguntas-frequentes: <details> grandes, agrupados. Pergunta pendente fica fora.
+import Detalhes from '../components/base/Detalhes.astro';
+import { faq, grupos } from '../content/textos/faq.ts';
+import Pagina from './_PaginaInterna.astro';
+
+const publicados = grupos
+  .map((g) => ({ ...g, perguntas: g.perguntas.filter((p) => p.publicado) }))
+  .filter((g) => g.perguntas.length > 0);
+---
+
+<Pagina meta={faq.meta} verbete={faq.verbete}>
+  {publicados.map((g, i) => (
+    <section class="bloco" aria-labelledby={`grupo-${i}`}>
+      <h2 id={`grupo-${i}`}>{g.titulo}</h2>
+      {g.perguntas.map((p) => (
+        <Detalhes pergunta={p.pergunta}>
+          {p.resposta.map((fr) => (
+            <p>{fr.texto}</p>
+          ))}
+        </Detalhes>
+      ))}
+    </section>
+  ))}
+</Pagina>

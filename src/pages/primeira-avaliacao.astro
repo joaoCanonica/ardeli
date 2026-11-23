@@ -1,0 +1,207 @@
+---
+// /primeira-avaliacao: passos numerados grandes, duração (só se confirmada), checklist
+// "o que levar" para imprimir (@media print), roupa e acessibilidade.
+import Aviso from '../components/base/Aviso.astro';
+import Botao from '../components/base/Botao.astro';
+import { botoes, mensagensWhatsApp } from '../content/textos/microtextos.ts';
+import { primeiraAvaliacao as pa } from '../content/textos/paginas.ts';
+import { linkWhatsApp } from '../lib/whatsapp.ts';
+import Pagina from './_PaginaInterna.astro';
+
+// Duração: só com confirmação (as frases condicionais ficam de fora até lá).
+const duracaoConfirmada = pa.duracao.texto.filter((fr) => !fr.exige);
+---
+
+<Pagina meta={pa.meta} verbete={pa.verbete}>
+  <ol class="passos" role="list" aria-label="Passo a passo da primeira avaliação">
+    {pa.passos.map((p, i) => (
+      <li class="passo">
+        <span class="passo__n num" aria-hidden="true">
+          {i + 1}
+        </span>
+        <div>
+          <h2 class="passo__titulo">
+            <span class="visualmente-oculto">Passo {i + 1}: </span>
+            {p.titulo}
+          </h2>
+          {p.texto.map((fr) => (
+            <p>{fr.texto}</p>
+          ))}
+        </div>
+      </li>
+    ))}
+  </ol>
+
+  <section class="bloco nao-imprimir" aria-labelledby="duracao">
+    <h2 id="duracao">{pa.duracao.titulo}</h2>
+    {duracaoConfirmada.length ? (
+      duracaoConfirmada.map((fr) => <p>{fr.texto}</p>)
+    ) : (
+      <p>{pa.duracao.sePendente.texto}</p>
+    )}
+  </section>
+
+  <section class="bloco checklist" aria-labelledby="o-que-levar">
+    <h2 id="o-que-levar">{pa.oQueLevar.titulo}</h2>
+    <ul class="checklist__itens" role="list">
+      {pa.oQueLevar.itens.map((fr) => (
+        <li>
+          <span class="checklist__caixa" aria-hidden="true" />
+          {fr.texto}
+        </li>
+      ))}
+    </ul>
+    <button type="button" class="imprimir nao-imprimir" data-imprimir hidden>
+      {pa.oQueLevar.imprimir}
+    </button>
+    <p class="so-impressao">
+      Ardeli Fisioterapia · Av. Dom Pedro II, 2700 · Brusque, Lages · (49) 99928-1721
+    </p>
+  </section>
+
+  <section class="bloco nao-imprimir" aria-labelledby="roupa">
+    <h2 id="roupa">{pa.roupa.titulo}</h2>
+    {pa.roupa.texto.map((fr) => (
+      <p>{fr.texto}</p>
+    ))}
+  </section>
+
+  <section class="bloco nao-imprimir" aria-labelledby="acessibilidade">
+    <h2 id="acessibilidade">{pa.acessibilidade.titulo}</h2>
+    <Aviso>
+      <p>{pa.acessibilidade.sePendente.texto}</p>
+    </Aviso>
+  </section>
+
+  <div class="bloco nao-imprimir">
+    <Botao
+      href={linkWhatsApp(mensagensWhatsApp.agendar)}
+      icone="whatsapp"
+      dica={botoes.abreWhatsApp}
+    >
+      {botoes.agendar}
+    </Botao>
+  </div>
+</Pagina>
+
+<script>
+  const b = document.querySelector<HTMLButtonElement>('[data-imprimir]');
+  if (b && 'print' in window) {
+    b.hidden = false;
+    b.addEventListener('click', () => window.print());
+  }
+</script>
+
+<style>
+  .passos {
+    display: grid;
+    gap: var(--e-6);
+    margin: 0 0 var(--e-7);
+    padding: 0;
+    list-style: none;
+    counter-reset: none;
+  }
+  .passo {
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    gap: var(--e-5);
+    align-items: start;
+  }
+  .passo__n {
+    display: grid;
+    place-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    background: var(--cor-marinho);
+    color: var(--cor-linho);
+    font-family: var(--fonte-serifa);
+    font-size: 2.2rem;
+    font-weight: 500;
+  }
+  .passo__titulo {
+    margin: 0.6rem 0 var(--e-2);
+    font-size: var(--titulo-2);
+    overflow-wrap: anywhere;
+  }
+  .passo p {
+    margin-bottom: var(--e-2);
+  }
+  .checklist__itens {
+    margin: 0 0 var(--e-5);
+    padding: 0;
+    list-style: none;
+  }
+  .checklist__itens li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--e-3);
+    padding: var(--e-3) 0;
+    border-bottom: var(--fio-fino) solid var(--fio);
+    font-size: var(--texto-g);
+  }
+  .checklist__caixa {
+    flex: none;
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-top: 0.15em;
+    border: 2px solid var(--cor-marinho);
+    border-radius: 3px;
+  }
+  .imprimir {
+    min-height: var(--alvo-min);
+    padding: var(--e-2) var(--e-5);
+    border: 2px solid var(--cor-marinho);
+    border-radius: var(--raio-botao);
+    background: transparent;
+    color: var(--cor-marinho);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .imprimir[hidden] {
+    display: none;
+  }
+  .so-impressao {
+    display: none;
+  }
+  @media (max-width: 20rem) {
+    .passo {
+      grid-template-columns: 3rem minmax(0, 1fr);
+      gap: var(--e-3);
+    }
+    .passo__n {
+      width: 3rem;
+      height: 3rem;
+      font-size: 1.5rem;
+    }
+  }
+  @media print {
+    .passos {
+      gap: var(--e-3);
+    }
+    .passo__n {
+      background: none;
+      color: #000;
+      border: 2px solid #000;
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 1.3rem;
+    }
+    .passo {
+      grid-template-columns: 2.5rem 1fr;
+      break-inside: avoid;
+    }
+    .checklist {
+      break-inside: avoid;
+      border-top: 2px solid #000;
+    }
+    .checklist__caixa {
+      border-color: #000;
+    }
+    .so-impressao {
+      display: block;
+      margin-top: var(--e-4);
+    }
+  }
+</style>

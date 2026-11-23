@@ -1,0 +1,137 @@
+---
+// Casca das páginas internas (o "_" no nome impede o Astro de criar rota):
+// cabeçalho, H1 real + verbete de abertura, conteúdo, rodapé (Art. 48) e botão fixo.
+import Documento from '../components/base/Documento.astro';
+import Cabecalho from '../components/cabecalho/Cabecalho.astro';
+import BotaoFixoAgendar from '../components/secoes/BotaoFixoAgendar.astro';
+import Rodape from '../components/secoes/Rodape.astro';
+import type { Frase, Meta, VerbeteTexto } from '../content/textos/tipos.ts';
+import { textos } from '../content/textos/tipos.ts';
+import Verbete from '../components/verbete/Verbete.astro';
+
+interface Props {
+  meta: Meta;
+  /** H1 (padrão: o title sem o sufixo depois de "·"). */
+  h1?: string;
+  verbete: VerbeteTexto;
+  /** Parágrafo logo abaixo do verbete. */
+  introducao?: Frase;
+  botaoFixo?: boolean;
+  noindex?: boolean;
+}
+const {
+  meta,
+  h1 = meta.titulo.split(' · ')[0] ?? meta.titulo,
+  verbete,
+  introducao,
+  botaoFixo = true,
+  noindex = false,
+} = Astro.props;
+const id = `pagina-${verbete.palavra.normalize('NFD').replace(/\p{Diacritic}/gu, '')}`;
+---
+
+<Documento titulo={meta.titulo} descricao={meta.descricao} noindex={noindex}>
+  <slot name="head" slot="head" />
+  <Cabecalho />
+  <main id="conteudo" tabindex="-1" class="interna">
+    <header class="interna__abertura">
+      <div class="interna__dentro">
+        <Verbete
+          palavra={verbete.palavra}
+          classe={verbete.classe}
+          acepcoes={textos(verbete.acepcoes)}
+          nivel="p"
+          id={id}
+        >
+          <h1 slot="antes" class="interna__h1">
+            {h1}
+          </h1>
+        </Verbete>
+        {introducao && <p class="interna__intro">{introducao.texto}</p>}
+      </div>
+    </header>
+    <div class="interna__dentro interna__corpo">
+      <slot />
+    </div>
+  </main>
+  <Rodape />
+  {botaoFixo && <BotaoFixoAgendar />}
+</Documento>
+
+<style>
+  .interna__abertura {
+    padding-block: var(--e-7) var(--e-6);
+    border-bottom: var(--fio-fino) solid var(--fio);
+  }
+  .interna__dentro {
+    max-width: 78rem;
+    margin-inline: auto;
+    padding-inline: var(--margem);
+  }
+  .interna__corpo {
+    padding-block: var(--e-7) var(--e-8);
+  }
+  .interna :global(.interna__h1) {
+    margin: 0 0 var(--e-4);
+    font-family: var(--fonte-texto);
+    font-size: var(--texto-g);
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--texto-forte);
+  }
+  .interna__intro {
+    margin-top: var(--e-5);
+    font-size: var(--texto-g);
+  }
+  /* Blocos de conteúdo das páginas internas. */
+  .interna :global(.bloco) {
+    padding-block: var(--e-6);
+    border-top: var(--fio-fino) solid var(--fio);
+    scroll-margin-top: 5rem;
+  }
+  .interna :global(.bloco:first-child) {
+    border-top: 0;
+    padding-top: 0;
+  }
+  .interna :global(.bloco > h2) {
+    font-size: var(--titulo-2);
+  }
+  .interna :global(.lista) {
+    margin: 0 0 var(--e-4);
+    padding-left: 1.1em;
+  }
+  .interna :global(.lista li + li) {
+    margin-top: var(--e-2);
+  }
+
+  @media print {
+    .interna__abertura {
+      padding-block: 0 var(--e-4);
+    }
+  }
+</style>
+
+<style is:global>
+  @media print {
+    .cab,
+    .cab-sentinela,
+    .pular,
+    .faixa-revisao,
+    .fixo,
+    .fixo-respiro,
+    .rodape,
+    .nao-imprimir,
+    .botao {
+      display: none !important;
+    }
+    html,
+    body {
+      background: #fff !important;
+      color: #000 !important;
+      font-size: 12pt;
+    }
+    a {
+      color: #000 !important;
+    }
+  }
+</style>
