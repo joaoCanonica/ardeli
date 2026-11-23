@@ -5,11 +5,17 @@ import CartaoProfissional from '../components/base/CartaoProfissional.astro';
 import { profissionais } from '../content/dados/profissionais.ts';
 import { quemCuida as q } from '../content/textos/paginas.ts';
 import Pagina from './_PaginaInterna.astro';
+import { aberturas } from '../content/textos/respostas.ts';
 
 const ordem = [...profissionais].sort((a, b) => a.ordem - b.ordem);
 ---
 
-<Pagina meta={q.meta} verbete={q.verbete}>
+<Pagina
+  meta={q.meta}
+  verbete={q.verbete}
+  h1={aberturas.quemCuida.h1}
+  resposta={aberturas.quemCuida.resposta}
+>
   <div class="cartoes">
     {ordem.map((p) => (
       <CartaoProfissional profissional={p} nivel={2} />

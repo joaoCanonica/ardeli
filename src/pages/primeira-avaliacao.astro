@@ -1,18 +1,26 @@
 ---
 // /primeira-avaliacao: passos numerados grandes, duração (só se confirmada), checklist
 // "o que levar" para imprimir (@media print), roupa e acessibilidade.
+import { nap } from '../lib/seo/nap.ts';
 import Aviso from '../components/base/Aviso.astro';
 import Botao from '../components/base/Botao.astro';
 import { botoes, mensagensWhatsApp } from '../content/textos/microtextos.ts';
 import { primeiraAvaliacao as pa } from '../content/textos/paginas.ts';
 import { linkWhatsApp } from '../lib/whatsapp.ts';
 import Pagina from './_PaginaInterna.astro';
+import { aberturas } from '../content/textos/respostas.ts';
 
 // Duração: só com confirmação (as frases condicionais ficam de fora até lá).
 const duracaoConfirmada = pa.duracao.texto.filter((fr) => !fr.exige);
+const n = nap();
 ---
 
-<Pagina meta={pa.meta} verbete={pa.verbete}>
+<Pagina
+  meta={pa.meta}
+  verbete={pa.verbete}
+  h1={aberturas.primeiraAvaliacao.h1}
+  resposta={aberturas.primeiraAvaliacao.resposta}
+>
   <ol class="passos" role="list" aria-label="Passo a passo da primeira avaliação">
     {pa.passos.map((p, i) => (
       <li class="passo">
@@ -55,7 +63,8 @@ const duracaoConfirmada = pa.duracao.texto.filter((fr) => !fr.exige);
       {pa.oQueLevar.imprimir}
     </button>
     <p class="so-impressao">
-      Ardeli Fisioterapia · Av. Dom Pedro II, 2700 · Brusque, Lages · (49) 99928-1721
+      <span data-nap="nome">{n.nome}</span> · <span data-nap="endereco">{n.endereco}</span> ·
+      <span data-nap="telefone">{n.telefone}</span>
     </p>
   </section>
 

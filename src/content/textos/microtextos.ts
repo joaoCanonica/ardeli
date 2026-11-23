@@ -1,4 +1,5 @@
 // Microtextos: botões, mensagens de WhatsApp, alt das imagens, rodapé (Art. 48) e meta da home.
+import { nap } from '../../lib/seo/nap.ts';
 import { clinica } from '../../config/clinica.ts';
 import { valorDe } from '../../config/tipos.ts';
 import { montarPedido } from '../../lib/agenda.ts';
@@ -164,13 +165,12 @@ export function altDe(idImagem: string): string {
 
 // ---------- rodapé (COFFITO Art. 48: nome, "Fisioterapeuta" e nº de inscrição) ----------
 export function rodape() {
-  const end = valorDe(clinica.endereco);
-  const tel = valorDe(clinica.telefone);
   const regiao = valorDe(clinica.empresa.regiaoCrefito) ?? '10';
+  const n = nap();
   return {
-    nome: 'Ardeli Fisioterapia',
-    endereco: end?.linha ?? '',
-    telefone: tel?.exibicao ?? '',
+    nome: n.nome,
+    endereco: n.endereco,
+    telefone: n.telefone,
     horario: 'Segunda a sexta, das 8h às 20h',
     instagram: '@ardeli_fisioterapia',
     profissionais: [...profissionais]

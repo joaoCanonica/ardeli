@@ -21,10 +21,10 @@ const tel = valorDe(clinica.telefone);
         class="rodape__logo"
       />
       <address class="rodape__contato">
-        {r.endereco}
+        <span data-nap="endereco">{r.endereco}</span>
         <br />
         {tel && (
-          <a href={`tel:${tel.e164}`} class="num">
+          <a href={`tel:${tel.e164}`} class="num" data-nap="telefone">
             {r.telefone}
           </a>
         )}

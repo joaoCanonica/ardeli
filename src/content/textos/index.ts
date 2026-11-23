@@ -14,6 +14,7 @@ import {
   privacidade,
   quemCuida,
 } from './paginas.ts';
+import { aberturas } from './respostas.ts';
 import type { Frase, Meta } from './tipos.ts';
 
 export * from './tipos.ts';
@@ -34,6 +35,7 @@ export const textosDoSite = {
   microtextos: { botoes, alts, rodape: rodape() },
   metaHome,
   agendador,
+  aberturas,
 };
 
 export interface FraseColhida extends Frase {

@@ -7,6 +7,8 @@ import { CONFIRME, condicional, f, type Frase, type Meta, type VerbeteTexto } fr
 export interface TextoConvenio {
   readonly id: 'particular' | 'unimed' | 'aapl' | 'sus';
   readonly titulo: string;
+  /** Título da seção em /convenios, como a pessoa pergunta (busca real). */
+  readonly pergunta?: string;
   readonly resumo: Frase;
   readonly quemPodeUsar: readonly Frase[];
   readonly oQueLevar: readonly Frase[];
@@ -67,6 +69,7 @@ export const textosConvenios: readonly TextoConvenio[] = [
   {
     id: 'unimed',
     titulo: 'Unimed Lages',
+    pergunta: 'A Ardeli atende Unimed?',
     resumo: f('A Ardeli atende pacientes da Unimed.', 'postUnimed'),
     quemPodeUsar: [
       f('Quem tem plano Unimed.', 'postUnimed'),
@@ -85,6 +88,7 @@ export const textosConvenios: readonly TextoConvenio[] = [
   {
     id: 'aapl',
     titulo: 'AAPL',
+    pergunta: 'Fisioterapia para aposentados da AAPL em Lages',
     resumo: f(
       'A Ardeli é credenciada pela AAPL, a Associação dos Aposentados e Pensionistas de Lages.',
       'postAapl',

@@ -11,6 +11,8 @@ import { altDe } from '../content/textos/microtextos.ts';
 import { aClinica as c } from '../content/textos/paginas.ts';
 import { textos } from '../content/textos/tipos.ts';
 import Pagina from './_PaginaInterna.astro';
+import { aberturas } from '../content/textos/respostas.ts';
+import { noTour } from '../lib/seo/jsonld.ts';
 
 const v720 = video('tour-720p');
 const v540 = video('tour-540p');
@@ -62,7 +64,21 @@ const ambientes = [
 ] as const;
 ---
 
-<Pagina meta={c.meta} verbete={c.verbete}>
+<Pagina
+  meta={c.meta}
+  verbete={c.verbete}
+  h1={aberturas.aClinica.h1}
+  resposta={aberturas.aClinica.resposta}
+  nosExtras={[
+    noTour({
+      mp4: v720.mp4,
+      duracao: v720.duracao,
+      poster: poster ?? '',
+      largura: v720.largura,
+      altura: v720.altura,
+    }),
+  ]}
+>
   <section class="bloco tour-pagina" aria-labelledby="tour" data-tour data-poster={poster}>
     <h2 id="tour">{c.video.rotulo.replace('Ver o ', 'O ')}</h2>
     <p>{c.video.aviso.texto}</p>

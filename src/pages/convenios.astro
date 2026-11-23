@@ -9,6 +9,7 @@ import { botoes, mensagensWhatsApp } from '../content/textos/microtextos.ts';
 import { montarPedido, type Forma } from '../lib/agenda.ts';
 import { linkWhatsApp } from '../lib/whatsapp.ts';
 import Pagina from './_PaginaInterna.astro';
+import { aberturas } from '../content/textos/respostas.ts';
 
 const blocos = textosConvenios.map((t) => {
   const dados = convenios.find((c) => c.id === t.id);
@@ -30,6 +31,8 @@ const blocos = textosConvenios.map((t) => {
 
 <Pagina
   meta={paginaConvenios.meta}
+  h1={aberturas.convenios.h1}
+  resposta={aberturas.convenios.resposta}
   verbete={paginaConvenios.verbete}
   introducao={paginaConvenios.introducao}
 >
@@ -51,7 +54,7 @@ const blocos = textosConvenios.map((t) => {
 
   {blocos.map((b) => (
     <section class="bloco convenio" id={b.id} aria-labelledby={`${b.id}-titulo`}>
-      <h2 id={`${b.id}-titulo`}>{b.titulo}</h2>
+      <h2 id={`${b.id}-titulo`}>{b.pergunta ?? b.titulo}</h2>
       {b.confirmado ? (
         <>
           <p class="convenio__resumo">{b.resumo.texto}</p>

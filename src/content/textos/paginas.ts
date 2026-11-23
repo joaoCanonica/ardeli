@@ -1,6 +1,11 @@
 // Textos das páginas internas: primeira avaliação, quem cuida, a clínica, como chegar,
 // avaliar (QR), privacidade e 404.
+import { clinica } from '../../config/clinica.ts';
+import { valorDe } from '../../config/tipos.ts';
 import { CONFIRME, condicional, f, type Frase, type Meta, type VerbeteTexto } from './tipos.ts';
+
+/** Endereço em uma linha, igual ao da config (NAP). */
+const LINHA_ENDERECO = valorDe(clinica.endereco)?.linha ?? '';
 
 // ---------- /primeira-avaliacao ----------
 export const primeiraAvaliacao = {
@@ -218,8 +223,7 @@ export const aClinica = {
 export const comoChegar = {
   meta: {
     titulo: 'Como chegar à Ardeli Fisioterapia · Brusque, Lages',
-    descricao:
-      'Ardeli Fisioterapia: Av. Dom Pedro II, 2700, bairro Brusque, Lages (SC). Segunda a sexta, das 8h às 20h. Rotas pelo Google Maps, Waze e Apple Mapas.',
+    descricao: `Ardeli Fisioterapia: ${LINHA_ENDERECO}. Segunda a sexta, das 8h às 20h. Rotas pelo Google Maps, Waze e Apple Mapas.`,
   } satisfies Meta,
   verbete: {
     palavra: 'endereço',
@@ -256,7 +260,7 @@ export const avaliar = {
       'Aponte a câmera do celular para o código e toque no link que aparecer.',
       'orientacao',
     ),
-    rodape: f('Ardeli Fisioterapia · Av. Dom Pedro II, 2700 · Brusque, Lages', 'google'),
+    rodape: f(`Ardeli Fisioterapia · ${LINHA_ENDERECO}`, 'google'),
   },
   redirecionando: f('Abrindo a página da Ardeli no Google…', 'site'),
   seNaoAbrir: 'Se não abrir sozinho, toque aqui',
@@ -353,7 +357,7 @@ export const privacidade = {
       titulo: 'Quem é responsável',
       texto: [
         f(
-          'Ardeli Fisioterapia (60.246.544 Andriele da Silva), Av. Dom Pedro II, 2700, Brusque, Lages (SC).',
+          `Ardeli Fisioterapia (60.246.544 Andriele da Silva), ${LINHA_ENDERECO}.`,
           'cnes',
           'crefito',
           'google',

@@ -4,11 +4,17 @@ import Icone from '../../components/base/Icone.astro';
 import { atendimentos } from '../../content/dados/atendimentos.ts';
 import { paginaAtendimentos } from '../../content/textos/atendimentos.ts';
 import Pagina from '../_PaginaInterna.astro';
+import { aberturas } from '../../content/textos/respostas.ts';
 
 const publicados = atendimentos.filter((a) => a.publicado).sort((a, b) => a.ordem - b.ordem);
 ---
 
-<Pagina meta={paginaAtendimentos.meta} verbete={paginaAtendimentos.verbete}>
+<Pagina
+  meta={paginaAtendimentos.meta}
+  verbete={paginaAtendimentos.verbete}
+  h1={aberturas.atendimentos.h1}
+  resposta={aberturas.atendimentos.resposta}
+>
   <ul class="lista-atendimentos" role="list">
     {publicados.map((a) => (
       <li>

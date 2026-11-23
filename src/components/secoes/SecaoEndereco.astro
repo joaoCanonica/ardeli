@@ -1,6 +1,7 @@
 ---
 // ENDEREÇO (Linho). Gesto: o endereço grande, com copiar. Fachada, horário com status,
 // mapa (interativo só com consentimento), rotas, ligar e WhatsApp.
+import EnderecoNap from '../base/EnderecoNap.astro';
 import { clinica } from '../../config/clinica.ts';
 import { valorDe } from '../../config/tipos.ts';
 import { endereco } from '../../content/textos/home.ts';
@@ -18,7 +19,6 @@ import Verbete from '../verbete/Verbete.astro';
 import Mapa from './Mapa.astro';
 import Secao from './Secao.astro';
 
-const end = valorDe(clinica.endereco);
 const referencia = valorDe(clinica.pontoDeReferencia);
 const rotas = [
   { href: clinica.links.googleMapsRota, rotulo: comoChegar.rotas.google },
@@ -37,12 +37,7 @@ const rotas = [
 
   <div class="endereco">
     <div class="endereco__principal">
-      <address class="endereco__grande" data-endereco-texto={end?.linha}>
-        {end?.logradouro}, {end?.numero}
-        <br />
-        {end?.bairro} · {end?.cidade} ({end?.uf})<br />
-        <span class="num">CEP {end?.cep}</span>
-      </address>
+      <EnderecoNap class="endereco__grande" />
       <button type="button" class="copiar" data-copiar hidden>
         {botoes.copiarEndereco}
       </button>

@@ -3,6 +3,7 @@
 // o mapa interativo do Google (o iframe não carrega nada antes do consentimento).
 // Sem imagem estática ainda (os servidores de mapa estão bloqueados no ambiente de build):
 // mostra um painel com o endereço e o código do Google, sem desenhar mapa inventado.
+import { nap } from '../../lib/seo/nap.ts';
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { clinica } from '../../config/clinica.ts';
@@ -21,7 +22,7 @@ const plus = valorDe(clinica.plusCode);
 const embed = geo ? `https://www.google.com/maps?q=${geo.lat},${geo.lng}&z=16&output=embed` : '';
 ---
 
-<div class="mapa" data-mapa data-embed={embed}>
+<div class="mapa" data-mapa data-embed={embed} data-endereco={nap().endereco}>
   <div class="mapa__quadro" data-mapa-quadro>
     {estatico ? (
       <Image

@@ -10,6 +10,7 @@ import { textosAtendimentos, type TextoAtendimento } from '../../content/textos/
 import { altDe, botoes } from '../../content/textos/microtextos.ts';
 import { linkWhatsApp, mensagens } from '../../lib/whatsapp.ts';
 import Pagina from '../_PaginaInterna.astro';
+import { aberturas, type Abertura } from '../../content/textos/respostas.ts';
 
 export function getStaticPaths() {
   return atendimentos
@@ -28,9 +29,16 @@ export function getStaticPaths() {
 
 const { a, t } = Astro.props as { a: Atendimento; t: TextoAtendimento };
 const perguntas = t.perguntas.filter((p) => p.publicado);
+const abertura = (aberturas as Record<string, Abertura | undefined>)[a.id];
+const h1 = abertura?.h1 ?? t.meta.titulo.split(' · ')[0] ?? a.nomeCurto;
+const migalhas = [
+  { nome: 'Início', caminho: '/' },
+  { nome: 'Atendimentos', caminho: '/atendimentos/' },
+  { nome: h1, caminho: `/atendimentos/${a.id}/` },
+];
 ---
 
-<Pagina meta={t.meta} verbete={t.verbete}>
+<Pagina meta={t.meta} verbete={t.verbete} h1={h1} resposta={abertura?.resposta} migalhas={migalhas}>
   <div class="atendimento">
     <div>
       <section class="bloco" aria-labelledby="o-que-e">

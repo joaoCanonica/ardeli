@@ -85,7 +85,21 @@ export const clinica = {
     }) as Campo<string>,
   },
 
-  dominio: opcional<string>(null),
+  /**
+   * Domínio definitivo (ex.: "https://ardelifisioterapia.com.br"), sem barra no fim.
+   * Sem ele não há canonical, og:url, og:image absoluta, sitemap nem medição:
+   * trava a produção (o preview funciona com URLs relativas).
+   */
+  dominio: bloqueante(
+    'domínio definitivo do site (canonical, Open Graph, sitemap)',
+  ) as Campo<string>,
+
+  /** Tour em vídeo: data em que foi publicado no site (VideoObject.uploadDate). */
+  tourPublicadoEm: aviso(
+    'data de publicação do tour',
+    'hoje é a data em que o vídeo entrou no repositório (commit "midia"); trocar pela data de lançamento do site',
+    '2026-11-22',
+  ),
 };
 
 export type Clinica = typeof clinica;

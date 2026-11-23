@@ -25,7 +25,7 @@ export function iniciarMapa(): void {
     const carregar = () => {
       const f = document.createElement('iframe');
       f.src = m.dataset.embed ?? '';
-      f.title = 'Mapa interativo: Ardeli Fisioterapia, Av. Dom Pedro II, 2700, Lages';
+      f.title = `Mapa interativo: Ardeli Fisioterapia, ${m.dataset.endereco ?? 'Lages'}`;
       f.loading = 'lazy';
       f.referrerPolicy = 'no-referrer-when-downgrade';
       quadro.replaceChildren(f);

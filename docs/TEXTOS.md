@@ -1,6 +1,6 @@
 # Textos do site — para revisão
 
-Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 206 frases, 201 rótulos.
+Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 216 frases, 213 rótulos.
 
 - **[guardado]** = escrito, mas fora do site até a confirmação (ex.: SUS, duração da sessão) ou numa pergunta não publicada.
 - Fontes entre colchetes; a lista completa está no fim.
@@ -18,7 +18,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 206 fr
 | quem-cuida | Quem cuida: fisioterapeutas da Ardeli em Lages (46) | Quem cuida de você na Ardeli Fisioterapia, no Brusque, em Lages: Andriele da Silva, que atende na cidade desde 2018, e Nicole de Abreu Batista. (143) |
 | a-clinica | Conheça a clínica de fisioterapia no Brusque · Ardeli (53) | Veja por dentro a Ardeli Fisioterapia, no bairro Brusque, em Lages: recepção, ginásio de reabilitação, sala de esteira e bikes e dois consultórios. (147) |
 | perguntas-frequentes | Perguntas frequentes · Ardeli Fisioterapia, Lages (49) | Dúvidas sobre a Ardeli Fisioterapia, no bairro Brusque, em Lages: atende Unimed? Atende aposentados da AAPL? Como agendar a avaliação? Onde fica? (145) |
-| como-chegar | Como chegar à Ardeli Fisioterapia · Brusque, Lages (50) | Ardeli Fisioterapia: Av. Dom Pedro II, 2700, bairro Brusque, Lages (SC). Segunda a sexta, das 8h às 20h. Rotas pelo Google Maps, Waze e Apple Mapas. (148) |
+| como-chegar | Como chegar à Ardeli Fisioterapia · Brusque, Lages (50) | Ardeli Fisioterapia: Av. Dom Pedro II, 2700 – Brusque, Lages – SC, 88503-062. Segunda a sexta, das 8h às 20h. Rotas pelo Google Maps, Waze e Apple Mapas. (153) |
 | avaliar | Avalie a Ardeli Fisioterapia no Google (38) | Foi atendido na Ardeli Fisioterapia, no Brusque, em Lages? Conte como foi no Google. Sua opinião ajuda outras pessoas a encontrarem cuidado perto de casa. (154) |
 | privacidade | Privacidade · Ardeli Fisioterapia (33) | Como o site da Ardeli Fisioterapia, em Lages, trata seus dados: sem cadastro e sem guardar nada sobre sua saúde. A mensagem sai do seu celular. (143) |
 | agendar | Agendar avaliação de fisioterapia · Ardeli, Lages (49) | Agende sua avaliação de fisioterapia na Ardeli, no Brusque, em Lages: particular, Unimed ou AAPL. Escolha o período e envie pelo WhatsApp. (138) |
@@ -274,7 +274,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 206 fr
 
 - Sua opinião ajuda outras pessoas a encontrarem cuidado perto de casa. <sub>[prompt] · `avaliar.qr.frase`</sub>
 - Aponte a câmera do celular para o código e toque no link que aparecer. <sub>[orientacao] · `avaliar.qr.instrucao`</sub>
-- Ardeli Fisioterapia · Av. Dom Pedro II, 2700 · Brusque, Lages <sub>[google] · `avaliar.qr.rodape`</sub>
+- Ardeli Fisioterapia · Av. Dom Pedro II, 2700 – Brusque, Lages – SC, 88503-062 <sub>[google] · `avaliar.qr.rodape`</sub>
 
 ## avaliar › redirecionando
 
@@ -300,7 +300,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 206 fr
 - O vídeo da clínica fica no próprio site, sem som. <sub>[site, tour] · `privacidade.secoes.3.texto.1`</sub>
 - Você pode pedir para saber, corrigir ou apagar os dados que a clínica tem sobre você, como as mensagens de WhatsApp. <sub>[lgpd] · `privacidade.secoes.4.texto.0`</sub>
 - Para isso, fale com a clínica pelo WhatsApp (49) 99928-1721 ou na recepção. <sub>[joao] · `privacidade.secoes.4.texto.1`</sub>
-- Ardeli Fisioterapia (60.246.544 Andriele da Silva), Av. Dom Pedro II, 2700, Brusque, Lages (SC). <sub>[cnes, crefito, google] · `privacidade.secoes.5.texto.0`</sub>
+- Ardeli Fisioterapia (60.246.544 Andriele da Silva), Av. Dom Pedro II, 2700 – Brusque, Lages – SC, 88503-062. <sub>[cnes, crefito, google] · `privacidade.secoes.5.texto.0`</sub>
 
 ## naoEncontrada › verbete
 
@@ -363,6 +363,46 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 206 fr
 ## agendador › semJs
 
 - Sem JavaScript, a mensagem vai em formato geral. Você completa os detalhes na conversa. <sub>[site] · `agendador.semJs`</sub>
+
+## aberturas › convenios
+
+- Sim. A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende pela Unimed Lages, pela AAPL (Associação dos Aposentados e Pensionistas de Lages) e particular. SUS: consulte a disponibilidade pelo WhatsApp (49) 99928-1721. <sub>[joao, postUnimed, postAapl] · `aberturas.convenios.resposta`</sub>
+
+## aberturas › atendimentos
+
+- A Ardeli atende fisioterapia em ortopedia e dor: coluna, articulações, pós-operatório e recuperação após lesão. Todo atendimento começa com uma avaliação com a fisioterapeuta. <sub>[vitrine, cnes, pratica] · `aberturas.atendimentos.resposta`</sub>
+
+## aberturas › musculoesqueletica
+
+- A Ardeli Fisioterapia, no bairro Brusque, em Lages, atende pessoas com dor na coluna ou nas articulações, depois de uma cirurgia ou de uma lesão. Particular, Unimed ou AAPL, de segunda a sexta, das 8h às 20h. <sub>[vitrine, cnes, joao, google] · `aberturas.musculoesqueletica.resposta`</sub>
+
+## aberturas › primeiraAvaliacao
+
+- Na primeira avaliação, a fisioterapeuta conversa com você sobre o que sente e observa como você se movimenta. Depois, explica o que encontrou e combina com você um plano de tratamento. <sub>[pratica] · `aberturas.primeiraAvaliacao.resposta`</sub>
+
+## aberturas › quemCuida
+
+- Na Ardeli, quem cuida de você são Andriele da Silva, fisioterapeuta responsável (CREFITO-10: número em confirmação), e Nicole de Abreu Batista, fisioterapeuta (CREFITO-10 nº 444436-F). A Andriele atende em Lages desde 2018, no Studio Ar Pilates e Fisioterapia. <sub>[joao, crefito, studioAr] · `aberturas.quemCuida.resposta`</sub>
+
+## aberturas › aClinica
+
+- A Ardeli tem ginásio de reabilitação, sala de esteira e bikes, dois consultórios com maca e recepção, na Av. Dom Pedro II, 2700, no bairro Brusque. Veja o tour em vídeo, sem som, ambiente por ambiente. <sub>[tour, google] · `aberturas.aClinica.resposta`</sub>
+
+## aberturas › perguntasFrequentes
+
+- A Ardeli Fisioterapia fica no bairro Brusque, em Lages, atende particular, Unimed e AAPL, de segunda a sexta, das 8h às 20h. Para agendar a avaliação, é só chamar no WhatsApp (49) 99928-1721. <sub>[joao, google, postUnimed, postAapl] · `aberturas.perguntasFrequentes.resposta`</sub>
+
+## aberturas › comoChegar
+
+- A Ardeli Fisioterapia fica na Av. Dom Pedro II, 2700 – Brusque, Lages – SC, 88503-062. Atende de segunda a sexta, das 8h às 20h. WhatsApp: (49) 99928-1721. <sub>[google, joao] · `aberturas.comoChegar.resposta`</sub>
+
+## aberturas › agendar
+
+- Pelo WhatsApp (49) 99928-1721. Escolha abaixo como você vai ser atendido e quando prefere: a mensagem fica pronta e vai do seu celular direto para a clínica. <sub>[joao, site] · `aberturas.agendar.resposta`</sub>
+
+## aberturas › privacidade
+
+- Não. O agendador monta a mensagem no seu aparelho e nada do que você escreve é guardado ou contado. O site não usa cookies; o mapa do Google só carrega se você aceitar. <sub>[site, lgpd] · `aberturas.privacidade.resposta`</sub>
 
 ## Fontes
 

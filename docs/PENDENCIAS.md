@@ -80,3 +80,14 @@ Frases com fonte "pratica" (rotina comum da fisioterapia) e "orientacao" (explic
 | F3 | Link "Pedir avaliações" gerado na ficha do Google | `linkAvaliar()` usa o link da ficha (`?cid=`); a ficha abre, mas não direto na caixa de avaliação |
 | F4 | CREFITO-10 da Andriele (= bloqueante) | A folha do QR diz "número em confirmação": não imprimir para o balcão até chegar |
 | F5 | Quem envia a mensagem pós-sessão e quando (recepção, no mesmo dia) | Roteiro pronto em `docs/FUNIL.md` §2 |
+
+## SEO e GEO (sessão 8)
+
+| # | Campo | Efeito |
+|---|---|---|
+| S1 | Domínio definitivo (= 18, F1) | Agora **trava a produção**: sem ele não há canonical, og:url, og:image absoluta, sitemap nem URLs absolutas no JSON-LD e no llms.txt |
+| S2 | Data de lançamento do site | `clinica.tourPublicadoEm` está com a data do commit "midia" (22/11/2026); trocar pela data em que o site for ao ar (VideoObject.uploadDate) |
+| S3 | CREFITO-10 da Andriele (= bloqueante) | Sem `hasCredential` no JSON-LD; quando chegar: preencher e rodar `pnpm og` (o audit-seo avisa que a imagem OG ficou desatualizada) |
+| S4 | Rich Results Test (Google) | Só roda com o site no ar (URL pública). validator.schema.org já passou sem erro (`pnpm validar-schema`) |
+| S5 | Ficha do Google, avaliações, Studio Ar, NAP nos cadastros, teste mensal no Modo IA | Roteiro em `docs/SEO_GEO.md` (fora do site) |
+| S6 | Atributos de acessibilidade e serviços da ficha | Só o que for confirmado (T5 e áreas de atendimento) |

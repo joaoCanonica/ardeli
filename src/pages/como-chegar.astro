@@ -2,6 +2,7 @@
 // /como-chegar: endereço, referência, acessibilidade e estacionamento (quando confirmados;
 // até lá, o convite para confirmar pelo WhatsApp), mapa (interativo só após o clique),
 // horário com status e rotas.
+import EnderecoNap from '../components/base/EnderecoNap.astro';
 import Aviso from '../components/base/Aviso.astro';
 import Botao from '../components/base/Botao.astro';
 import FotoAmbiente from '../components/base/FotoAmbiente.astro';
@@ -16,8 +17,8 @@ import { altDe, botoes, mensagensWhatsApp } from '../content/textos/microtextos.
 import { comoChegar as cc } from '../content/textos/paginas.ts';
 import { linkWhatsApp } from '../lib/whatsapp.ts';
 import Pagina from './_PaginaInterna.astro';
+import { aberturas } from '../content/textos/respostas.ts';
 
-const end = valorDe(clinica.endereco);
 const dados = [
   {
     rotulo: 'Ponto de referência',
@@ -44,15 +45,15 @@ const rotas = [
 ];
 ---
 
-<Pagina meta={cc.meta} verbete={cc.verbete}>
+<Pagina
+  meta={cc.meta}
+  verbete={cc.verbete}
+  h1={aberturas.comoChegar.h1}
+  resposta={aberturas.comoChegar.resposta}
+>
   <div class="chegar">
     <div>
-      <address class="chegar__endereco" data-endereco-texto={end?.linha}>
-        {end?.logradouro}, {end?.numero}
-        <br />
-        {end?.bairro} · {end?.cidade} ({end?.uf})<br />
-        <span class="num">CEP {end?.cep}</span>
-      </address>
+      <EnderecoNap class="chegar__endereco" />
       <button type="button" class="copiar" data-copiar hidden>
         {botoes.copiarEndereco}
       </button>
