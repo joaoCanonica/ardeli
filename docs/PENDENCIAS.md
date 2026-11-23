@@ -116,3 +116,15 @@ Frases com fonte "pratica" (rotina comum da fisioterapia) e "orientacao" (explic
 | Q7 · LCP × fontes | "mais fluido, para todos os públicos" | Fontes adaptativas: rede boa → fontes da marca (CLS 0); 2G/3G ou economia de dados → fonte do sistema, sem baixar 74 KB. Aparelho simples → sem abertura nem transições |
 
 **Antes de imprimir o cartaz do QR:** o código aponta para `https://ardeli.com.br/avaliar?o=qr`. Imprima só depois que o domínio estiver apontando para a Vercel.
+
+## Situação em 23/11/2026 (depois do projeto novo na Vercel)
+
+No ar em **https://ardeli.vercel.app** (produção do branch `main`). Corrigido: o projeto recriado não tinha `ARDELI_MODO=producao` e o site saiu com a faixa "em revisão" e `noindex`. A variável foi criada (só para Production) e o deploy refeito; os previews de branch continuam com a faixa, como deve ser.
+
+| Falta | Quem | Efeito enquanto falta |
+|---|---|---|
+| Ligar `ardeli.com.br` e `www` na Vercel + DNS no registro.br | João | O site fica só no `.vercel.app`, que nunca entra no Google; a imagem de compartilhamento (WhatsApp) aponta para ardeli.com.br e só aparece com o domínio no ar; o QR do cartaz também |
+| CREFITO-10 **pessoal** da Andriele | João/Andriele | O site mostra o registro da clínica (RE005047), por ordem do João |
+| Confirmações da clínica (SUS, regras da Unimed e da AAPL, telefone para ligação, feriados, acessibilidade, estacionamento, outras áreas de atendimento, link "Pedir avaliações") | Clínica | O site usa "Confirme pelo WhatsApp" ou omite; nada é afirmado sem confirmação |
+| Data de lançamento (VideoObject do tour) e conta no Plausible (medição) | João | Data provisória 22/11/2026; medição não registra nada até a conta existir |
+| Teste 60+ com uma pessoa real, leitor de tela real, Safari iOS e Firefox | João | Roteiros em docs/QA.md |

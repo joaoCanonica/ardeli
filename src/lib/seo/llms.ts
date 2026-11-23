@@ -43,7 +43,7 @@ export function gerarLlmsTxt(): string {
     `- Atendimentos: ${atend.map((a) => a.nome).join('; ')}`,
     '- Quem cuida:',
     ...pessoas,
-    `- Registro de empresa no CREFITO-${regiao}: ${valorDe(clinica.empresa.crefitoEmpresa) ?? ''} · CNES ${valorDe(clinica.empresa.cnes) ?? ''}`,
+    `- Registro de empresa no CREFITO-${regiao}: ${valorDe(clinica.empresa.crefitoEmpresa) ?? ''} · CNES ${valorDe(clinica.empresa.cnes) ?? ''} · CNPJ ${valorDe(clinica.empresa.cnpj) ?? ''}`,
     '- Como agendar: a primeira consulta é uma avaliação com a fisioterapeuta. O site monta a mensagem (forma de atendimento, motivo opcional, período e dias) e abre o WhatsApp da clínica; nada fica guardado no site.',
     `- Como chegar: ${n.endereco}. Rotas: Google Maps ${clinica.links.googleMapsRota} · Waze ${clinica.links.waze}`,
     `- Ficha no Google: ${clinica.links.googleMaps}`,
