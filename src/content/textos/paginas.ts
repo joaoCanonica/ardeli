@@ -2,7 +2,7 @@
 // avaliar (QR), privacidade e 404.
 import { clinica } from '../../config/clinica.ts';
 import { valorDe } from '../../config/tipos.ts';
-import { CONFIRME, condicional, f, type Frase, type Meta, type VerbeteTexto } from './tipos.ts';
+import { CONFIRME, f, type Frase, type Meta, type VerbeteTexto } from './tipos.ts';
 
 /** Endereço em uma linha, igual ao da config (NAP). */
 const LINHA_ENDERECO = valorDe(clinica.endereco)?.linha ?? '';
@@ -65,10 +65,9 @@ export const primeiraAvaliacao = {
   duracao: {
     titulo: 'Quanto tempo leva',
     texto: [
-      condicional(
-        'tempo-confirmado',
-        'A primeira avaliação leva cerca de [CONFIRMAR] minutos.',
-        'joao',
+      f(
+        'Depende de cada pessoa. Na primeira avaliação, a fisioterapeuta explica quanto tempo vão durar as sessões no seu caso.',
+        'joao2411',
       ),
     ],
     sePendente: f(`Quer saber quanto tempo leva? ${CONFIRME}`, 'orientacao'),
@@ -104,7 +103,7 @@ export const primeiraAvaliacao = {
   },
   acessibilidade: {
     titulo: 'Acessibilidade',
-    // Pendente: entrada sem degrau, banheiro adaptado, estacionamento (clinica.acessibilidade).
+    // Texto confirmado em clinica.acessibilidade; sem ele, aparece este aviso.
     sePendente: f(
       `Precisa de alguma adaptação para chegar ou circular na clínica? ${CONFIRME}`,
       'orientacao',

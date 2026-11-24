@@ -130,7 +130,7 @@ describe('pendências', () => {
   it('perguntas pendentes ficam fora (publicado: false) e apontam a pendência', () => {
     const ids = pendenciasTextos.map((p) => p.id);
     const todas = grupos.flatMap((g) => g.perguntas);
-    for (const id of ['pedido-medico', 'duracao-sessao', 'acessivel']) {
+    for (const id of ['pedido-medico']) {
       const q = todas.find((x) => x.id === id);
       expect(q?.publicado, id).toBe(false);
       expect(ids, id).toContain(q?.pendencia);

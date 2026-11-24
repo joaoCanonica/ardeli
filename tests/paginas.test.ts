@@ -81,11 +81,7 @@ describe.runIf(existsSync(`${dist}/convenios/index.html`))('páginas geradas (di
   it('/perguntas-frequentes não mostra perguntas pendentes', () => {
     const t = texto(ler('perguntas-frequentes/index.html'));
     expect(t).toContain('A Ardeli atende Unimed?');
-    for (const q of [
-      'Preciso de pedido médico?',
-      'Quanto tempo dura a sessão?',
-      'O espaço é acessível?',
-    ]) {
+    for (const q of ['Preciso de pedido médico?']) {
       expect(t).not.toContain(q);
     }
   });

@@ -8,6 +8,8 @@ export const FONTES = {
   joao: 'João (WAXLO): dados confirmados em 22/11/2026 (docs/ARDELI_INVESTIGACAO_CLIENTE.md §2)',
   joao2311:
     'João (WAXLO), 23/11/2026: atende SUS; regras dos convênios pelo WhatsApp; um número só (WhatsApp de preferência); fechado nos feriados; estacionamento em frente; perto do Colégio Industrial e da Delegacia da Polícia Civil; todos os atendimentos do CNES',
+  joao2411:
+    'João (WAXLO), 24/11/2026: espaço acessível (rampa de um lado, escada do outro); a duração depende de cada paciente e a fisioterapeuta informa; tour publicado em 04/11/2026',
   google: 'Ficha da Ardeli no Google Maps, vista em 22/11/2026 (endereço, horário, coordenadas)',
   cnes: 'CNES 8422478 (Cadastro Nacional de Estabelecimentos de Saúde)',
   crefito:

@@ -1,6 +1,6 @@
 # Textos do site — para revisão
 
-Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 287 frases, 270 rótulos.
+Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 286 frases, 316 rótulos.
 
 - **[guardado]** = escrito, mas fora do site até a confirmação (ex.: SUS, duração da sessão) ou numa pergunta não publicada.
 - Fontes entre colchetes; a lista completa está no fim.
@@ -133,11 +133,10 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 287 fr
 - Quem sente dor na coluna, no ombro, no joelho ou em outras articulações. <sub>[orientacao] · `atendimentos.itens.0.paraQuem.0`</sub>
 - Quem passou por uma cirurgia e está no pós-operatório, que é o período de recuperação depois da cirurgia. <sub>[orientacao] · `atendimentos.itens.0.paraQuem.1`</sub>
 - Quem se machucou, em casa, no trabalho ou no esporte, e quer voltar às atividades. <sub>[orientacao] · `atendimentos.itens.0.paraQuem.2`</sub>
-- Tudo começa com uma avaliação: a fisioterapeuta conversa com você e observa como você se move. <sub>[pratica] · `atendimentos.itens.0.comoE.0`</sub>
-- Depois, ela monta um plano com exercícios e, quando indicado, outros recursos. <sub>[pratica] · `atendimentos.itens.0.comoE.1`</sub>
-- Um desses recursos é a eletroterapia: um aparelho que usa pequenas correntes elétricas na pele. A clínica tem o equipamento. <sub>[orientacao, tour] · `atendimentos.itens.0.comoE.2`</sub>
-- Os exercícios acontecem no ginásio da clínica, com espaldar (uma escada de madeira presa à parede), bolas, faixas elásticas, halteres, esteira e bicicletas. <sub>[tour] · `atendimentos.itens.0.comoE.3`</sub>
-- A cada sessão, o plano é revisto com você. <sub>[pratica] · `atendimentos.itens.0.comoE.4`</sub>
+- Na primeira consulta, a fisioterapeuta recebe você num dos dois consultórios da clínica, com calma. Ela ouve o que você sente e observa como você se movimenta. <sub>[tour, reel, pratica] · `atendimentos.itens.0.comoE.0.texto`</sub>
+- Ela explica o que encontrou e combina com você os objetivos e a frequência das sessões. <sub>[pratica] · `atendimentos.itens.0.comoE.1.texto`</sub>
+- Os exercícios são no ginásio de reabilitação, com espaldar (uma escada de madeira presa à parede), tablado, bolas, faixas elásticas e halteres. Quando indicado, entra a eletroterapia: um aparelho que usa pequenas correntes elétricas na pele. <sub>[tour, orientacao] · `atendimentos.itens.0.comoE.2.texto`</sub>
+- A cada sessão, o plano é revisto com você. As sessões são de segunda a sexta, das 8h às 20h. <sub>[pratica, joao] · `atendimentos.itens.0.comoE.3.texto`</sub>
 - Depende do que a avaliação mostrar e de como você responde aos exercícios. <sub>[pratica] · `atendimentos.itens.0.perguntas.0.resposta.0`</sub>
 - A fisioterapeuta explica o plano e revisa com você ao longo das sessões. <sub>[pratica] · `atendimentos.itens.0.perguntas.0.resposta.1`</sub>
 - Sim. A Ardeli atende particular, Unimed, AAPL e SUS. <sub>[joao, joao2311, postUnimed, postAapl] · `atendimentos.itens.0.perguntas.1.resposta.0`</sub>
@@ -151,11 +150,10 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 287 fr
 - Quem teve AVC (derrame) e quer recuperar movimentos. <sub>[orientacao] · `atendimentos.itens.1.paraQuem.0`</sub>
 - Quem tem doença de Parkinson ou outra condição que afeta o equilíbrio e a coordenação. <sub>[orientacao] · `atendimentos.itens.1.paraQuem.1`</sub>
 - Quem sente fraqueza, formigamento ou falta de firmeza ao andar. <sub>[orientacao] · `atendimentos.itens.1.paraQuem.2`</sub>
-- Tudo começa com uma avaliação: a fisioterapeuta conversa com você e observa como você se move. <sub>[pratica] · `atendimentos.itens.1.comoE.0`</sub>
-- Depois, ela monta um plano com exercícios de força, equilíbrio e coordenação, no ritmo de cada pessoa. <sub>[pratica] · `atendimentos.itens.1.comoE.1`</sub>
-- Os exercícios acontecem no ginásio da clínica, com espaldar (uma escada de madeira presa à parede), bolas, faixas e tablado. <sub>[tour] · `atendimentos.itens.1.comoE.2`</sub>
-- Um familiar pode acompanhar e aprender o que fazer em casa. <sub>[pratica] · `atendimentos.itens.1.comoE.3`</sub>
-- A cada sessão, o plano é revisto com você. <sub>[pratica] · `atendimentos.itens.1.comoE.4`</sub>
+- Na primeira consulta, a fisioterapeuta recebe você num dos dois consultórios da clínica, com calma. Ela ouve o que você sente e observa como você se movimenta. <sub>[tour, reel, pratica] · `atendimentos.itens.1.comoE.0.texto`</sub>
+- Ela explica o que encontrou e combina com você os objetivos e a frequência das sessões. <sub>[pratica] · `atendimentos.itens.1.comoE.1.texto`</sub>
+- No ginásio, o tablado e o espaldar (uma escada de madeira presa à parede) ajudam a treinar levantar, andar e se equilibrar com apoio. Bolas e faixas completam os exercícios, no ritmo de cada pessoa. Um familiar pode acompanhar. <sub>[tour, pratica] · `atendimentos.itens.1.comoE.2.texto`</sub>
+- A cada sessão, o plano é revisto com você. As sessões são de segunda a sexta, das 8h às 20h. <sub>[pratica, joao] · `atendimentos.itens.1.comoE.3.texto`</sub>
 - Sim. A Ardeli atende particular, Unimed, AAPL e SUS. <sub>[joao, joao2311] · `atendimentos.itens.1.perguntas.0.resposta.0`</sub>
 - Para saber o que o seu convênio pede, confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `atendimentos.itens.1.perguntas.0.resposta.1`</sub>
 - A reserva de ar que deixa você andar, subir escada e conversar sem cansar tanto. <sub>[orientacao] · `atendimentos.itens.2.verbete.acepcoes.0`</sub>
@@ -165,10 +163,10 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 287 fr
 - Quem tem doença respiratória, como asma, bronquite crônica ou enfisema, e sente falta de ar. <sub>[orientacao] · `atendimentos.itens.2.paraQuem.0`</sub>
 - Quem tem problema no coração e recebeu orientação médica para fazer exercício com acompanhamento. <sub>[orientacao] · `atendimentos.itens.2.paraQuem.1`</sub>
 - Quem ficou com cansaço ou pouco fôlego depois de uma internação. <sub>[orientacao] · `atendimentos.itens.2.paraQuem.2`</sub>
-- Tudo começa com uma avaliação: a fisioterapeuta conversa com você e observa a sua respiração e o seu esforço. <sub>[pratica] · `atendimentos.itens.2.comoE.0`</sub>
-- Depois, ela monta um plano com exercícios de respiração e de condicionamento, respeitando as orientações do seu médico. <sub>[pratica] · `atendimentos.itens.2.comoE.1`</sub>
-- A clínica tem uma sala com esteira e bicicletas para os exercícios. <sub>[tour] · `atendimentos.itens.2.comoE.2`</sub>
-- A cada sessão, o plano é revisto com você. <sub>[pratica] · `atendimentos.itens.2.comoE.3`</sub>
+- Na primeira consulta, a fisioterapeuta recebe você num dos dois consultórios da clínica, com calma. Ela ouve o que você sente e observa como você se movimenta. <sub>[tour, reel, pratica] · `atendimentos.itens.2.comoE.0.texto`</sub>
+- Ela explica o que encontrou e combina com você os objetivos e a frequência das sessões. <sub>[pratica] · `atendimentos.itens.2.comoE.1.texto`</sub>
+- O condicionamento é feito na sala com esteira e bicicletas, aos poucos e sempre acompanhado. Os exercícios de respiração podem ser no ginásio ou no consultório. <sub>[tour, pratica] · `atendimentos.itens.2.comoE.2.texto`</sub>
+- A cada sessão, o plano é revisto com você. As sessões são de segunda a sexta, das 8h às 20h. <sub>[pratica, joao] · `atendimentos.itens.2.comoE.3.texto`</sub>
 - Sim. A Ardeli atende particular, Unimed, AAPL e SUS. <sub>[joao, joao2311] · `atendimentos.itens.2.perguntas.0.resposta.0`</sub>
 - Para saber o que o seu convênio pede, confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `atendimentos.itens.2.perguntas.0.resposta.1`</sub>
 - Atenção ao corpo em cada fase do tratamento, no tempo de cada pessoa. <sub>[orientacao] · `atendimentos.itens.3.verbete.acepcoes.0`</sub>
@@ -178,10 +176,10 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 287 fr
 - Quem está fazendo tratamento de câncer e foi orientado a fazer fisioterapia. <sub>[orientacao] · `atendimentos.itens.3.paraQuem.0`</sub>
 - Quem terminou o tratamento e quer voltar às atividades do dia a dia. <sub>[orientacao] · `atendimentos.itens.3.paraQuem.1`</sub>
 - Quem fez cirurgia por causa de um câncer, como a de mama. <sub>[orientacao] · `atendimentos.itens.3.paraQuem.2`</sub>
-- Tudo começa com uma avaliação: a fisioterapeuta conversa com você, sem pressa, e observa como você se move. <sub>[pratica] · `atendimentos.itens.3.comoE.0`</sub>
-- Depois, ela monta um plano com exercícios e orientações, respeitando as orientações do seu médico. <sub>[pratica] · `atendimentos.itens.3.comoE.1`</sub>
-- O atendimento pode ser feito em um dos dois consultórios, com mais privacidade. <sub>[tour] · `atendimentos.itens.3.comoE.2`</sub>
-- A cada sessão, o plano é revisto com você. <sub>[pratica] · `atendimentos.itens.3.comoE.3`</sub>
+- Na primeira consulta, a fisioterapeuta recebe você num dos dois consultórios da clínica, com calma. Ela ouve o que você sente e observa como você se movimenta. <sub>[tour, reel, pratica] · `atendimentos.itens.3.comoE.0.texto`</sub>
+- Ela explica o que encontrou e combina com você os objetivos e a frequência das sessões. <sub>[pratica] · `atendimentos.itens.3.comoE.1.texto`</sub>
+- As sessões podem ser no consultório, com mais privacidade, ou no ginásio, com exercícios leves e adaptados ao momento do tratamento, respeitando as orientações do seu médico. <sub>[tour, pratica] · `atendimentos.itens.3.comoE.2.texto`</sub>
+- A cada sessão, o plano é revisto com você. As sessões são de segunda a sexta, das 8h às 20h. <sub>[pratica, joao] · `atendimentos.itens.3.comoE.3.texto`</sub>
 - Sim. A Ardeli atende particular, Unimed, AAPL e SUS. <sub>[joao, joao2311] · `atendimentos.itens.3.perguntas.0.resposta.0`</sub>
 - Para saber o que o seu convênio pede, confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `atendimentos.itens.3.perguntas.0.resposta.1`</sub>
 - O tempo da gravidez, em que o corpo muda a cada semana. <sub>[orientacao] · `atendimentos.itens.4.verbete.acepcoes.0`</sub>
@@ -190,10 +188,10 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 287 fr
 - Ela ajuda com as dores e os desconfortos dessa fase e com a volta às atividades depois que o bebê nasce. <sub>[orientacao] · `atendimentos.itens.4.oQueE.1`</sub>
 - Gestantes com dor nas costas, nas pernas ou no quadril. <sub>[orientacao] · `atendimentos.itens.4.paraQuem.0`</sub>
 - Mulheres no pós-parto que querem voltar às atividades com segurança. <sub>[orientacao] · `atendimentos.itens.4.paraQuem.1`</sub>
-- Tudo começa com uma avaliação: a fisioterapeuta conversa com você e observa como você se move. <sub>[pratica] · `atendimentos.itens.4.comoE.0`</sub>
-- Depois, ela monta um plano com exercícios e orientações para cada fase, respeitando as orientações do seu médico. <sub>[pratica] · `atendimentos.itens.4.comoE.1`</sub>
-- O atendimento pode ser feito em um dos dois consultórios, com mais privacidade. <sub>[tour] · `atendimentos.itens.4.comoE.2`</sub>
-- A cada sessão, o plano é revisto com você. <sub>[pratica] · `atendimentos.itens.4.comoE.3`</sub>
+- Na primeira consulta, a fisioterapeuta recebe você num dos dois consultórios da clínica, com calma. Ela ouve o que você sente e observa como você se movimenta. <sub>[tour, reel, pratica] · `atendimentos.itens.4.comoE.0.texto`</sub>
+- Ela explica o que encontrou e combina com você os objetivos e a frequência das sessões. <sub>[pratica] · `atendimentos.itens.4.comoE.1.texto`</sub>
+- No consultório, com privacidade, ou no ginásio, com bolas e tablado, os exercícios mudam conforme a fase da gravidez ou do pós-parto, respeitando as orientações do seu médico. <sub>[tour, pratica] · `atendimentos.itens.4.comoE.2.texto`</sub>
+- A cada sessão, o plano é revisto com você. As sessões são de segunda a sexta, das 8h às 20h. <sub>[pratica, joao] · `atendimentos.itens.4.comoE.3.texto`</sub>
 - Sim. A Ardeli atende particular, Unimed, AAPL e SUS. <sub>[joao, joao2311] · `atendimentos.itens.4.perguntas.0.resposta.0`</sub>
 - Para saber o que o seu convênio pede, confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `atendimentos.itens.4.perguntas.0.resposta.1`</sub>
 - Quando cicatriza depois de uma queimadura, ela pode repuxar e deixar o movimento mais difícil. <sub>[orientacao] · `atendimentos.itens.5.verbete.acepcoes.0`</sub>
@@ -202,9 +200,10 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 287 fr
 - O cuidado é com o movimento das articulações perto da cicatriz, a força e as tarefas do dia a dia. <sub>[orientacao] · `atendimentos.itens.5.oQueE.1`</sub>
 - Quem teve queimadura e foi orientado a fazer fisioterapia. <sub>[orientacao] · `atendimentos.itens.5.paraQuem.0`</sub>
 - Quem sente a pele repuxar ou tem dificuldade de dobrar ou esticar uma parte do corpo depois da queimadura. <sub>[orientacao] · `atendimentos.itens.5.paraQuem.1`</sub>
-- Tudo começa com uma avaliação: a fisioterapeuta conversa com você e observa como você se move. <sub>[pratica] · `atendimentos.itens.5.comoE.0`</sub>
-- Depois, ela monta um plano com exercícios para a região, respeitando as orientações do seu médico. <sub>[pratica] · `atendimentos.itens.5.comoE.1`</sub>
-- A cada sessão, o plano é revisto com você. <sub>[pratica] · `atendimentos.itens.5.comoE.2`</sub>
+- Na primeira consulta, a fisioterapeuta recebe você num dos dois consultórios da clínica, com calma. Ela ouve o que você sente e observa como você se movimenta. <sub>[tour, reel, pratica] · `atendimentos.itens.5.comoE.0.texto`</sub>
+- Ela explica o que encontrou e combina com você os objetivos e a frequência das sessões. <sub>[pratica] · `atendimentos.itens.5.comoE.1.texto`</sub>
+- No ginásio, com faixas, bolas e espaldar, os exercícios devolvem movimento à região aos poucos, no limite que a pele e a cicatriz permitem, respeitando as orientações do seu médico. <sub>[tour, pratica] · `atendimentos.itens.5.comoE.2.texto`</sub>
+- A cada sessão, o plano é revisto com você. As sessões são de segunda a sexta, das 8h às 20h. <sub>[pratica, joao] · `atendimentos.itens.5.comoE.3.texto`</sub>
 - Sim. A Ardeli atende particular, Unimed, AAPL e SUS. <sub>[joao, joao2311] · `atendimentos.itens.5.perguntas.0.resposta.0`</sub>
 - Para saber o que o seu convênio pede, confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `atendimentos.itens.5.perguntas.0.resposta.1`</sub>
 
@@ -226,7 +225,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 287 fr
 
 ## primeiraAvaliacao › duracao
 
-- **[guardado]** A primeira avaliação leva cerca de [CONFIRMAR] minutos. <sub>[joao] · `primeiraAvaliacao.duracao.texto.0`</sub>
+- Depende de cada pessoa. Na primeira avaliação, a fisioterapeuta explica quanto tempo vão durar as sessões no seu caso. <sub>[joao2411] · `primeiraAvaliacao.duracao.texto.0`</sub>
 - Quer saber quanto tempo leva? Confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `primeiraAvaliacao.duracao.sePendente`</sub>
 
 ## primeiraAvaliacao › oQueLevar
@@ -312,13 +311,13 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 287 fr
 - Pelo WhatsApp (49) 99928-1721. <sub>[joao] · `faq.grupos.1.perguntas.0.resposta.0`</sub>
 - No site, toque em “Agendar avaliação”: escolha o convênio e o período, e a mensagem já vai pronta. É só enviar. <sub>[site] · `faq.grupos.1.perguntas.0.resposta.1`</sub>
 - Documento com foto, a carteirinha do convênio (se for o caso) e, se tiver, o pedido médico, exames recentes e a lista dos remédios que você usa. <sub>[orientacao] · `faq.grupos.1.perguntas.1.resposta.0`</sub>
-- **[guardado]** Confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `faq.grupos.1.perguntas.2.resposta.0`</sub>
+- Depende de cada pessoa. Na primeira avaliação, a fisioterapeuta explica quanto tempo vão durar as sessões no seu caso. <sub>[joao2411] · `faq.grupos.1.perguntas.2.resposta.0`</sub>
 - Segunda a sexta, das 8h às 20h. Sábado e domingo, fechado. <sub>[joao, google] · `faq.grupos.1.perguntas.3.resposta.0`</sub>
 - Nos feriados, a clínica fica fechada. <sub>[joao2311] · `faq.grupos.1.perguntas.3.resposta.1`</sub>
 - Av. Dom Pedro II, 2700, no bairro Brusque, em Lages (SC). <sub>[google] · `faq.grupos.2.perguntas.0.resposta.0`</sub>
 - Perto do Colégio Industrial e da Delegacia da Polícia Civil. <sub>[joao2311] · `faq.grupos.2.perguntas.0.resposta.1`</sub>
 - Dá para estacionar na rua, em frente à clínica. <sub>[joao2311] · `faq.grupos.2.perguntas.1.resposta.0`</sub>
-- **[guardado]** Confirme pelo WhatsApp: a gente explica rapidinho. <sub>[orientacao] · `faq.grupos.2.perguntas.2.resposta.0`</sub>
+- Sim. A entrada tem rampa de um lado e escada do outro. <sub>[joao2411] · `faq.grupos.2.perguntas.2.resposta.0`</sub>
 
 ## comoChegar › verbete
 
@@ -499,6 +498,7 @@ Gerado por `node scripts/textos-md.mjs` a partir de `src/content/textos`. 287 fr
 
 - **joao**: João (WAXLO): dados confirmados em 22/11/2026 (docs/ARDELI_INVESTIGACAO_CLIENTE.md §2)
 - **joao2311**: João (WAXLO), 23/11/2026: atende SUS; regras dos convênios pelo WhatsApp; um número só (WhatsApp de preferência); fechado nos feriados; estacionamento em frente; perto do Colégio Industrial e da Delegacia da Polícia Civil; todos os atendimentos do CNES
+- **joao2411**: João (WAXLO), 24/11/2026: espaço acessível (rampa de um lado, escada do outro); a duração depende de cada paciente e a fisioterapeuta informa; tour publicado em 04/11/2026
 - **google**: Ficha da Ardeli no Google Maps, vista em 22/11/2026 (endereço, horário, coordenadas)
 - **cnes**: CNES 8422478 (Cadastro Nacional de Estabelecimentos de Saúde)
 - **crefito**: CREFITO-10: registro de empresa RE005047 (desde 15/07/2026) e inscrição de Nicole de Abreu Batista (444436-F, 21/01/2026)

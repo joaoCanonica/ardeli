@@ -50,7 +50,8 @@ describe('dados', () => {
       fecha: '20:00',
       dias: [1, 2, 3, 4, 5],
     });
-    expect(clinica.acessibilidade.estado).toBe('opcional');
+    expect(valorDe(clinica.acessibilidade)).toMatch(/rampa/);
+    expect(valorDe(clinica.tourPublicadoEm)).toBe('2026-11-04');
     expect(valorDe(clinica.estacionamento)).toMatch(/em frente à clínica/);
     expect(valorDe(clinica.pontoDeReferencia)).toMatch(/Colégio Industrial/);
     expect(valorDe(clinica.fechaEmFeriados)).toBe(true);

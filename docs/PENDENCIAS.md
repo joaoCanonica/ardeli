@@ -143,3 +143,14 @@ No ar em **https://ardeli.vercel.app** (produção do branch `main`). Corrigido:
 | Link de avaliação | "Escrever avaliação" da própria ficha do Google (o mesmo cid do site): /avaliar, o QR e o rodapé abrem direto a janela de avaliar |
 
 **Ainda falta:** ligar o domínio `ardeli.com.br`; o CREFITO-10 pessoal da Andriele; a acessibilidade do espaço (entrada, banheiro); a duração da sessão e se é preciso pedido médico (as duas perguntas continuam fora do site); a data de lançamento (tour); a conta no Plausible. A Andriele deve validar os textos de "como é o atendimento" das 5 áreas novas (fonte `pratica`).
+
+## Resolvido em 24/11/2026
+
+| Item | Como ficou |
+|---|---|
+| Acessibilidade | "A entrada é acessível: tem rampa de um lado e escada do outro." (/como-chegar, /primeira-avaliacao, perguntas frequentes). Banheiro adaptado: não informado, não afirmado |
+| Duração da sessão | "Depende de cada pessoa. Na primeira avaliação, a fisioterapeuta explica quanto tempo vão durar as sessões no seu caso." |
+| Data do tour | 04/11/2026 (VideoObject.uploadDate) |
+| "Como é o atendimento" | Bloco em destaque no topo de cada página de atendimento: 4 passos (conversa e avaliação, plano, sessões, acompanhamento) com fotos reais do consultório, do ginásio ou da sala de esteira e bikes, conforme a área |
+
+**Continua faltando:** CREFITO-10 pessoal da Andriele; se é preciso pedido médico (pergunta fora do site); ligar o domínio `ardeli.com.br`; conta no Plausible.

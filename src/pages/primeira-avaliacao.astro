@@ -1,6 +1,8 @@
 ---
 // /primeira-avaliacao: passos numerados grandes, duração (só se confirmada), checklist
 // "o que levar" para imprimir (@media print), roupa e acessibilidade.
+import { valorDe } from '../config/tipos.ts';
+import { clinica } from '../config/clinica.ts';
 import { nap } from '../lib/seo/nap.ts';
 import Aviso from '../components/base/Aviso.astro';
 import Botao from '../components/base/Botao.astro';
@@ -13,6 +15,7 @@ import { aberturas } from '../content/textos/respostas.ts';
 // Duração: só com confirmação (as frases condicionais ficam de fora até lá).
 const duracaoConfirmada = pa.duracao.texto.filter((fr) => !fr.exige);
 const n = nap();
+const acessivel = valorDe(clinica.acessibilidade);
 ---
 
 <Pagina
@@ -77,9 +80,13 @@ const n = nap();
 
   <section class="bloco nao-imprimir" aria-labelledby="acessibilidade">
     <h2 id="acessibilidade">{pa.acessibilidade.titulo}</h2>
-    <Aviso>
-      <p>{pa.acessibilidade.sePendente.texto}</p>
-    </Aviso>
+    {acessivel ? (
+      <p>{acessivel}</p>
+    ) : (
+      <Aviso>
+        <p>{pa.acessibilidade.sePendente.texto}</p>
+      </Aviso>
+    )}
   </section>
 
   <div class="bloco nao-imprimir">

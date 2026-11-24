@@ -67,7 +67,7 @@ export const atendimentos: Atendimento[] = BASE.map((b, i) => {
       acepcoes: textos(t.verbete.acepcoes),
     },
     paraQuem: textos(t.paraQuem),
-    comoFunciona: textos(t.comoE),
+    comoFunciona: t.comoE.map((x) => x.texto.texto),
     confirmacao: confirmado(true, b.fonte),
     publicado: true,
   };

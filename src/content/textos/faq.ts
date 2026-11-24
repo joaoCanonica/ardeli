@@ -94,9 +94,13 @@ export const grupos: readonly { titulo: string; perguntas: readonly Pergunta[] }
       {
         id: 'duracao-sessao',
         pergunta: 'Quanto tempo dura a sessão?',
-        resposta: [f(CONFIRME, 'orientacao')],
-        publicado: false,
-        pendencia: 'duracao-sessao',
+        resposta: [
+          f(
+            'Depende de cada pessoa. Na primeira avaliação, a fisioterapeuta explica quanto tempo vão durar as sessões no seu caso.',
+            'joao2411',
+          ),
+        ],
+        publicado: true,
       },
       {
         id: 'horario',
@@ -130,9 +134,8 @@ export const grupos: readonly { titulo: string; perguntas: readonly Pergunta[] }
       {
         id: 'acessivel',
         pergunta: 'O espaço é acessível?',
-        resposta: [f(CONFIRME, 'orientacao')],
-        publicado: false,
-        pendencia: 'acessibilidade',
+        resposta: [f('Sim. A entrada tem rampa de um lado e escada do outro.', 'joao2411')],
+        publicado: true,
       },
     ],
   },

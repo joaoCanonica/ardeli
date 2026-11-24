@@ -107,17 +107,6 @@ export const pendenciasTextos = [
     efeito: 'Pergunta fora do FAQ e da página de atendimento',
   },
   {
-    id: 'duracao-sessao',
-    campo: 'Duração da sessão e da primeira avaliação',
-    efeito: 'Pergunta fora do FAQ; /primeira-avaliacao mostra "Confirme pelo WhatsApp"',
-  },
-  {
-    id: 'acessibilidade',
-    campo: 'Acessibilidade do espaço (entrada, banheiro, circulação)',
-    efeito:
-      'Pergunta fora do FAQ; /primeira-avaliacao e /como-chegar mostram "Confirme pelo WhatsApp"',
-  },
-  {
     id: 'rotina-avaliacao',
     campo:
       'Validar com a Andriele o passo a passo (conversa, avaliação, plano, acompanhamento) e "o que levar"',

@@ -39,82 +39,162 @@ const migalhas = [
 ---
 
 <Pagina meta={t.meta} verbete={t.verbete} h1={h1} resposta={abertura?.resposta} migalhas={migalhas}>
+  <section class="como" aria-labelledby="como-e">
+    <h2 id="como-e" class="como__titulo">
+      Como é o atendimento na Ardeli
+    </h2>
+    <ol class="como__passos" role="list">
+      {t.comoE.map((p, i) => (
+        <li class:list={['como__passo', p.foto && 'como__passo--foto']}>
+          <span class="como__n num" aria-hidden="true">
+            {i + 1}
+          </span>
+          <div class="como__texto">
+            <h3 class="como__nome">
+              <span class="visualmente-oculto">Passo {i + 1}: </span>
+              {p.titulo}
+            </h3>
+            <p>{p.texto.texto}</p>
+          </div>
+          {p.foto && (
+            <FotoAmbiente
+              id={p.foto.id.replace(/-4x5$/, '-16x9')}
+              alt={altDe(p.foto.id)}
+              legenda={p.foto.legenda}
+              tom="madeira"
+              proporcao="16/9"
+              sizes="(min-width: 48rem) 30rem, 85vw"
+              class="como__foto"
+            />
+          )}
+        </li>
+      ))}
+    </ol>
+    <div class="como__acao">
+      <Botao
+        data-agendar
+        data-origem="atendimento"
+        href={linkWhatsApp(mensagens.atendimento(a))}
+        icone="whatsapp"
+        dica={botoes.abreWhatsApp}
+      >
+        {botoes.agendar}
+      </Botao>
+    </div>
+  </section>
+
   <div class="atendimento">
-    <div>
-      <section class="bloco" aria-labelledby="o-que-e">
-        <h2 id="o-que-e">O que é</h2>
-        {t.oQueE.map((fr) => (
-          <p>{fr.texto}</p>
+    <section class="bloco" aria-labelledby="o-que-e">
+      <h2 id="o-que-e">O que é</h2>
+      {t.oQueE.map((fr) => (
+        <p>{fr.texto}</p>
+      ))}
+    </section>
+    <section class="bloco" aria-labelledby="para-quem">
+      <h2 id="para-quem">Para quem</h2>
+      <ul class="lista" role="list">
+        {t.paraQuem.map((fr) => (
+          <li>{fr.texto}</li>
+        ))}
+      </ul>
+    </section>
+    {perguntas.length > 0 && (
+      <section class="bloco" aria-labelledby="perguntas">
+        <h2 id="perguntas">Perguntas comuns</h2>
+        {perguntas.map((p) => (
+          <Detalhes pergunta={p.pergunta}>
+            {p.resposta.map((fr) => (
+              <p>{fr.texto}</p>
+            ))}
+          </Detalhes>
         ))}
       </section>
-      <section class="bloco" aria-labelledby="para-quem">
-        <h2 id="para-quem">Para quem</h2>
-        <ul class="lista" role="list">
-          {t.paraQuem.map((fr) => (
-            <li>{fr.texto}</li>
-          ))}
-        </ul>
-      </section>
-      <section class="bloco" aria-labelledby="como-e">
-        <h2 id="como-e">Como é o atendimento na Ardeli</h2>
-        <ol class="lista" role="list">
-          {t.comoE.map((fr) => (
-            <li>{fr.texto}</li>
-          ))}
-        </ol>
-      </section>
-      {perguntas.length > 0 && (
-        <section class="bloco" aria-labelledby="perguntas">
-          <h2 id="perguntas">Perguntas comuns</h2>
-          {perguntas.map((p) => (
-            <Detalhes pergunta={p.pergunta}>
-              {p.resposta.map((fr) => (
-                <p>{fr.texto}</p>
-              ))}
-            </Detalhes>
-          ))}
-        </section>
-      )}
-      <div class="bloco">
-        <Botao
-          data-agendar
-          data-origem="atendimento"
-          href={linkWhatsApp(mensagens.atendimento(a))}
-          icone="whatsapp"
-          dica={botoes.abreWhatsApp}
-        >
-          {botoes.agendar}
-        </Botao>
-      </div>
-    </div>
-    <FotoAmbiente
-      id={t.foto.id}
-      alt={altDe(t.foto.id)}
-      legenda={t.foto.legenda}
-      tom={t.foto.tom}
-      sizes="(min-width: 64rem) 22rem, 100vw"
-      class="atendimento__foto"
-    />
+    )}
   </div>
 </Pagina>
 
 <style>
-  .atendimento {
+  /* "Como é o atendimento": a primeira coisa do corpo, em destaque (Papel, fio Sálvia),
+     cada passo com a foto real do lugar onde acontece. */
+  .como {
+    margin-bottom: var(--e-7);
+    padding: var(--e-6) var(--margem);
+    margin-inline: calc(-1 * var(--margem));
+    background: var(--fundo-cartao);
+    border-top: 2px solid var(--cor-marinho);
+    border-bottom: var(--fio-fino) solid var(--fio);
+    /* O bloco de cor atrás das fotos não pode vazar a tela estreita (zoom 200%). */
+    overflow-x: clip;
+  }
+  .como__titulo {
+    font-size: var(--titulo-2);
+    margin-bottom: var(--e-6);
+  }
+  .como__passos {
+    margin: 0;
+    padding: 0;
+    list-style: none;
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--e-7);
+    gap: var(--e-6);
   }
-  .atendimento :global(.atendimento__foto) {
-    max-width: 22rem;
+  .como__passo {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    column-gap: var(--e-4);
+    row-gap: var(--e-4);
+    align-items: start;
   }
-  @media (min-width: 64rem) {
-    .atendimento {
-      grid-template-columns: minmax(0, 1fr) 22rem;
-      align-items: start;
-    }
-    .atendimento :global(.atendimento__foto) {
-      position: sticky;
-      top: 6rem;
+  /* Fio que liga os números, como as acepções de um verbete. */
+  .como__passo:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: calc(1.375rem - 0.5px);
+    top: 2.75rem;
+    bottom: calc(-1 * var(--e-6));
+    border-left: var(--fio-fino) solid var(--fio);
+  }
+  .como__n {
+    display: inline-grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: var(--cor-marinho);
+    color: var(--cor-linho);
+    font-family: var(--fonte-serifa);
+    font-size: var(--texto-g);
+  }
+  .como__nome {
+    margin: 0.35rem 0 var(--e-2);
+    font-size: var(--titulo-3);
+  }
+  .como__texto p {
+    margin: 0;
+    font-size: var(--texto-g);
+    color: var(--texto-forte);
+  }
+  .como :global(.como__foto) {
+    grid-column: 2;
+    min-width: 0;
+    width: 100%;
+    max-width: 30rem;
+  }
+  .como__acao {
+    margin-top: var(--e-6);
+    padding-left: calc(2.75rem + var(--e-4));
+  }
+  .atendimento {
+    max-width: 46rem;
+  }
+  .como__passos,
+  .como__titulo {
+    max-width: 48rem;
+  }
+  @media print {
+    .como {
+      background: none;
+      border: 0;
     }
   }
 </style>

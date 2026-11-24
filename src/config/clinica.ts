@@ -1,7 +1,7 @@
 // Dados cadastrais da clínica. Fonte: docs/ARDELI_INVESTIGACAO_CLIENTE.md §2.
 // Faltou dado → opcional() ou bloqueante(); nunca inventar. Ver docs/PENDENCIAS.md.
 
-import { aviso, confirmado, opcional, type Campo } from './tipos.ts';
+import { confirmado, type Campo } from './tipos.ts';
 
 const FONTE_JOAO = 'João (WAXLO), investigação 22/11/2026';
 const FONTE_MAPS = 'ficha do Google Maps, vista em 22/11/2026';
@@ -90,7 +90,10 @@ export const clinica = {
   /** A clínica fecha nos feriados? Enquanto não confirmar, o site pede para confirmar pelo WhatsApp. */
   fechaEmFeriados: confirmado(true, 'João (WAXLO), 23/11/2026: fechado nos feriados'),
 
-  acessibilidade: opcional<string>(null),
+  acessibilidade: confirmado(
+    'A entrada é acessível: tem rampa de um lado e escada do outro.',
+    'João (WAXLO), 24/11/2026',
+  ),
   estacionamento: confirmado(
     'Dá para estacionar na rua, em frente à clínica.',
     'João (WAXLO), 23/11/2026',
@@ -117,11 +120,7 @@ export const clinica = {
   dominio: dominioDoAmbiente(),
 
   /** Tour em vídeo: data em que foi publicado no site (VideoObject.uploadDate). */
-  tourPublicadoEm: aviso(
-    'data de publicação do tour',
-    'hoje é a data em que o vídeo entrou no repositório (commit "midia"); trocar pela data de lançamento do site',
-    '2026-11-22',
-  ),
+  tourPublicadoEm: confirmado('2026-11-04', 'João (WAXLO), 24/11/2026: data do vídeo'),
 };
 
 export type Clinica = typeof clinica;

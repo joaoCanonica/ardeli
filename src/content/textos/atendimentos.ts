@@ -3,6 +3,13 @@
 // Sem "especialista" (Art. 30 e 48, I): são "atendimentos".
 import { CONFIRME, f, type Frase, type Meta, type Pergunta, type VerbeteTexto } from './tipos.ts';
 
+export interface PassoAtendimento {
+  readonly titulo: string;
+  readonly texto: Frase;
+  /** Foto real do lugar onde o passo acontece (still do tour). */
+  readonly foto?: { readonly id: string; readonly legenda: string };
+}
+
 export interface TextoAtendimento {
   readonly id:
     | 'musculoesqueletica'
@@ -21,7 +28,8 @@ export interface TextoAtendimento {
   readonly verbete: VerbeteTexto;
   readonly oQueE: readonly Frase[];
   readonly paraQuem: readonly Frase[];
-  readonly comoE: readonly Frase[];
+  /** Como é o atendimento NA ARDELI, em passos, com a foto do lugar onde acontece. */
+  readonly comoE: readonly PassoAtendimento[];
   readonly perguntas: readonly Pergunta[];
 }
 
@@ -104,24 +112,40 @@ export const textosAtendimentos: readonly TextoAtendimento[] = [
       ),
     ],
     comoE: [
-      f(
-        'Tudo começa com uma avaliação: a fisioterapeuta conversa com você e observa como você se move.',
-        'pratica',
-      ),
-      f(
-        'Depois, ela monta um plano com exercícios e, quando indicado, outros recursos.',
-        'pratica',
-      ),
-      f(
-        'Um desses recursos é a eletroterapia: um aparelho que usa pequenas correntes elétricas na pele. A clínica tem o equipamento.',
-        'orientacao',
-        'tour',
-      ),
-      f(
-        'Os exercícios acontecem no ginásio da clínica, com espaldar (uma escada de madeira presa à parede), bolas, faixas elásticas, halteres, esteira e bicicletas.',
-        'tour',
-      ),
-      f('A cada sessão, o plano é revisto com você.', 'pratica'),
+      {
+        titulo: 'Conversa e avaliação',
+        texto: f(
+          'Na primeira consulta, a fisioterapeuta recebe você num dos dois consultórios da clínica, com calma. Ela ouve o que você sente e observa como você se movimenta.',
+          'tour',
+          'reel',
+          'pratica',
+        ),
+        foto: { id: 'still-consultorio-1-4x5', legenda: 'Consultório 1' },
+      },
+      {
+        titulo: 'Plano',
+        texto: f(
+          'Ela explica o que encontrou e combina com você os objetivos e a frequência das sessões.',
+          'pratica',
+        ),
+      },
+      {
+        titulo: 'Exercícios no ginásio',
+        texto: f(
+          'Os exercícios são no ginásio de reabilitação, com espaldar (uma escada de madeira presa à parede), tablado, bolas, faixas elásticas e halteres. Quando indicado, entra a eletroterapia: um aparelho que usa pequenas correntes elétricas na pele.',
+          'tour',
+          'orientacao',
+        ),
+        foto: { id: 'still-ginasio-trelica-4x5', legenda: 'Ginásio de reabilitação' },
+      },
+      {
+        titulo: 'Acompanhamento',
+        texto: f(
+          'A cada sessão, o plano é revisto com você. As sessões são de segunda a sexta, das 8h às 20h.',
+          'pratica',
+          'joao',
+        ),
+      },
     ],
     perguntas: [
       {
@@ -219,20 +243,40 @@ export const textosAtendimentos: readonly TextoAtendimento[] = [
       f('Quem sente fraqueza, formigamento ou falta de firmeza ao andar.', 'orientacao'),
     ],
     comoE: [
-      f(
-        'Tudo começa com uma avaliação: a fisioterapeuta conversa com você e observa como você se move.',
-        'pratica',
-      ),
-      f(
-        'Depois, ela monta um plano com exercícios de força, equilíbrio e coordenação, no ritmo de cada pessoa.',
-        'pratica',
-      ),
-      f(
-        'Os exercícios acontecem no ginásio da clínica, com espaldar (uma escada de madeira presa à parede), bolas, faixas e tablado.',
-        'tour',
-      ),
-      f('Um familiar pode acompanhar e aprender o que fazer em casa.', 'pratica'),
-      f('A cada sessão, o plano é revisto com você.', 'pratica'),
+      {
+        titulo: 'Conversa e avaliação',
+        texto: f(
+          'Na primeira consulta, a fisioterapeuta recebe você num dos dois consultórios da clínica, com calma. Ela ouve o que você sente e observa como você se movimenta.',
+          'tour',
+          'reel',
+          'pratica',
+        ),
+        foto: { id: 'still-consultorio-1-4x5', legenda: 'Consultório 1' },
+      },
+      {
+        titulo: 'Plano',
+        texto: f(
+          'Ela explica o que encontrou e combina com você os objetivos e a frequência das sessões.',
+          'pratica',
+        ),
+      },
+      {
+        titulo: 'Exercícios no ginásio',
+        texto: f(
+          'No ginásio, o tablado e o espaldar (uma escada de madeira presa à parede) ajudam a treinar levantar, andar e se equilibrar com apoio. Bolas e faixas completam os exercícios, no ritmo de cada pessoa. Um familiar pode acompanhar.',
+          'tour',
+          'pratica',
+        ),
+        foto: { id: 'still-ginasio-trelica-4x5', legenda: 'Ginásio de reabilitação' },
+      },
+      {
+        titulo: 'Acompanhamento',
+        texto: f(
+          'A cada sessão, o plano é revisto com você. As sessões são de segunda a sexta, das 8h às 20h.',
+          'pratica',
+          'joao',
+        ),
+      },
     ],
     perguntas: [perguntaConvenio],
   },
@@ -283,16 +327,40 @@ export const textosAtendimentos: readonly TextoAtendimento[] = [
       f('Quem ficou com cansaço ou pouco fôlego depois de uma internação.', 'orientacao'),
     ],
     comoE: [
-      f(
-        'Tudo começa com uma avaliação: a fisioterapeuta conversa com você e observa a sua respiração e o seu esforço.',
-        'pratica',
-      ),
-      f(
-        'Depois, ela monta um plano com exercícios de respiração e de condicionamento, respeitando as orientações do seu médico.',
-        'pratica',
-      ),
-      f('A clínica tem uma sala com esteira e bicicletas para os exercícios.', 'tour'),
-      f('A cada sessão, o plano é revisto com você.', 'pratica'),
+      {
+        titulo: 'Conversa e avaliação',
+        texto: f(
+          'Na primeira consulta, a fisioterapeuta recebe você num dos dois consultórios da clínica, com calma. Ela ouve o que você sente e observa como você se movimenta.',
+          'tour',
+          'reel',
+          'pratica',
+        ),
+        foto: { id: 'still-consultorio-1-4x5', legenda: 'Consultório 1' },
+      },
+      {
+        titulo: 'Plano',
+        texto: f(
+          'Ela explica o que encontrou e combina com você os objetivos e a frequência das sessões.',
+          'pratica',
+        ),
+      },
+      {
+        titulo: 'Fôlego na sala de esteira e bikes',
+        texto: f(
+          'O condicionamento é feito na sala com esteira e bicicletas, aos poucos e sempre acompanhado. Os exercícios de respiração podem ser no ginásio ou no consultório.',
+          'tour',
+          'pratica',
+        ),
+        foto: { id: 'still-cardio-4x5', legenda: 'Sala de esteira e bikes' },
+      },
+      {
+        titulo: 'Acompanhamento',
+        texto: f(
+          'A cada sessão, o plano é revisto com você. As sessões são de segunda a sexta, das 8h às 20h.',
+          'pratica',
+          'joao',
+        ),
+      },
     ],
     perguntas: [perguntaConvenio],
   },
@@ -337,16 +405,40 @@ export const textosAtendimentos: readonly TextoAtendimento[] = [
       f('Quem fez cirurgia por causa de um câncer, como a de mama.', 'orientacao'),
     ],
     comoE: [
-      f(
-        'Tudo começa com uma avaliação: a fisioterapeuta conversa com você, sem pressa, e observa como você se move.',
-        'pratica',
-      ),
-      f(
-        'Depois, ela monta um plano com exercícios e orientações, respeitando as orientações do seu médico.',
-        'pratica',
-      ),
-      f('O atendimento pode ser feito em um dos dois consultórios, com mais privacidade.', 'tour'),
-      f('A cada sessão, o plano é revisto com você.', 'pratica'),
+      {
+        titulo: 'Conversa e avaliação',
+        texto: f(
+          'Na primeira consulta, a fisioterapeuta recebe você num dos dois consultórios da clínica, com calma. Ela ouve o que você sente e observa como você se movimenta.',
+          'tour',
+          'reel',
+          'pratica',
+        ),
+        foto: { id: 'still-consultorio-1-4x5', legenda: 'Consultório 1' },
+      },
+      {
+        titulo: 'Plano',
+        texto: f(
+          'Ela explica o que encontrou e combina com você os objetivos e a frequência das sessões.',
+          'pratica',
+        ),
+      },
+      {
+        titulo: 'Sessões no seu ritmo',
+        texto: f(
+          'As sessões podem ser no consultório, com mais privacidade, ou no ginásio, com exercícios leves e adaptados ao momento do tratamento, respeitando as orientações do seu médico.',
+          'tour',
+          'pratica',
+        ),
+        foto: { id: 'still-consultorio-2-4x5', legenda: 'Consultório 2' },
+      },
+      {
+        titulo: 'Acompanhamento',
+        texto: f(
+          'A cada sessão, o plano é revisto com você. As sessões são de segunda a sexta, das 8h às 20h.',
+          'pratica',
+          'joao',
+        ),
+      },
     ],
     perguntas: [perguntaConvenio],
   },
@@ -387,16 +479,40 @@ export const textosAtendimentos: readonly TextoAtendimento[] = [
       f('Mulheres no pós-parto que querem voltar às atividades com segurança.', 'orientacao'),
     ],
     comoE: [
-      f(
-        'Tudo começa com uma avaliação: a fisioterapeuta conversa com você e observa como você se move.',
-        'pratica',
-      ),
-      f(
-        'Depois, ela monta um plano com exercícios e orientações para cada fase, respeitando as orientações do seu médico.',
-        'pratica',
-      ),
-      f('O atendimento pode ser feito em um dos dois consultórios, com mais privacidade.', 'tour'),
-      f('A cada sessão, o plano é revisto com você.', 'pratica'),
+      {
+        titulo: 'Conversa e avaliação',
+        texto: f(
+          'Na primeira consulta, a fisioterapeuta recebe você num dos dois consultórios da clínica, com calma. Ela ouve o que você sente e observa como você se movimenta.',
+          'tour',
+          'reel',
+          'pratica',
+        ),
+        foto: { id: 'still-consultorio-1-4x5', legenda: 'Consultório 1' },
+      },
+      {
+        titulo: 'Plano',
+        texto: f(
+          'Ela explica o que encontrou e combina com você os objetivos e a frequência das sessões.',
+          'pratica',
+        ),
+      },
+      {
+        titulo: 'Exercícios para cada fase',
+        texto: f(
+          'No consultório, com privacidade, ou no ginásio, com bolas e tablado, os exercícios mudam conforme a fase da gravidez ou do pós-parto, respeitando as orientações do seu médico.',
+          'tour',
+          'pratica',
+        ),
+        foto: { id: 'still-ginasio-amplo-4x5', legenda: 'Ginásio de reabilitação' },
+      },
+      {
+        titulo: 'Acompanhamento',
+        texto: f(
+          'A cada sessão, o plano é revisto com você. As sessões são de segunda a sexta, das 8h às 20h.',
+          'pratica',
+          'joao',
+        ),
+      },
     ],
     perguntas: [perguntaConvenio],
   },
@@ -443,15 +559,40 @@ export const textosAtendimentos: readonly TextoAtendimento[] = [
       ),
     ],
     comoE: [
-      f(
-        'Tudo começa com uma avaliação: a fisioterapeuta conversa com você e observa como você se move.',
-        'pratica',
-      ),
-      f(
-        'Depois, ela monta um plano com exercícios para a região, respeitando as orientações do seu médico.',
-        'pratica',
-      ),
-      f('A cada sessão, o plano é revisto com você.', 'pratica'),
+      {
+        titulo: 'Conversa e avaliação',
+        texto: f(
+          'Na primeira consulta, a fisioterapeuta recebe você num dos dois consultórios da clínica, com calma. Ela ouve o que você sente e observa como você se movimenta.',
+          'tour',
+          'reel',
+          'pratica',
+        ),
+        foto: { id: 'still-consultorio-1-4x5', legenda: 'Consultório 1' },
+      },
+      {
+        titulo: 'Plano',
+        texto: f(
+          'Ela explica o que encontrou e combina com você os objetivos e a frequência das sessões.',
+          'pratica',
+        ),
+      },
+      {
+        titulo: 'Movimento no ginásio',
+        texto: f(
+          'No ginásio, com faixas, bolas e espaldar, os exercícios devolvem movimento à região aos poucos, no limite que a pele e a cicatriz permitem, respeitando as orientações do seu médico.',
+          'tour',
+          'pratica',
+        ),
+        foto: { id: 'still-ginasio-trelica-4x5', legenda: 'Ginásio de reabilitação' },
+      },
+      {
+        titulo: 'Acompanhamento',
+        texto: f(
+          'A cada sessão, o plano é revisto com você. As sessões são de segunda a sexta, das 8h às 20h.',
+          'pratica',
+          'joao',
+        ),
+      },
     ],
     perguntas: [perguntaConvenio],
   },
